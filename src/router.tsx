@@ -1,5 +1,6 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 
+import {RequiredAuthAdmin, RequiredAuthHome} from "./hoc";
 import { MainLayout } from "./layouts";
 import { AdminPage, LoginPage, NotFoundPage, OrdersPage, RegisterPage } from "./pages";
 
@@ -22,10 +23,16 @@ const router = createBrowserRouter([
                 index: true, element: <Navigate to='login' />
             },
             {
-                path: 'orders', element: <OrdersPage />
+                path: 'orders', element:
+                    <RequiredAuthHome>
+                        <OrdersPage />
+                    </RequiredAuthHome>
             },
             {
-                path: 'admin', element: <AdminPage />
+                path: 'admin', element:
+                    <RequiredAuthAdmin>
+                        <AdminPage />
+                    </RequiredAuthAdmin>
             },
             {
                 path: '*', element: <NotFoundPage />

@@ -7,7 +7,7 @@ import router from "./router";
 
 const store = setupStore();
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+    document.getElementById('root') as HTMLElement
 );
 root.render(
     <Provider store={ store }>

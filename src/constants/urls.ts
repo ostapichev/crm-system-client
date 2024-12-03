@@ -13,10 +13,10 @@ const urls = {
         unBanUser: (id: number): string => `${baseURL}/${admin}/unban/${id}`,
     },
     authAPI: {
-        signIn: `${baseURL}/${auth}/sign-in`,
-        me: `${baseURL}/${auth}/me`,
-        refresh: `${baseURL}/${auth}/refresh`,
-        logout: `${baseURL}/${auth}/sign-out`,
+        signIn: `${baseURL}${auth}/sign-in`,
+        me: `${baseURL}${auth}/me`,
+        refresh: `${baseURL}${auth}/refresh`,
+        logout: `${baseURL}${auth}/sign-out`,
     },
     ordersAPI: {
         getAllOrders: `${baseURL}/${orders}`,
