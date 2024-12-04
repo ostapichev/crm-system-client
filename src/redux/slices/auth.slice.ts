@@ -1,8 +1,8 @@
-import { AxiosError } from "axios";
-import { createAsyncThunk, createSlice, isFulfilled, isPending, isRejectedWithValue } from "@reduxjs/toolkit";
+import { AxiosError } from 'axios';
+import { createAsyncThunk, createSlice, isFulfilled, isPending, isRejectedWithValue } from '@reduxjs/toolkit';
 
-import { authService } from "../../services";
-import { IAuth, IErrorAuth, IUser } from "../../interfaces";
+import { authService } from '../../services';
+import { IAuth, IErrorAuth, IUser } from '../../interfaces';
 
 interface IState {
     me: IUser;
@@ -54,10 +54,6 @@ const slice = createSlice({
     name: 'authSlice',
     initialState,
     reducers: {
-        logout: state => {
-            state.me = null;
-            state.error = null;
-        },
         resetLoading: (state) => {
             state.loading = false;
         },
@@ -65,6 +61,11 @@ const slice = createSlice({
     extraReducers: builder => builder
         .addCase(me.rejected, state => {
             state.loading = false;
+            state.error = null;
+        })
+        .addCase(logout.fulfilled, state => {
+            state.loading = false;
+            state.me = null;
             state.error = null;
         })
         .addMatcher(isFulfilled(login, me), (state, action) => {
@@ -86,6 +87,7 @@ const {actions, reducer: authReducer} = slice;
 const authActions = {
     ...actions,
     login,
+    logout,
     me
 };
 

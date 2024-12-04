@@ -1,5 +1,5 @@
-import okten_school from './images/okten_school.png';
+import okten_school_image from './images/okten_school.png';
 
 export {
-    okten_school
+    okten_school_image
 };

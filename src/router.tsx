@@ -1,8 +1,8 @@
-import { createBrowserRouter, Navigate } from "react-router-dom";
+import { createBrowserRouter, Navigate } from 'react-router-dom';
 
-import {RequiredAuthAdmin, RequiredAuthHome} from "./hoc";
-import { MainLayout } from "./layouts";
-import { AdminPage, LoginPage, NotFoundPage, OrdersPage, RegisterPage } from "./pages";
+import { RequiredAuthAdmin, RequiredAuthHome } from './hoc';
+import { MainLayout } from './layouts';
+import { AdminPage, LoginPage, NotFoundPage, OrdersPage, RegisterPage } from './pages';
 
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'bootstrap/dist/css/bootstrap.min.css';

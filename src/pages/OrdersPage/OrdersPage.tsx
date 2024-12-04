@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { Orders } from "../../components";
+import { Orders } from '../../components';
 
 const OrdersPage: FC = () => {
     return (

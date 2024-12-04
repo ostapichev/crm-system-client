@@ -1,17 +1,17 @@
 import { FC, useEffect } from 'react';
-import { SubmitHandler, useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import { joiResolver } from "@hookform/resolvers/joi";
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { joiResolver } from '@hookform/resolvers/joi';
 
-import { Alert, Button, Form, Image, Modal } from "react-bootstrap";
+import { Alert, Button, Form, Image, Modal } from 'react-bootstrap';
 
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { IAuth } from "../../interfaces";
-import { authActions } from "../../redux";
-import { authService } from "../../services";
-import { authValidator } from "../../validators";
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { IAuth } from '../../interfaces';
+import { authActions } from '../../redux';
+import { authService } from '../../services';
+import { authValidator } from '../../validators';
 
-import { okten_school } from "../../assets";
+import { okten_school_image } from '../../assets';
 
 const LoginForm: FC = () => {
     const dispatch = useAppDispatch();
@@ -34,18 +34,15 @@ const LoginForm: FC = () => {
     }, [dispatch, dirtyFields]);
 
     return (
-        <div
-            className="modal show"
-            style={{ display: 'block', backgroundColor: 'indigo' }}
-        >
+        <div className="modal show bg-primary-subtle d-block">
             <Modal.Dialog centered>
                 <Form onSubmit={ handleSubmit(login) }>
-                <Modal.Header style={{ backgroundColor: 'aliceblue'}}>
+                <Modal.Header className='bg-info-subtle'>
                     <Modal.Title>
-                        <Image src={ okten_school } className='w-50' alt='okten-school' />
+                        <Image src={ okten_school_image } className='w-25' alt='okten-school' />
                     </Modal.Title>
                 </Modal.Header>
-                <Modal.Body style={{ backgroundColor: 'azure'}}>
+                <Modal.Body style={{ backgroundColor: 'aliceblue'}}>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
                         <Form.Control
@@ -84,7 +81,7 @@ const LoginForm: FC = () => {
                     }
                 </Modal.Body>
                 <Modal.Footer style={{ backgroundColor: 'aliceblue'}}>
-                    <Button variant="primary" type="submit" disabled={ !isValid }>
+                    <Button variant="primary" type="submit" disabled={ !isValid || loading }>
                         { loading ? 'loading...' : 'login' }
                     </Button>
                 </Modal.Footer>

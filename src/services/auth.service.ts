@@ -17,8 +17,8 @@ class AuthService {
     };
 
     public async logout(): Promise<void> {
-        this.deleteTokens();
         await axiosService.post(urls.authAPI.logout);
+        this.deleteTokens();
     };
 
     public me(): IRes<IUser>{
