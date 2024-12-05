@@ -34,20 +34,19 @@ const LoginForm: FC = () => {
     }, [dispatch, dirtyFields]);
 
     return (
-        <div className="modal show bg-info d-block">
-            <Modal.Dialog centered>
-                <Form onSubmit={ handleSubmit(login) }>
+        <Modal.Dialog centered>
+            <Form onSubmit={ handleSubmit(login) }>
                 <Modal.Header className='bg-info-subtle'>
                     <Modal.Title>
                         <Image src={ okten_school_image } className='w-25' alt='okten-school' />
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body style={{ backgroundColor: 'aliceblue'}}>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Group className='mb-3' controlId='formBasicEmail'>
                         <Form.Label>Email address</Form.Label>
                         <Form.Control
-                            type="email"
-                            placeholder="Enter email"
+                            type='email'
+                            placeholder='Enter email'
                             disabled={ loading }
                             { ...register('email', { required: true }) }
                         />
@@ -58,11 +57,11 @@ const LoginForm: FC = () => {
                             </Alert>
                         }
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Group className='mb-3' controlId='formBasicPassword'>
                         <Form.Label>Password</Form.Label>
                         <Form.Control
-                            type="password"
-                            placeholder="Password"
+                            type='password'
+                            placeholder='Password'
                             disabled={ loading }
                             { ...register('password', { required: true }) }
                         />
@@ -81,13 +80,12 @@ const LoginForm: FC = () => {
                     }
                 </Modal.Body>
                 <Modal.Footer style={{ backgroundColor: 'aliceblue'}}>
-                    <Button variant="primary" type="submit" disabled={ !isValid || loading }>
+                    <Button variant='primary' type='submit' disabled={ !isValid || loading }>
                         { loading ? 'loading...' : 'login' }
                     </Button>
                 </Modal.Footer>
-                </Form>
-            </Modal.Dialog>
-        </div>
+            </Form>
+        </Modal.Dialog>
     );
 };
 

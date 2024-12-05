@@ -1,3 +1,5 @@
+import { CourseEnum, CourseFormatEnum, CourseTypeEnum, StatusEnum } from '../enums';
+
 export interface IOrder {
     id: number;
     name?: string;
@@ -5,10 +7,10 @@ export interface IOrder {
     email?: string;
     phone?: string;
     age?: number;
-    course?: string;
-    course_format?: string;
-    course_type?: string;
-    status?: string;
+    course?: CourseEnum;
+    course_format?: CourseFormatEnum;
+    course_type?: CourseTypeEnum;
+    status?: StatusEnum;
     sum?: number;
     already_paid?: number;
     created_at: string;

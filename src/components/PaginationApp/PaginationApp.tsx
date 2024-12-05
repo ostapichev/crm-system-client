@@ -2,10 +2,10 @@ import { FC } from 'react';
 
 import { Container, Pagination } from 'react-bootstrap';
 
+import { useAppSelector } from '../../hooks';
 import { IPagination } from '../../interfaces';
 import { IFuncBoolean, IPaginateButtons } from '../../types';
 import { returnPaginationRange } from '../../utils';
-import {useAppSelector} from "../../hooks";
 
 interface IProps {
     dataPagination: IPagination;

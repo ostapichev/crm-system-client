@@ -8,7 +8,7 @@ interface IProps {
 
 const RegisterPage: FC<IProps> = ({ page }) => {
     return (
-        <div>
+        <div className="modal show bg-info d-block">
             <RegisterForm />
         </div>
     );

@@ -9,7 +9,7 @@ import { authService } from '../../services';
 import { NavLink } from 'react-router-dom';
 import { authActions } from '../../redux';
 
-import { okten_school_image } from '../../assets';
+import { okten_logo } from '../../assets';
 
 const Header: FC = () => {
     const dispatch = useAppDispatch();
@@ -31,7 +31,7 @@ const Header: FC = () => {
         <Navbar className='bg-info-subtle' fixed='top' sticky='top'>
             <Container fluid>
                 <Navbar.Brand href='https://owu.com.ua' target='_blank'>
-                    <Image src={ okten_school_image } className='w-50' alt='okten-school' />
+                    <Image src={ okten_logo } className='w-50' alt='okten-school' />
                 </Navbar.Brand>
                 <Navbar.Toggle />
                 <Navbar.Collapse className='justify-content-end'>
