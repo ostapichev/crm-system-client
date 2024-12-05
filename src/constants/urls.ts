@@ -19,7 +19,7 @@ const urls = {
         logout: `${baseURL}${auth}/sign-out`,
     },
     ordersAPI: {
-        getAllOrders: `${baseURL}/${orders}`,
+        getAllOrders: `${baseURL}${orders}`,
         getById: (id: number): string => `${baseURL}/${orders}/${id}`,
     },
     groupsAPI: {

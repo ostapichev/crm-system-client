@@ -34,7 +34,7 @@ const LoginForm: FC = () => {
     }, [dispatch, dirtyFields]);
 
     return (
-        <div className="modal show bg-primary-subtle d-block">
+        <div className="modal show bg-info d-block">
             <Modal.Dialog centered>
                 <Form onSubmit={ handleSubmit(login) }>
                 <Modal.Header className='bg-info-subtle'>

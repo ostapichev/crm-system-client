@@ -28,7 +28,7 @@ const Header: FC = () => {
     }, [dispatch, me]);
 
     return (
-        <Navbar className='bg-info-subtle'>
+        <Navbar className='bg-info-subtle' fixed='top' sticky='top'>
             <Container fluid>
                 <Navbar.Brand href='https://owu.com.ua' target='_blank'>
                     <Image src={ okten_school_image } className='w-50' alt='okten-school' />
@@ -39,71 +39,75 @@ const Header: FC = () => {
                         {
                             me ?
                                 <Stack direction='horizontal' gap={2}>
-                                    <h1><Badge bg='info'>{ me.surname }</Badge></h1>
+                                    <h1>
+                                        <Badge bg='info'>{ me.surname }</Badge>
+                                    </h1>
                                     {
                                         me.role === UserRoleEnum.ADMIN &&
                                         <Fragment>
-                                            <Button
-                                                variant='light'
-                                                className='m-2'
-                                                onMouseEnter={ () => setHoverAdmin(true) }
-                                                onMouseLeave={ () => setHoverAdmin(false) }
-                                            >
-                                                <NavLink to='admin'>
+                                            <NavLink to='admin'>
+                                                <Button
+                                                    variant='light'
+                                                    className='m-2'
+                                                    onMouseEnter={ () => setHoverAdmin(true) }
+                                                    onMouseLeave={ () => setHoverAdmin(false) }
+                                                >
+
                                                     {
                                                         hoverAdmin
                                                             ? <i className='bi bi-person-gear fs-3'></i>
                                                             : <i className='bi bi-person-fill-gear fs-3'></i>
                                                     }
-                                                </NavLink>
-                                            </Button>
-                                            <Button
-                                                variant='light'
-                                                className='m-2'
-                                                onMouseEnter={ () => setHoverHome(true) }
-                                                onMouseLeave={ () => setHoverHome(false) }
-                                            >
-                                                <NavLink to='orders'>
+                                                </Button>
+                                            </NavLink>
+                                            <NavLink to='orders'>
+                                                <Button
+                                                    variant='light'
+                                                    className='m-2'
+                                                    onMouseEnter={ () => setHoverHome(true) }
+                                                    onMouseLeave={ () => setHoverHome(false) }
+                                                >
+
                                                     {
                                                         hoverHome
                                                             ? <i className='bi bi-house-door fs-3'></i>
                                                             : <i className='bi bi-house-door-fill fs-3'></i>
                                                     }
-                                                </NavLink>
-                                            </Button>
+                                                </Button>
+                                            </NavLink>
                                         </Fragment>
                                     }
+                                    <NavLink to='login'>
+                                        <Button
+                                            variant='light'
+                                            className='m-2'
+                                            onClick={ logout }
+                                            onMouseEnter={ () => setHoverLogin(true) }
+                                            onMouseLeave={ () => setHoverLogin(false) }
+                                        >
+                                            {
+                                                hoverLogin
+                                                    ? <i className='bi bi-door-closed-fill fs-3'></i>
+                                                    : <i className='bi bi-door-open-fill fs-3'></i>
+                                            }
+                                        </Button>
+                                    </NavLink>
+                                </Stack>
+                                :
+                                <NavLink to='login'>
                                     <Button
                                         variant='light'
                                         className='m-2'
-                                        onClick={ logout }
                                         onMouseEnter={ () => setHoverLogin(true) }
                                         onMouseLeave={ () => setHoverLogin(false) }
                                     >
-                                        <NavLink to='login'>
-                                        {
-                                            hoverLogin
-                                                ? <i className='bi bi-door-closed-fill fs-3'></i>
-                                                : <i className='bi bi-door-open-fill fs-3'></i>
-                                        }
-                                        </NavLink>
-                                    </Button>
-                                </Stack>
-                                :
-                                <Button
-                                    variant='light'
-                                    className='m-2'
-                                    onMouseEnter={ () => setHoverLogin(true) }
-                                    onMouseLeave={ () => setHoverLogin(false) }
-                                >
-                                    <NavLink to='login'>
                                         {
                                             hoverLogin
                                                 ? <i className='bi bi-door-open-fill fs-3'></i>
                                                 : <i className='bi bi-door-closed-fill fs-3'></i>
                                         }
-                                    </NavLink>
-                                </Button>
+                                    </Button>
+                                </NavLink>
                         }
                     </Navbar.Text>
                 </Navbar.Collapse>

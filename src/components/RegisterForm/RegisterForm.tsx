@@ -9,7 +9,7 @@ const RegisterForm: FC = () => {
         <div className='modal show bg-primary-subtle d-block'>
             <Modal.Dialog centered>
                 <Form>
-                    <Modal.Header className='bg-info-subtle'>
+                    <Modal.Header className='bg-info'>
                         <Modal.Title>
                             <Image src={okten_school_image} className='w-25' alt='okten-school'/>
                         </Modal.Title>

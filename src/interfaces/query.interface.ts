@@ -1,9 +1,10 @@
-import { OrderByEnum } from "../enums";
+import { OrderByEnum } from '../enums';
 
 export interface IQuery<T> {
     data?: T;
     limit?: number;
     page?: number;
+    total?: number;
 }
 
 export interface IQueryUsers<T> extends IQuery<T> {
