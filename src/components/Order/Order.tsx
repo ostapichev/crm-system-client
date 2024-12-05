@@ -1,13 +1,18 @@
 import { FC } from 'react';
 
+import { Placeholder } from 'react-bootstrap';
+
 import { DateFormat } from '../DateFormat/DateFormat';
+import { useAppSelector } from '../../hooks';
 import { IOrder } from '../../interfaces';
+import { dataInsert } from '../../utils';
 
 interface IProps {
     order: IOrder;
 }
 
 const Order: FC<IProps> = ({ order }) => {
+    const { loading } = useAppSelector(state => state.orderReducer);
     const {
         id,
         name,
@@ -23,26 +28,152 @@ const Order: FC<IProps> = ({ order }) => {
         already_paid,
         created_at,
     } = order;
-    const dataInsert = (data: string): string => {
-        if (data) return data;
-        return 'no data';
-    };
 
     return (
         <tr>
-            <td>{ dataInsert(id?.toString()) }</td>
-            <td>{ dataInsert(name?.toString()) }</td>
-            <td>{ dataInsert(surname?.toString()) }</td>
-            <td>{ dataInsert(email?.toString()) }</td>
-            <td>{ dataInsert(phone?.toString()) }</td>
-            <td>{ dataInsert(age?.toString()) }</td>
-            <td>{ dataInsert(course?.toString()) }</td>
-            <td>{ dataInsert(course_format?.toString()) }</td>
-            <td>{ dataInsert(course_type?.toString()) }</td>
-            <td>{ dataInsert(status?.toString()) }</td>
-            <td>{ dataInsert(sum?.toString()) }</td>
-            <td>{ dataInsert(already_paid?.toString()) }</td>
-            <td>{ <DateFormat originalDate={ created_at } /> }</td>
+            <td>
+                {
+                    loading
+                        ?
+                        <Placeholder as="p" animation="glow">
+                            <Placeholder xs={6} />
+                        </Placeholder>
+                        :
+                        dataInsert(id?.toString())
+                }
+            </td>
+            <td>
+                {
+                    loading
+                        ?
+                        <Placeholder as="p" animation="glow">
+                            <Placeholder xs={12} />
+                        </Placeholder>
+                        :
+                        dataInsert(name)
+                }
+            </td>
+            <td>
+                {
+                    loading
+                        ?
+                        <Placeholder as="p" animation="glow">
+                            <Placeholder xs={10} />
+                        </Placeholder>
+                        :
+                        dataInsert(surname)
+                }
+            </td>
+            <td>
+                {
+                    loading
+                        ?
+                        <Placeholder as="p" animation="glow">
+                            <Placeholder xs={12} />
+                        </Placeholder>
+                        :
+                        dataInsert(email)
+                }
+            </td>
+            <td>
+                {
+                    loading
+                        ?
+                        <Placeholder as="p" animation="glow">
+                            <Placeholder xs={10} />
+                        </Placeholder>
+                        :
+                        dataInsert(phone)
+                }
+            </td>
+            <td>
+                {
+                    loading
+                        ?
+                        <Placeholder as="p" animation="glow">
+                            <Placeholder xs={6} />
+                        </Placeholder>
+                        :
+                        dataInsert(age?.toString())
+                }
+            </td>
+            <td>
+                {
+                    loading
+                        ?
+                        <Placeholder as="p" animation="glow">
+                            <Placeholder xs={8} />
+                        </Placeholder>
+                        :
+                        dataInsert(course?.toString())
+                }
+            </td>
+            <td>
+                {
+                    loading
+                        ?
+                        <Placeholder as="p" animation="glow">
+                            <Placeholder xs={8} />
+                        </Placeholder>
+                        :
+                        dataInsert(course_format?.toString())
+                }
+            </td>
+            <td>
+                {
+                    loading
+                        ?
+                        <Placeholder as="p" animation="glow">
+                            <Placeholder xs={8} />
+                        </Placeholder>
+                        :
+                        dataInsert(course_type?.toString())
+                }
+            </td>
+            <td>
+                {
+                    loading
+                        ?
+                        <Placeholder as="p" animation="glow">
+                            <Placeholder xs={12} />
+                        </Placeholder>
+                        :
+                        dataInsert(status?.toString())
+                }
+            </td>
+            <td>
+                {
+                    loading
+                        ?
+                        <Placeholder as="p" animation="glow">
+                            <Placeholder xs={6} />
+                        </Placeholder>
+                        :
+                        dataInsert(sum?.toString())
+                }
+            </td>
+            <td>
+                {
+                    loading
+                        ?
+                        <Placeholder as="p" animation="glow">
+                            <Placeholder xs={6} />
+                        </Placeholder>
+                        :
+                        dataInsert(already_paid?.toString())
+                }
+            </td>
+            <td>
+                {
+                    loading
+                        ?
+                        <Placeholder as="p" animation="glow">
+                            <Placeholder xs={10} />
+                        </Placeholder>
+                        :
+                        <DateFormat originalDate={ created_at } />
+                }
+            </td>
         </tr>
     );
 };

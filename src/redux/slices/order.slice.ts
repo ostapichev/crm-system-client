@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios';
-import { createAsyncThunk, createSlice, isPending, isRejectedWithValue } from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice, isFulfilled, isPending, isRejectedWithValue} from '@reduxjs/toolkit';
 
 import { IErrorOrder, IOrder, IParams, IQueryOrders} from '../../interfaces';
 import { orderService } from '../../services';
@@ -61,6 +61,10 @@ const slice = createSlice({
             state.sorting_by = sorting_by;
             state.order_by = order_by;
             state.totalPages = Math.ceil(total / state.limit);
+        })
+        .addMatcher(isFulfilled(), state => {
+            state.loading = false;
+            state.errorsOrder = null;
         })
         .addMatcher(isPending(), state => {
             state.loading = true;

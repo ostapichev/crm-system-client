@@ -11,17 +11,17 @@ const RegisterForm: FC = () => {
                 <Form>
                     <Modal.Header className='bg-info'>
                         <Modal.Title>
-                            <Image src={okten_school_image} className='w-25' alt='okten-school'/>
+                            <Image src={okten_school_image} className='w-25' alt='okten-school' />
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body style={{ backgroundColor: 'aliceblue'}}>
                         <Form.Group className='mb-3' controlId='formBasicPassword'>
                             <Form.Label>Password</Form.Label>
-                            <Form.Control type='password' placeholder='Password'/>
+                            <Form.Control type='password' placeholder='Password' />
                         </Form.Group>
                         <Form.Group className='mb-3' controlId='formBasicPassword'>
                             <Form.Label>Confirm password</Form.Label>
-                            <Form.Control type='password' placeholder='Password'/>
+                            <Form.Control type='password' placeholder='Password' />
                         </Form.Group>
                     </Modal.Body>
                     <Modal.Footer style={{backgroundColor: 'aliceblue'}}>
