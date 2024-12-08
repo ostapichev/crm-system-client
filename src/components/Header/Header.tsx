@@ -1,4 +1,5 @@
 import { FC, Fragment, useEffect, useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 import { Badge, Button, Container, Image, Navbar, Stack } from 'react-bootstrap';
 
@@ -6,7 +7,6 @@ import { oktenURL } from '../../constants';
 import { UserRoleEnum } from '../../enums';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { authService } from '../../services';
-import { NavLink } from 'react-router-dom';
 import { authActions } from '../../redux';
 
 import { okten_logo } from '../../assets';
@@ -14,6 +14,7 @@ import css from './Header.module.css';
 
 const Header: FC = () => {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
     const [hoverLogin, setHoverLogin] = useState<boolean>(false);
     const [hoverAdmin, setHoverAdmin] = useState<boolean>(false);
     const [hoverHome, setHoverHome] = useState<boolean>(false);
@@ -22,6 +23,23 @@ const Header: FC = () => {
         dispatch(authActions.logout());
         dispatch(authActions.resetLoading());
     };
+    useEffect(() => {
+        let timeoutId: NodeJS.Timeout = null;
+        const handleMove = () => {
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => {
+                dispatch(authActions.logout());
+                navigate('/login');
+            }, 900000);
+        };
+        window.addEventListener('mousemove', handleMove);
+        window.addEventListener('keydown', handleMove)
+        return () => {
+            window.removeEventListener('mousemove', handleMove);
+            window.removeEventListener('keydown', handleMove);
+            clearTimeout(timeoutId);
+        };
+    }, [dispatch, navigate]);
     useEffect(() => {
         if (!me && authService.getAccessToken()) {
             dispatch(authActions.me());
