@@ -1,10 +1,10 @@
 import { FC } from 'react';
 
+import { NotContent } from '../../components';
+
 const NotFoundPage: FC = () => {
     return (
-        <div>
-            NotFoundPage
-        </div>
+        <NotContent />
     );
 };
 

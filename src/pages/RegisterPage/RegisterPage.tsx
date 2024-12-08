@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { RegisterForm } from "../../components";
+import { RegisterForm } from '../../components';
 
 interface IProps {
     page: string;
@@ -8,7 +8,7 @@ interface IProps {
 
 const RegisterPage: FC<IProps> = ({ page }) => {
     return (
-        <div className="modal show bg-info d-block">
+        <div className='modal show bg-info d-block'>
             <RegisterForm />
         </div>
     );

@@ -10,7 +10,7 @@ const RegisterForm: FC = () => {
             <Form>
                 <Modal.Header className='bg-info'>
                     <Modal.Title>
-                        <Image src={okten_school_image} className='w-25' alt='okten-school' />
+                        <Image src= { okten_school_image } className='w-25' alt='okten-school' />
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body style={{ backgroundColor: 'aliceblue'}}>
@@ -23,7 +23,7 @@ const RegisterForm: FC = () => {
                         <Form.Control type='password' placeholder='Password' />
                     </Form.Group>
                 </Modal.Body>
-                <Modal.Footer style={{backgroundColor: 'aliceblue'}}>
+                <Modal.Footer style={{ backgroundColor: 'aliceblue' }}>
                     <Button variant='primary' type='submit'>
                         Submit
                     </Button>

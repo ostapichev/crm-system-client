@@ -39,7 +39,7 @@ const Order: FC<IProps> = ({ order }) => {
                             <Placeholder xs={6} />
                         </Placeholder>
                         :
-                        dataInsert(id?.toString())
+                        dataInsert(id.toString())
                 }
             </td>
             <td>

@@ -1,0 +1,9 @@
+thead tr .Column {
+    background-color: #bdffc3;
+}
+
+.Column:hover {
+    background-color: seagreen;
+    color: white;
+    cursor: pointer;
+}

@@ -50,7 +50,6 @@ class AuthService {
     };
 
     private setTokens({accessToken, refreshToken}: ITokens): void {
-        console.log(accessToken);
         localStorage.setItem(this.accessKey, accessToken);
         localStorage.setItem(this.refreshKey, refreshToken);
     };

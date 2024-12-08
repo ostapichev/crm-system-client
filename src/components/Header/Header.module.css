@@ -1,0 +1,7 @@
+.Logo {
+    width: 50%;
+}
+
+.Logo:hover {
+    transform: scale(1.2);
+}

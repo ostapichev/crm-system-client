@@ -25,8 +25,14 @@ const PaginationApp: FC<IProps> = ({ dataPagination }) => {
     return (
         <Container className='d-flex justify-content-center mt-4'>
             <Pagination>
-                <Pagination.First onClick={ () => pageChanger('&laquo;') } disabled={ loading || disabledButtonPrev() } />
-                <Pagination.Prev onClick={ () => pageChanger('&lsaquo;') } disabled={ loading || disabledButtonPrev() } />
+                <Pagination.First
+                    onClick={ () => pageChanger('&laquo;') }
+                    disabled={ loading || disabledButtonPrev() }
+                />
+                <Pagination.Prev
+                    onClick={ () => pageChanger('&lsaquo;') }
+                    disabled={ loading || disabledButtonPrev() }
+                />
                 {
                     buttons.map(value => {
                         if (value === page) {
@@ -52,8 +58,14 @@ const PaginationApp: FC<IProps> = ({ dataPagination }) => {
                         }
                     })
                 }
-                <Pagination.Next onClick={ () => pageChanger('&rsaquo;') } disabled={ loading || disabledButtonNext() } />
-                <Pagination.Last onClick={ () => pageChanger('&raquo;') } disabled={ loading || disabledButtonNext() } />
+                <Pagination.Next
+                    onClick={ () => pageChanger('&rsaquo;') }
+                    disabled={ loading || disabledButtonNext() }
+                />
+                <Pagination.Last
+                    onClick={ () => pageChanger('&raquo;') }
+                    disabled={ loading || disabledButtonNext() }
+                />
             </Pagination>
         </Container>
     );

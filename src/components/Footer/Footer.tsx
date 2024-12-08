@@ -14,15 +14,25 @@ const Footer: FC = () => {
     const pageChanger = useCallback((value: string): void => {
         setQuery(prev => {
             const newPage: number = value === '&raquo;' || value === ' ...'
-                ? totalPages
-                : value === '&laquo;' || value === '... '
-                    ? 1
-                    : value === '&lsaquo;'
-                        ? Math.max(+prev.get('page') - 1, 1)
-                        : value === '&rsaquo;'
-                            ? Math.min((+prev.get('page') || 1) + 1, totalPages)
-                            : +value;
-            return { ...prev, page: newPage.toString() };
+                ?
+                totalPages
+                :
+                value === '&laquo;' || value === '... '
+                    ?
+                    1
+                    :
+                    value === '&lsaquo;'
+                        ?
+                        Math.max(+prev.get('page') - 1, 1)
+                        :
+                        value === '&rsaquo;'
+                            ?
+                            Math.min((+prev.get('page') || 1) + 1, totalPages)
+                            :
+                            +value;
+            const query = new URLSearchParams(prev.toString());
+            query.set('page', newPage.toString());
+            return query;
         });
     }, [setQuery, totalPages]);
     const getPage: IFuncNumber = (): number => {
@@ -39,7 +49,9 @@ const Footer: FC = () => {
     return (
         <Navbar className="bg-dark-subtle" fixed='bottom' sticky='bottom'>
             <Container>
-                { totalPages > 1 && <PaginationApp dataPagination={ dataPagination } /> }
+                {
+                    totalPages > 1 && <PaginationApp dataPagination={ dataPagination } />
+                }
             </Container>
         </Navbar>
     );

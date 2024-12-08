@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios';
-import {createAsyncThunk, createSlice, isFulfilled, isPending, isRejectedWithValue} from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, isFulfilled, isPending, isRejectedWithValue } from '@reduxjs/toolkit';
 
-import { IErrorOrder, IOrder, IParams, IQueryOrders} from '../../interfaces';
+import { IErrorOrder, IOrder, IParams, IQueryOrders } from '../../interfaces';
 import { orderService } from '../../services';
 
 interface IState {
@@ -11,9 +11,10 @@ interface IState {
     totalOrders: number;
     totalPages: number;
     sorting_by: string;
-    order_by: string;
+    sorted: boolean;
     trigger: boolean;
     loading: boolean;
+    paramsOrders: IParams;
     errorsOrder: IErrorOrder;
 }
 
@@ -24,9 +25,10 @@ const initialState: IState = {
     totalOrders: 0,
     totalPages: 0,
     sorting_by: null,
-    order_by: null,
+    sorted: true,
     trigger: false,
     loading: false,
+    paramsOrders: null,
     errorsOrder: null,
 };
 
@@ -50,16 +52,21 @@ const slice = createSlice({
         setPage: (state, action) => {
             state.page = action.payload;
         },
+        setOrderByParams: state => {
+            state.sorted = !state.sorted;
+        },
+        setSorting: (state, action) => {
+            state.sorting_by = action.payload;
+        },
     },
     extraReducers: builder => builder
         .addCase(getAll.fulfilled, (state, action) => {
-            const { data, page, limit, sorting_by, order_by, total } = action.payload;
+            const { data, page, limit, sorting_by, total } = action.payload;
             state.orders = data;
             state.totalOrders = total;
             state.page = page;
             state.limit = limit;
             state.sorting_by = sorting_by;
-            state.order_by = order_by;
             state.totalPages = Math.ceil(total / state.limit);
         })
         .addMatcher(isFulfilled(), state => {

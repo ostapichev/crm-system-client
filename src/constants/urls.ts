@@ -1,3 +1,4 @@
+const oktenURL = 'https://owu.com.ua';
 const baseURL = 'http://localhost:3500';
 const auth = '/auth';
 const orders = '/orders';
@@ -6,8 +7,8 @@ const admin = '/admin';
 
 const urls = {
     adminAPI: {
-        create: `${baseURL}/${admin}/create`,
-        getAllUsers: `${baseURL}/${admin}`,
+        create: `${baseURL}${admin}/create`,
+        getAllUsers: `${baseURL}${admin}`,
         getById: (id: number): string => `${baseURL}/${admin}/${id}`,
         banUser: (id: number): string => `${baseURL}/${admin}/ban/${id}`,
         unBanUser: (id: number): string => `${baseURL}/${admin}/unban/${id}`,
@@ -20,14 +21,15 @@ const urls = {
     },
     ordersAPI: {
         getAllOrders: `${baseURL}${orders}`,
-        getById: (id: number): string => `${baseURL}/${orders}/${id}`,
+        getById: (id: number): string => `${baseURL}${orders}/${id}`,
     },
     groupsAPI: {
-        groups: `${baseURL}/${groups}`,
+        groups: `${baseURL}${groups}`,
     },
 };
 
 export {
+    oktenURL,
     baseURL,
     urls,
 };

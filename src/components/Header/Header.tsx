@@ -2,14 +2,15 @@ import { FC, Fragment, useEffect, useState } from 'react';
 
 import { Badge, Button, Container, Image, Navbar, Stack } from 'react-bootstrap';
 
+import { oktenURL } from '../../constants';
 import { UserRoleEnum } from '../../enums';
-
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { authService } from '../../services';
 import { NavLink } from 'react-router-dom';
 import { authActions } from '../../redux';
 
 import { okten_logo } from '../../assets';
+import css from './Header.module.css';
 
 const Header: FC = () => {
     const dispatch = useAppDispatch();
@@ -30,14 +31,15 @@ const Header: FC = () => {
     return (
         <Navbar className='bg-info-subtle' fixed='top' sticky='top'>
             <Container fluid>
-                <Navbar.Brand href='https://owu.com.ua' target='_blank'>
-                    <Image src={ okten_logo } className='w-50' alt='okten-school' />
+                <Navbar.Brand href={ oktenURL } target='_blank'>
+                    <Image src={ okten_logo } className={ css.Logo } alt='okten-school' />
                 </Navbar.Brand>
                 <Navbar.Toggle />
                 <Navbar.Collapse className='justify-content-end'>
                     <Navbar.Text>
                         {
-                            me ?
+                            me
+                                ?
                                 <Stack direction='horizontal' gap={2}>
                                     <h1>
                                         <Badge bg='info'>{ me.surname }</Badge>
@@ -52,11 +54,12 @@ const Header: FC = () => {
                                                     onMouseEnter={ () => setHoverAdmin(true) }
                                                     onMouseLeave={ () => setHoverAdmin(false) }
                                                 >
-
                                                     {
                                                         hoverAdmin
-                                                            ? <i className='bi bi-person-gear fs-3'></i>
-                                                            : <i className='bi bi-person-fill-gear fs-3'></i>
+                                                            ?
+                                                            <i className='bi bi-person-gear fs-3'></i>
+                                                            :
+                                                            <i className='bi bi-person-fill-gear fs-3'></i>
                                                     }
                                                 </Button>
                                             </NavLink>
@@ -70,8 +73,10 @@ const Header: FC = () => {
 
                                                     {
                                                         hoverHome
-                                                            ? <i className='bi bi-house-door fs-3'></i>
-                                                            : <i className='bi bi-house-door-fill fs-3'></i>
+                                                            ?
+                                                            <i className='bi bi-house-door fs-3'></i>
+                                                            :
+                                                            <i className='bi bi-house-door-fill fs-3'></i>
                                                     }
                                                 </Button>
                                             </NavLink>
@@ -87,8 +92,10 @@ const Header: FC = () => {
                                         >
                                             {
                                                 hoverLogin
-                                                    ? <i className='bi bi-door-closed-fill fs-3'></i>
-                                                    : <i className='bi bi-door-open-fill fs-3'></i>
+                                                    ?
+                                                    <i className='bi bi-door-closed-fill fs-3'></i>
+                                                    :
+                                                    <i className='bi bi-door-open-fill fs-3'></i>
                                             }
                                         </Button>
                                     </NavLink>
@@ -103,8 +110,10 @@ const Header: FC = () => {
                                     >
                                         {
                                             hoverLogin
-                                                ? <i className='bi bi-door-open-fill fs-3'></i>
-                                                : <i className='bi bi-door-closed-fill fs-3'></i>
+                                                ?
+                                                <i className='bi bi-door-open-fill fs-3'></i>
+                                                :
+                                                <i className='bi bi-door-closed-fill fs-3'></i>
                                         }
                                     </Button>
                                 </NavLink>
