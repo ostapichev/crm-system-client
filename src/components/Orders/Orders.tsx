@@ -19,12 +19,12 @@ const Orders: FC = () => {
     const [debouncedParams] = useDebounce<IParams>(
         {
             page: query.get('page'),
-            sorting_by: query.get('sorting'),
+            sorting_by: query.get('order_by'),
         }, 500);
     const debouncedParamsString = JSON.stringify(debouncedParams);
     const sortingOrderBy: ISortingReverse = (order_by: string) => {
         query.set('page', '1');
-        query.set('sorting', sorted ? order_by : `-${order_by}`);
+        query.set('order_by', sorted ? order_by : `-${order_by}`);
         setQuery(query);
         dispatch(orderActions.setOrderByParams());
     };
