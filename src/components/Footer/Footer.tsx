@@ -1,11 +1,11 @@
 import { FC, useCallback } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 import { Container, Navbar } from 'react-bootstrap';
 
 import { useAppSelector } from '../../hooks';
 import { IPagination } from '../../interfaces';
 import { PaginationApp } from '../PaginationApp/PaginationApp';
-import { useSearchParams } from 'react-router-dom';
 import { IFuncNumber } from '../../types';
 
 const Footer: FC = () => {

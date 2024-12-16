@@ -8,7 +8,7 @@ const RegisterForm: FC = () => {
     return (
         <Modal.Dialog centered>
             <Form>
-                <Modal.Header className='bg-info'>
+                <Modal.Header className='bg-info-subtle'>
                     <Modal.Title>
                         <Image src= { okten_school_image } className='w-25' alt='okten-school' />
                     </Modal.Title>

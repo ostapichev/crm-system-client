@@ -1,6 +1,6 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 
-import { RequiredAuthAdmin, RequiredAuthHome } from './hoc';
+import { RequiredAuthAdmin, RequiredAuthHome, RequiredAuthLogin } from './hoc';
 import { MainLayout } from './layouts';
 import { AdminPage, LoginPage, NotFoundPage, OrdersPage, RegisterPage } from './pages';
 
@@ -9,13 +9,22 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const router = createBrowserRouter([
     {
-        path: 'login', element: <LoginPage />
+        path: 'login', element: 
+            <RequiredAuthLogin>
+                <LoginPage />
+            </RequiredAuthLogin>
     },
     {
-        path: 'activate/:token', element: <RegisterPage page='activateUser' />
+        path: 'activate/:token', element:
+            <RequiredAuthLogin>
+                <RegisterPage page='activateUser' />
+            </RequiredAuthLogin>
     },
     {
-        path: 'recovery/:token', element: <RegisterPage page='recoveryPassword' />
+        path: 'recovery/:token', element:
+            <RequiredAuthLogin>
+                <RegisterPage page='recoveryPassword' />
+            </RequiredAuthLogin>
     },
     {
         path: '', element: <MainLayout />, children: [

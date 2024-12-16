@@ -17,9 +17,9 @@ const LoginForm: FC = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const { error, loading } = useAppSelector(state => state.authReducer);
-    const { handleSubmit, register, reset, formState: { errors, dirtyFields, isValid }} = useForm<IAuth>({
+    const { handleSubmit, register, reset, formState: { errors, dirtyFields, isValid } } = useForm<IAuth>({
         mode: 'all',
-        resolver: joiResolver(authValidator)
+        resolver: joiResolver(authValidator),
     });
     const login: SubmitHandler<IAuth> = async (user) => {
         if (localStorage.getItem('accessToken' || 'refreshToken')) authService.deleteTokens();
@@ -41,7 +41,7 @@ const LoginForm: FC = () => {
                         <Image src={ okten_school_image } className='w-25' alt='okten-school' />
                     </Modal.Title>
                 </Modal.Header>
-                <Modal.Body style={{ backgroundColor: 'aliceblue'}}>
+                <Modal.Body style={{ backgroundColor: 'aliceblue' }}>
                     <Form.Group className='mb-3' controlId='formBasicEmail'>
                         <Form.Label>Email address</Form.Label>
                         <Form.Control

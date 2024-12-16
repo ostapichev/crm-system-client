@@ -1,4 +1,4 @@
-import { FC, Fragment, useEffect, useState } from 'react';
+import { FC, Fragment, useCallback, useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 
 import { Badge, Button, Container, Image, Navbar, Stack } from 'react-bootstrap';
@@ -6,8 +6,9 @@ import { Badge, Button, Container, Image, Navbar, Stack } from 'react-bootstrap'
 import { oktenURL } from '../../constants';
 import { UserRoleEnum } from '../../enums';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { authService } from '../../services';
 import { authActions } from '../../redux';
+import { authService } from '../../services';
+import { IFuncVoid } from '../../types';
 
 import { okten_logo } from '../../assets';
 import css from './Header.module.css';
@@ -19,18 +20,19 @@ const Header: FC = () => {
     const [hoverAdmin, setHoverAdmin] = useState<boolean>(false);
     const [hoverHome, setHoverHome] = useState<boolean>(false);
     const { me } = useAppSelector(state => state.authReducer);
-    const logout = () => {
-        dispatch(authActions.logout());
+    const logout: IFuncVoid = useCallback( async () => {
+        const { meta: { requestStatus } } = await dispatch(authActions.logout());
+        if (requestStatus === 'fulfilled') navigate('/login');
         dispatch(authActions.resetLoading());
-    };
+    }, [dispatch, navigate]);
     useEffect(() => {
         let timeoutId: NodeJS.Timeout = null;
-        const handleMove = () => {
+        const handleMove: IFuncVoid = () => {
             clearTimeout(timeoutId);
             timeoutId = setTimeout(() => {
-                dispatch(authActions.logout());
+                logout();
                 navigate('/login');
-            }, 900000);
+            }, 90000);
         };
         window.addEventListener('mousemove', handleMove);
         window.addEventListener('keydown', handleMove)
@@ -39,7 +41,7 @@ const Header: FC = () => {
             window.removeEventListener('keydown', handleMove);
             clearTimeout(timeoutId);
         };
-    }, [dispatch, navigate]);
+    }, [logout, navigate]);
     useEffect(() => {
         if (!me && authService.getAccessToken()) {
             dispatch(authActions.me());
@@ -100,23 +102,21 @@ const Header: FC = () => {
                                             </NavLink>
                                         </Fragment>
                                     }
-                                    <NavLink to='login'>
-                                        <Button
-                                            variant='light'
-                                            className='m-2'
-                                            onClick={ logout }
-                                            onMouseEnter={ () => setHoverLogin(true) }
-                                            onMouseLeave={ () => setHoverLogin(false) }
-                                        >
-                                            {
-                                                hoverLogin
-                                                    ?
-                                                    <i className='bi bi-door-closed-fill fs-3'></i>
-                                                    :
-                                                    <i className='bi bi-door-open-fill fs-3'></i>
-                                            }
-                                        </Button>
-                                    </NavLink>
+                                    <Button
+                                        variant='light'
+                                        className='m-2'
+                                        onClick={ logout }
+                                        onMouseEnter={ () => setHoverLogin(true) }
+                                        onMouseLeave={ () => setHoverLogin(false) }
+                                    >
+                                        {
+                                            hoverLogin
+                                                ?
+                                                <i className='bi bi-door-closed-fill fs-3'></i>
+                                                :
+                                                <i className='bi bi-door-open-fill fs-3'></i>
+                                        }
+                                    </Button>
                                 </Stack>
                                 :
                                 <NavLink to='login'>

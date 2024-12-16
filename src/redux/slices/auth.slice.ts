@@ -93,5 +93,5 @@ const authActions = {
 
 export {
     authReducer,
-    authActions
+    authActions,
 };
