@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { IParams } from '../../interfaces';
 import { Order } from '../Order/Order';
 import { orderActions } from '../../redux';
+import { groupActions } from '../../redux/slices/group.slice';
 import { IFuncVoid, ISortingReverse } from '../../types';
 
 import css from './Orders.module.css';
@@ -41,6 +42,8 @@ const Orders: FC = () => {
     const orderBySum: IFuncVoid = () => sortingOrderBy('sum');
     const orderByAlreadyPaid: IFuncVoid = () => sortingOrderBy('alreadyPaid');
     const orderByCreatedAt: IFuncVoid = () => sortingOrderBy('created_at');
+    const orderByGroup: IFuncVoid = () => sortingOrderBy('group');
+    const orderByManager: IFuncVoid = () => sortingOrderBy('manager');
     useEffect(() => {
         dispatch(orderActions.setPage(+query.get('page')));
         dispatch(orderActions.setSorting(query.get('sorting')));
@@ -48,6 +51,7 @@ const Orders: FC = () => {
     useEffect(() => {
         const params: IParams = JSON.parse(debouncedParamsString);
         dispatch(orderActions.getAll({ params }));
+        dispatch(groupActions.getAll());
     }, [dispatch, debouncedParamsString]);
 
     return (
@@ -67,6 +71,8 @@ const Orders: FC = () => {
                     <th onClick={ orderBySum } className={ css.Column }>sum</th>
                     <th onClick={ orderByAlreadyPaid } className={ css.Column }>alreadyPaid</th>
                     <th onClick={ orderByCreatedAt } className={ css.Column }>created_at</th>
+                    <th onClick={ orderByGroup } className={ css.Column }>group</th>
+                    <th onClick={ orderByManager } className={ css.Column }>manager</th>
                 </tr>
             </thead>
             <tbody>

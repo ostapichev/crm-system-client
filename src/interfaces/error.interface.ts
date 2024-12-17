@@ -11,3 +11,7 @@ export interface IErrorOrder {
     sum?: string[];
     already_paid?: string[];
 }
+
+export interface IErrorGroup {
+    name?: string[];
+}

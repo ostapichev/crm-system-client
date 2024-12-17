@@ -4,7 +4,7 @@ import { Placeholder } from 'react-bootstrap';
 
 import { DateFormat } from '../DateFormat/DateFormat';
 import { useAppSelector } from '../../hooks';
-import { IOrder } from '../../interfaces';
+import { IGroup, IOrder } from '../../interfaces';
 import { dataInsert } from '../../utils';
 
 interface IProps {
@@ -13,6 +13,7 @@ interface IProps {
 
 const Order: FC<IProps> = ({ order }) => {
     const { loading } = useAppSelector(state => state.orderReducer);
+    const { groups } = useAppSelector(state => state.groupReducer);
     const {
         id,
         name,
@@ -27,7 +28,14 @@ const Order: FC<IProps> = ({ order }) => {
         sum,
         already_paid,
         created_at,
+        group_id,
+        manager,
     } = order;
+    const getNameGroup = (group_id: number | null): string => {
+        const group: IGroup = groups.find(group => group.id === group_id);
+        if (group) return dataInsert(group.name);
+        return 'no group';
+    };
 
     return (
         <tr>
@@ -36,7 +44,7 @@ const Order: FC<IProps> = ({ order }) => {
                     loading
                         ?
                         <Placeholder as="p" animation="glow">
-                            <Placeholder xs={6} />
+                            <Placeholder xs={6}/>
                         </Placeholder>
                         :
                         dataInsert(id.toString())
@@ -47,7 +55,7 @@ const Order: FC<IProps> = ({ order }) => {
                     loading
                         ?
                         <Placeholder as="p" animation="glow">
-                            <Placeholder xs={12} />
+                            <Placeholder xs={12}/>
                         </Placeholder>
                         :
                         dataInsert(name)
@@ -58,7 +66,7 @@ const Order: FC<IProps> = ({ order }) => {
                     loading
                         ?
                         <Placeholder as="p" animation="glow">
-                            <Placeholder xs={10} />
+                            <Placeholder xs={10}/>
                         </Placeholder>
                         :
                         dataInsert(surname)
@@ -69,7 +77,7 @@ const Order: FC<IProps> = ({ order }) => {
                     loading
                         ?
                         <Placeholder as="p" animation="glow">
-                            <Placeholder xs={12} />
+                            <Placeholder xs={12}/>
                         </Placeholder>
                         :
                         dataInsert(email)
@@ -80,7 +88,7 @@ const Order: FC<IProps> = ({ order }) => {
                     loading
                         ?
                         <Placeholder as="p" animation="glow">
-                            <Placeholder xs={10} />
+                            <Placeholder xs={10}/>
                         </Placeholder>
                         :
                         dataInsert(phone)
@@ -91,7 +99,7 @@ const Order: FC<IProps> = ({ order }) => {
                     loading
                         ?
                         <Placeholder as="p" animation="glow">
-                            <Placeholder xs={6} />
+                            <Placeholder xs={6}/>
                         </Placeholder>
                         :
                         dataInsert(age?.toString())
@@ -102,7 +110,7 @@ const Order: FC<IProps> = ({ order }) => {
                     loading
                         ?
                         <Placeholder as="p" animation="glow">
-                            <Placeholder xs={8} />
+                            <Placeholder xs={8}/>
                         </Placeholder>
                         :
                         dataInsert(course?.toString())
@@ -113,7 +121,7 @@ const Order: FC<IProps> = ({ order }) => {
                     loading
                         ?
                         <Placeholder as="p" animation="glow">
-                            <Placeholder xs={8} />
+                            <Placeholder xs={8}/>
                         </Placeholder>
                         :
                         dataInsert(course_format?.toString())
@@ -124,7 +132,7 @@ const Order: FC<IProps> = ({ order }) => {
                     loading
                         ?
                         <Placeholder as="p" animation="glow">
-                            <Placeholder xs={8} />
+                            <Placeholder xs={8}/>
                         </Placeholder>
                         :
                         dataInsert(course_type?.toString())
@@ -135,7 +143,7 @@ const Order: FC<IProps> = ({ order }) => {
                     loading
                         ?
                         <Placeholder as="p" animation="glow">
-                            <Placeholder xs={12} />
+                            <Placeholder xs={12}/>
                         </Placeholder>
                         :
                         dataInsert(status?.toString())
@@ -146,7 +154,7 @@ const Order: FC<IProps> = ({ order }) => {
                     loading
                         ?
                         <Placeholder as="p" animation="glow">
-                            <Placeholder xs={6} />
+                            <Placeholder xs={6}/>
                         </Placeholder>
                         :
                         dataInsert(sum?.toString())
@@ -157,7 +165,7 @@ const Order: FC<IProps> = ({ order }) => {
                     loading
                         ?
                         <Placeholder as="p" animation="glow">
-                            <Placeholder xs={6} />
+                            <Placeholder xs={6}/>
                         </Placeholder>
                         :
                         dataInsert(already_paid?.toString())
@@ -168,10 +176,32 @@ const Order: FC<IProps> = ({ order }) => {
                     loading
                         ?
                         <Placeholder as="p" animation="glow">
-                            <Placeholder xs={10} />
+                            <Placeholder xs={10}/>
                         </Placeholder>
                         :
                         <DateFormat originalDate={ created_at } />
+                }
+            </td>
+            <td>
+                {
+                    loading
+                        ?
+                        <Placeholder as="p" animation="glow">
+                            <Placeholder xs={6}/>
+                        </Placeholder>
+                        :
+                        getNameGroup(group_id)
+                }
+            </td>
+            <td>
+                {
+                    loading
+                        ?
+                        <Placeholder as="p" animation="glow">
+                            <Placeholder xs={6}/>
+                        </Placeholder>
+                        :
+                        dataInsert(manager?.surname)
                 }
             </td>
         </tr>

@@ -10,6 +10,6 @@ class OrderService {
         const config: AxiosRequestConfig = { params };
         return axiosService.get(urls.ordersAPI.getAllOrders, config);
     };
-}
+};
 
 export const orderService = new OrderService();

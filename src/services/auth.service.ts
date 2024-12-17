@@ -53,6 +53,6 @@ class AuthService {
         localStorage.setItem(this.accessKey, accessToken);
         localStorage.setItem(this.refreshKey, refreshToken);
     };
-}
+};
 
 export const authService = new AuthService();

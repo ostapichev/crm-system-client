@@ -1,4 +1,5 @@
 import { CourseEnum, CourseFormatEnum, CourseTypeEnum, StatusEnum } from '../enums';
+import { IUser } from './user.interface';
 
 export interface IOrder {
     id: number;
@@ -14,4 +15,8 @@ export interface IOrder {
     sum?: number;
     already_paid?: number;
     created_at: string;
+    manager: IUser;
+    group_id: number;
+    msg: string;
+    utm: string;
 }

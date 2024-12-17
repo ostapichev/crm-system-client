@@ -2,7 +2,6 @@ const oktenURL = 'https://owu.com.ua';
 const baseURL = 'http://localhost:3500';
 const auth = '/auth';
 const orders = '/orders';
-const groups = '/groups';
 const admin = '/admin';
 
 const urls = {
@@ -24,7 +23,7 @@ const urls = {
         getById: (id: number): string => `${baseURL}${orders}/${id}`,
     },
     groupsAPI: {
-        groups: `${baseURL}${groups}`,
+        groups: `${baseURL}/groups`,
     },
 };
 
