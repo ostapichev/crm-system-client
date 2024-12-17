@@ -32,7 +32,7 @@ const Header: FC = () => {
             timeoutId = setTimeout(() => {
                 logout();
                 navigate('/login');
-            }, 90000);
+            }, 900000);
         };
         window.addEventListener('mousemove', handleMove);
         window.addEventListener('keydown', handleMove)

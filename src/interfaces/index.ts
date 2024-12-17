@@ -1,4 +1,5 @@
 export * from './auth.interface';
+export * from './comment.interface';
 export * from './group.interface';
 export * from './error.interface';
 export * from './order.interface';

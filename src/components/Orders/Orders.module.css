@@ -4,6 +4,6 @@ thead tr .Column {
 
 .Column:hover {
     background-color: seagreen;
-    color: white;
+    color: snow;
     cursor: pointer;
 }
