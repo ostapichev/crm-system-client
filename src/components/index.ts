@@ -7,5 +7,7 @@ export * from './LoginForm/LoginForm';
 export * from './NotContent/NotContent';
 export * from './Order/Order';
 export * from './Orders/Orders';
+export * from './OrdersCollapse/OrdersCollapse';
+export * from './OrderCollapse/OrderCollapse';
 export * from './PaginationApp/PaginationApp';
 export * from './RegisterForm/RegisterForm';

@@ -1,15 +1,13 @@
 import { FC, Fragment } from 'react';
 
-import { Collapse, Placeholder, Table } from 'react-bootstrap';
+import {Alert, Badge, Button, Col, Collapse, Container, Form, ListGroup, Placeholder, Row, Stack, Table } from 'react-bootstrap';
 
 import { Comment } from '../Comment/Comment';
-import { DateFormat } from '../DateFormat/DateFormat';
-import { useAppSelector } from '../../hooks';
 import { IComment, IGroup, IOrder } from '../../interfaces';
-import { IFuncVoid } from '../../types';
+import { useAppSelector } from '../../hooks';
+import { IFuncVoid } from '../../types/func.type';
 import { dataInsert } from '../../utils';
-
-import css from './Order.module.css';
+import { DateFormat } from '../DateFormat/DateFormat';
 
 interface IProps {
     order: IOrder;
@@ -17,7 +15,7 @@ interface IProps {
     isOpen: boolean;
 }
 
-const Order: FC<IProps> = ({ order, onClick, isOpen }) => {
+const OrderCollapse: FC<IProps> = ({ order, onClick, isOpen }) => {
     const { loading } = useAppSelector(state => state.orderReducer);
     const { groups } = useAppSelector(state => state.groupReducer);
     const {
@@ -46,7 +44,7 @@ const Order: FC<IProps> = ({ order, onClick, isOpen }) => {
         return 'no group';
     };
     const lastComments: IComment[] = comments.slice(0, 3);
-
+    
     return (
         <Fragment>
             <tr onClick={() => onClick()}>
@@ -54,7 +52,7 @@ const Order: FC<IProps> = ({ order, onClick, isOpen }) => {
                     {
                         loading
                             ?
-                            <Placeholder as="p" animation="glow">
+                            <Placeholder as='p' animation='glow'>
                                 <Placeholder xs={6}/>
                             </Placeholder>
                             :
@@ -65,7 +63,7 @@ const Order: FC<IProps> = ({ order, onClick, isOpen }) => {
                     {
                         loading
                             ?
-                            <Placeholder as="p" animation="glow">
+                            <Placeholder as='p' animation='glow'>
                                 <Placeholder xs={12}/>
                             </Placeholder>
                             :
@@ -76,7 +74,7 @@ const Order: FC<IProps> = ({ order, onClick, isOpen }) => {
                     {
                         loading
                             ?
-                            <Placeholder as="p" animation="glow">
+                            <Placeholder as='p' animation='glow'>
                                 <Placeholder xs={10}/>
                             </Placeholder>
                             :
@@ -87,7 +85,7 @@ const Order: FC<IProps> = ({ order, onClick, isOpen }) => {
                     {
                         loading
                             ?
-                            <Placeholder as="p" animation="glow">
+                            <Placeholder as='p' animation='glow'>
                                 <Placeholder xs={12}/>
                             </Placeholder>
                             :
@@ -98,7 +96,7 @@ const Order: FC<IProps> = ({ order, onClick, isOpen }) => {
                     {
                         loading
                             ?
-                            <Placeholder as="p" animation="glow">
+                            <Placeholder as='p' animation='glow'>
                                 <Placeholder xs={10}/>
                             </Placeholder>
                             :
@@ -109,7 +107,7 @@ const Order: FC<IProps> = ({ order, onClick, isOpen }) => {
                     {
                         loading
                             ?
-                            <Placeholder as="p" animation="glow">
+                            <Placeholder as='p' animation='glow'>
                                 <Placeholder xs={6}/>
                             </Placeholder>
                             :
@@ -120,7 +118,7 @@ const Order: FC<IProps> = ({ order, onClick, isOpen }) => {
                     {
                         loading
                             ?
-                            <Placeholder as="p" animation="glow">
+                            <Placeholder as='p' animation='glow'>
                                 <Placeholder xs={8}/>
                             </Placeholder>
                             :
@@ -131,7 +129,7 @@ const Order: FC<IProps> = ({ order, onClick, isOpen }) => {
                     {
                         loading
                             ?
-                            <Placeholder as="p" animation="glow">
+                            <Placeholder as='p' animation='glow'>
                                 <Placeholder xs={8}/>
                             </Placeholder>
                             :
@@ -142,7 +140,7 @@ const Order: FC<IProps> = ({ order, onClick, isOpen }) => {
                     {
                         loading
                             ?
-                            <Placeholder as="p" animation="glow">
+                            <Placeholder as='p' animation='glow'>
                                 <Placeholder xs={8}/>
                             </Placeholder>
                             :
@@ -153,7 +151,7 @@ const Order: FC<IProps> = ({ order, onClick, isOpen }) => {
                     {
                         loading
                             ?
-                            <Placeholder as="p" animation="glow">
+                            <Placeholder as='p' animation='glow'>
                                 <Placeholder xs={12}/>
                             </Placeholder>
                             :
@@ -164,7 +162,7 @@ const Order: FC<IProps> = ({ order, onClick, isOpen }) => {
                     {
                         loading
                             ?
-                            <Placeholder as="p" animation="glow">
+                            <Placeholder as='p' animation='glow'>
                                 <Placeholder xs={6}/>
                             </Placeholder>
                             :
@@ -175,7 +173,7 @@ const Order: FC<IProps> = ({ order, onClick, isOpen }) => {
                     {
                         loading
                             ?
-                            <Placeholder as="p" animation="glow">
+                            <Placeholder as='p' animation='glow'>
                                 <Placeholder xs={6}/>
                             </Placeholder>
                             :
@@ -186,7 +184,7 @@ const Order: FC<IProps> = ({ order, onClick, isOpen }) => {
                     {
                         loading
                             ?
-                            <Placeholder as="p" animation="glow">
+                            <Placeholder as='p' animation='glow'>
                                 <Placeholder xs={10}/>
                             </Placeholder>
                             :
@@ -197,7 +195,7 @@ const Order: FC<IProps> = ({ order, onClick, isOpen }) => {
                     {
                         loading
                             ?
-                            <Placeholder as="p" animation="glow">
+                            <Placeholder as='p' animation='glow'>
                                 <Placeholder xs={6}/>
                             </Placeholder>
                             :
@@ -208,7 +206,7 @@ const Order: FC<IProps> = ({ order, onClick, isOpen }) => {
                     {
                         loading
                             ?
-                            <Placeholder as="p" animation="glow">
+                            <Placeholder as='p' animation='glow'>
                                 <Placeholder xs={6}/>
                             </Placeholder>
                             :
@@ -216,34 +214,45 @@ const Order: FC<IProps> = ({ order, onClick, isOpen }) => {
                     }
                 </td>
             </tr>
-            { 
+            {
                 isOpen &&
                 <td colSpan={15}>
-                    <Table borderless striped>
-                        <tbody>
-                            <tr>
-                                <td>{ dataInsert(msg) }</td>
-                                <td>{ dataInsert(utm) }</td>
-                                <td>
-                                {
-                                    comments &&
-                                    lastComments.map(comment => <Comment
-                                        key={ comment.id }
-                                        comment={ comment }
-                                    />)
-                                }
-                                </td>
-                            </tr>
-                        </tbody>
-                    </Table>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid black', backgroundColor: 'snow' }}>
+                        <div className='d-flex flex-column justify-content-start'>
+                            <Badge pill bg='success' className='m-1'>
+                                msg: { dataInsert(msg) }
+                            </Badge>
+                            <Badge pill bg='success' className='m-1'>
+                                UTM: { dataInsert(utm) }
+                            </Badge>
+                            <Button variant='outline-primary' className='m-1'>edit</Button>
+                        </div>
+                        <div className='w-50'>
+                            <div className='text-start'>
+                                <h5>{ comments.length > 1 ? 'Comments:' : 'No comments' }</h5>
+                                <ListGroup className={ comments.length > 1 ? 'mt-2 mb-3 d-block' : 'd-none' }>
+                                    <ListGroup.Item action variant="success">
+                                        { comments &&
+                                            lastComments.map(comment => <Comment
+                                                key={ comment.id }
+                                                comment={ comment }
+                                            />)
+                                        }
+                                    </ListGroup.Item>
+                                </ListGroup>
+                            </div>
+                            <Stack direction='horizontal' gap={1} className='w-50'>
+                                <Form.Control className='me-auto' placeholder='Add comment' />
+                                <Button variant='primary'>add</Button>
+                            </Stack>
+                        </div>
+                    </div>
                 </td>
             }
-
         </Fragment>
-    )
-        ;
+    );
 };
 
 export {
-    Order
+    OrderCollapse
 };
