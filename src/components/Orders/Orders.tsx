@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useDebounce } from 'use-debounce';
 
@@ -16,6 +16,7 @@ import css from './Orders.module.css';
 const Orders: FC = () => {
     const dispatch = useAppDispatch();
     const { orders, sorted } = useAppSelector(state => state.orderReducer);
+    const [orderId, setOrderId] = useState<number>(null);
     const [query, setQuery] = useSearchParams();
     const [debouncedParams] = useDebounce<IParams>(
         {
@@ -52,10 +53,11 @@ const Orders: FC = () => {
         const params: IParams = JSON.parse(debouncedParamsString);
         dispatch(orderActions.getAll({ params }));
         dispatch(groupActions.getAll());
+        setOrderId(null);
     }, [dispatch, debouncedParamsString]);
 
     return (
-        <Table className='text-center' size='sm' striped bordered>
+        <Table className='text-center' size='sm' borderless striped hover>
             <thead>
                 <tr>
                     <th onClick={ orderById } className={ css.Column }>id</th>
@@ -77,7 +79,12 @@ const Orders: FC = () => {
             </thead>
             <tbody>
             {
-                orders.map(order => <Order key={ order.id } order={ order }/>)
+                orders.map(order => 
+                    <Order key={ order.id } 
+                           order={ order } 
+                           isOpen={ order.id === orderId } 
+                           onClick={ () => (order.id === orderId ? setOrderId(null) : setOrderId(order.id)) } 
+                    /> )
             }
             </tbody>
         </Table>

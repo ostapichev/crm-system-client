@@ -1,3 +1,4 @@
+import { IComment } from './comment.interface';
 import { CourseEnum, CourseFormatEnum, CourseTypeEnum, StatusEnum } from '../enums';
 import { IUser } from './user.interface';
 
@@ -19,4 +20,5 @@ export interface IOrder {
     group_id: number;
     msg: string;
     utm: string;
+    comments: IComment[];
 }

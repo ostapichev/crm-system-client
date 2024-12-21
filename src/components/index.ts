@@ -1,4 +1,5 @@
 export * from './AdminPanel/AdminPanel';
+export * from './Comment/Comment';
 export * from './DateFormat/DateFormat';
 export * from './Footer/Footer';
 export * from './Header/Header';
