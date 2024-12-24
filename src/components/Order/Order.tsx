@@ -1,4 +1,4 @@
-import { FC, Fragment } from 'react';
+import { FC, Fragment, useState } from 'react';
 
 import { Collapse, Placeholder, Table } from 'react-bootstrap';
 
@@ -230,6 +230,7 @@ const Order: FC<IProps> = ({ order, onClick, isOpen }) => {
                                     lastComments.map(comment => <Comment
                                         key={ comment.id }
                                         comment={ comment }
+                                        isOpen={ false }
                                     />)
                                 }
                                 </td>

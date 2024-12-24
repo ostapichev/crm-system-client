@@ -8,9 +8,9 @@ const urls = {
     adminAPI: {
         create: `${baseURL}${admin}/create`,
         getAllUsers: `${baseURL}${admin}`,
-        getById: (id: number): string => `${baseURL}/${admin}/${id}`,
-        banUser: (id: number): string => `${baseURL}/${admin}/ban/${id}`,
-        unBanUser: (id: number): string => `${baseURL}/${admin}/unban/${id}`,
+        getById: (userId: number): string => `${baseURL}/${admin}/${userId}`,
+        banUser: (userId: number): string => `${baseURL}/${admin}/ban/${userId}`,
+        unBanUser: (userId: number): string => `${baseURL}/${admin}/unban/${userId}`,
     },
     authAPI: {
         signIn: `${baseURL}${auth}/sign-in`,
@@ -18,9 +18,12 @@ const urls = {
         refresh: `${baseURL}${auth}/refresh`,
         logout: `${baseURL}${auth}/sign-out`,
     },
+    commentsAPI: {
+        create: (orderId: number) => `${baseURL}${orders}/${orderId}`,
+    },
     ordersAPI: {
         getAllOrders: `${baseURL}${orders}`,
-        getById: (id: number): string => `${baseURL}${orders}/${id}`,
+        getById: (orderId: number): string => `${baseURL}${orders}/${orderId}`,
     },
     groupsAPI: {
         groups: `${baseURL}/groups`,

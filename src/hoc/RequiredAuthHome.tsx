@@ -1,15 +1,15 @@
 import { FC, ReactElement } from 'react';
 import { Navigate } from "react-router-dom";
 
-import { authService } from "../services";
+import { useAppSelector } from '../hooks';
 
 interface IProps {
     children: ReactElement;
 }
 
 const RequiredAuthHome: FC<IProps> = ({ children }) => {
-    const accessToken = authService.getAccessToken();
-    if (!accessToken) {
+    const {me} = useAppSelector(state => state.authReducer);
+    if (!me) {
         return <Navigate to='/login' />
     }
     return children;

@@ -15,3 +15,7 @@ export interface IErrorOrder {
 export interface IErrorGroup {
     name?: string[];
 }
+
+export interface IErrorComment {
+    comment?: string[];
+}

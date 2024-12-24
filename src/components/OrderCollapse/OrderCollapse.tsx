@@ -1,6 +1,6 @@
-import { FC, Fragment } from 'react';
+import { FC, Fragment, useState } from 'react';
 
-import {Alert, Badge, Button, Col, Collapse, Container, Form, ListGroup, Placeholder, Row, Stack, Table } from 'react-bootstrap';
+import { Badge, Button, Form, ListGroup, Modal, Placeholder, Stack } from 'react-bootstrap';
 
 import { Comment } from '../Comment/Comment';
 import { IComment, IGroup, IOrder } from '../../interfaces';
@@ -16,8 +16,10 @@ interface IProps {
 }
 
 const OrderCollapse: FC<IProps> = ({ order, onClick, isOpen }) => {
+    const [showComments, setShowCommnets] = useState<boolean>(false);
     const { loading } = useAppSelector(state => state.orderReducer);
     const { groups } = useAppSelector(state => state.groupReducer);
+    const { startShowComment, endShowComments, errorsComment } = useAppSelector(state => state.commentReducer);
     const {
         id,
         name,
@@ -44,6 +46,13 @@ const OrderCollapse: FC<IProps> = ({ order, onClick, isOpen }) => {
         return 'no group';
     };
     const lastComments: IComment[] = comments.slice(0, 3);
+    const handleClose = () => {
+        setShowCommnets(false);
+    }
+    const handleShow = () => {
+        setShowCommnets(true);
+    }
+    const paginateComments: IComment[] = comments.slice(startShowComment, endShowComments);
     
     return (
         <Fragment>
@@ -218,29 +227,61 @@ const OrderCollapse: FC<IProps> = ({ order, onClick, isOpen }) => {
                 isOpen &&
                 <td colSpan={15}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid black', backgroundColor: 'snow' }}>
-                        <div className='d-flex flex-column justify-content-start'>
+                        <div className='d-flex flex-column justify-content-start w-25'>
                             <Badge pill bg='success' className='m-1'>
                                 msg: { dataInsert(msg) }
                             </Badge>
                             <Badge pill bg='success' className='m-1'>
                                 UTM: { dataInsert(utm) }
                             </Badge>
-                            <Button variant='outline-primary' className='m-1'>edit</Button>
+                            <Button variant='outline-primary' className='m-1 w-50'>edit</Button>
                         </div>
                         <div className='w-50'>
                             <div className='text-start'>
                                 <h5>{ comments.length > 1 ? 'Comments:' : 'No comments' }</h5>
-                                <ListGroup className={ comments.length > 1 ? 'mt-2 mb-3 d-block' : 'd-none' }>
+                                <ListGroup onClick={ () => handleShow() } className={ comments.length > 1 ? 'mt-2 mb-3 d-block' : 'd-none' }>
                                     <ListGroup.Item action variant="success">
                                         { comments &&
                                             lastComments.map(comment => <Comment
                                                 key={ comment.id }
                                                 comment={ comment }
+                                                isOpen={ false }
                                             />)
                                         }
                                     </ListGroup.Item>
                                 </ListGroup>
                             </div>
+                            <Modal
+                                show={ showComments }
+                                onHide={ handleClose }
+                                backdrop="static"
+                                keyboard={ false }
+                                size="lg"
+                                centered
+                            >
+                                <Modal.Header closeButton>
+                                    <Modal.Title>Comments</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+                                    <ListGroup>
+                                        <ListGroup.Item variant='info'>
+                                            { 
+                                                comments &&
+                                                paginateComments.map(comment => <Comment
+                                                    key={ comment.id }
+                                                    comment={ comment }
+                                                    isOpen={ true }
+                                                />)
+                                            }
+                                        </ListGroup.Item>
+                                    </ListGroup>
+                                </Modal.Body>
+                                <Modal.Footer>
+                                    <Button variant="secondary" onClick={ handleClose }>
+                                        Close
+                                    </Button>
+                                </Modal.Footer>
+                            </Modal>
                             <Stack direction='horizontal' gap={1} className='w-50'>
                                 <Form.Control className='me-auto' placeholder='Add comment' />
                                 <Button variant='primary'>add</Button>

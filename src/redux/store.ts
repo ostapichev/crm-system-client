@@ -1,9 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
-import { authReducer, groupReducer, orderReducer } from './slices';
+import { authReducer, commentReducer, groupReducer, orderReducer } from './slices';
 
 const rootReducer = combineReducers({
     authReducer,
+    commentReducer,
     groupReducer,
     orderReducer,
 });
