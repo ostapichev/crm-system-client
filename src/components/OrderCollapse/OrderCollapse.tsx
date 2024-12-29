@@ -4,11 +4,12 @@ import { Badge, Button, Form, ListGroup, Modal, Stack } from 'react-bootstrap';
 
 import { Comment } from '../Comment/Comment';
 import { CommentsPaginate } from '../CommentsPaginate/CommentsPaginate';
+import { DateFormat } from '../DateFormat/DateFormat';
 import { IComment, IGroup, IOrder, IPagination } from '../../interfaces';
 import { useAppDispatch, useAppSelector } from '../../hooks';
+import { commentActions } from '../../redux';
 import { IFuncVoid } from '../../types/func.type';
 import { dataInsert } from '../../utils';
-import { DateFormat } from '../DateFormat/DateFormat';
 
 interface IProps {
     order: IOrder;
@@ -20,7 +21,12 @@ const OrderCollapse: FC<IProps> = ({ order, onClick, isOpen }) => {
     const dispatch = useAppDispatch();
     const [showComments, setShowCommnets] = useState<boolean>(false);
     const { groups } = useAppSelector(state => state.groupReducer);
-    const { startShowComment, endShowComments, errorsComment, pageSize, pageComments, totalPageComments } = useAppSelector(state => state.commentReducer);
+    const {
+        startShowComment,
+        endShowComments, 
+        pageSize,
+        pageComments
+    } = useAppSelector(state => state.commentReducer);
     const {
         id,
         name,
@@ -52,8 +58,27 @@ const OrderCollapse: FC<IProps> = ({ order, onClick, isOpen }) => {
     };
     const handleShow: IFuncVoid = () => {
         setShowCommnets(true);
+        if (pageComments !== 1) dispatch(commentActions.setPage(1));
+    };
+    const pageChanger = (value: string) => {
+        if (value === '&lsaquo;') {
+            if (+pageComments !== 1) {
+                dispatch(commentActions.setPage(+pageComments - 1));
+            }
+        } else if (value === '&rsaquo;') {
+            dispatch(commentActions.setPage(+pageComments + 1));
+        } else {
+            dispatch(commentActions.setPage(+value));
+        }
     };
     const paginateComments: IComment[] = comments.slice(startShowComment, endShowComments);
+    const dataPagination: IPagination = {
+        page: pageComments,
+        totalPages: Math.ceil(comments.length / pageSize),
+        limit: endShowComments,
+        siblings: 2,
+        pageChanger,
+    };
     
     return (
         <Fragment>
@@ -76,72 +101,89 @@ const OrderCollapse: FC<IProps> = ({ order, onClick, isOpen }) => {
             </tr>
             {
                 isOpen &&
-                <td colSpan={15}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid black', backgroundColor: 'snow' }}>
-                        <div className='d-flex flex-column justify-content-start w-25'>
-                            <Badge pill bg='success' className='m-1'>
-                                msg: { dataInsert(msg) }
-                            </Badge>
-                            <Badge pill bg='success' className='m-1'>
-                                UTM: { dataInsert(utm) }
-                            </Badge>
-                            <Button variant='outline-primary' className='m-1 w-50'>edit</Button>
-                        </div>
-                        <div className='w-50'>
-                            <div className='text-start'>
-                                <h5>{ comments.length > 1 ? 'Comments:' : 'No comments' }</h5>
-                                <ListGroup onClick={ () => handleShow() } className={ comments.length > 1 ? 'mt-2 mb-3 d-block' : 'd-none' }>
-                                    <ListGroup.Item action variant="success">
-                                        { 
-                                            comments &&
-                                            lastComments.map(comment => <Comment
-                                                key={ comment.id }
-                                                comment={ comment }
-                                                isOpen={ false }
-                                            />)
-                                        }
-                                    </ListGroup.Item>
-                                </ListGroup>
+                <tr>
+                    <td colSpan={15}>
+                        <div style={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            borderBottom: '1px solid black',
+                            backgroundColor: 'snow'
+                        }}>
+                            <div className='d-flex flex-column justify-content-start w-25'>
+                                <Badge pill bg='success' className='m-1'>
+                                    msg: {dataInsert(msg)}
+                                </Badge>
+                                <Badge pill bg='success' className='m-1'>
+                                    UTM: {dataInsert(utm)}
+                                </Badge>
+                                <Button variant='outline-primary' className='m-1 w-50'>edit</Button>
                             </div>
-                            <Modal
-                                show={ showComments }
-                                onHide={ handleClose }
-                                backdrop="static"
-                                keyboard={ false }
-                                size="lg"
-                                centered
-                            >
-                                <Modal.Header closeButton>
-                                    <Modal.Title>Comments</Modal.Title>
-                                </Modal.Header>
-                                <Modal.Body>
-                                    <ListGroup>
-                                        <ListGroup.Item variant='info'>
-                                            { 
+                            <div className='w-50'>
+                                <div className='text-start'>
+                                    <h5>{ comments.length > 1 ? 'Comments:' : 'No comments' }</h5>
+                                    <ListGroup 
+                                        onClick={ () => handleShow() }
+                                        className={ comments.length > 1 ? 'mt-2 mb-3 d-block' : 'd-none' }
+                                    >
+                                        <ListGroup.Item action variant='success'>
+                                            {
                                                 comments &&
-                                                paginateComments.map(comment => <Comment
-                                                    key={ comment.id }
-                                                    comment={ comment }
-                                                    isOpen={ true }
+                                                lastComments.map(comment => <Comment
+                                                    key={comment.id}
+                                                    comment={comment}
+                                                    isOpen={false}
                                                 />)
                                             }
                                         </ListGroup.Item>
                                     </ListGroup>
-                                    <CommentsPaginate />
-                                </Modal.Body>
-                                <Modal.Footer>
-                                    <Button variant="secondary" onClick={ handleClose }>
-                                        Close
-                                    </Button>
-                                </Modal.Footer>
-                            </Modal>
-                            <Stack direction='horizontal' gap={1} className='w-50'>
-                                <Form.Control className='me-auto' placeholder='Add comment' />
-                                <Button variant='primary'>add</Button>
-                            </Stack>
+                                </div>
+                                <Stack direction='horizontal' gap={1} className='w-50 mb-2'>
+                                    <Form.Control className='me-auto' placeholder='Add comment' />
+                                    <Button variant='primary'>add</Button>
+                                </Stack>
+                            </div>
                         </div>
-                    </div>
-                </td>
+                        <Modal
+                            show={ showComments }
+                            onHide={ handleClose }
+                            backdrop='static'
+                            keyboard={ false }
+                            size='xl'
+                            centered
+                            scrollable
+                        >
+                            <Modal.Header closeButton>
+                                <Modal.Title>Comments</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body style={{ height: '300px' }}>
+                                <ListGroup>
+                                    <ListGroup.Item variant='info'>
+                                        {
+                                            comments &&
+                                            paginateComments.map(comment => 
+                                                <Comment
+                                                    key={ comment.id }
+                                                    comment={ comment }
+                                                    isOpen={ true }
+                                                />)
+                                        }
+                                    </ListGroup.Item>
+                                </ListGroup>
+                            </Modal.Body>
+                            {
+                                comments.length > pageSize &&
+                                <Modal.Footer>
+                                    <CommentsPaginate dataPagination={ dataPagination } />
+                                </Modal.Footer>
+                            }
+                            <Modal.Footer>
+                                <Button variant='secondary' onClick={ handleClose }>
+                                    Close
+                                </Button>
+                            </Modal.Footer>
+                        </Modal>
+                    </td>
+                </tr>
             }
         </Fragment>
     );

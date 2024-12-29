@@ -5,9 +5,7 @@ import { commentService } from "../../services/comment.service";
 import { IComment, IErrorComment } from "../../interfaces";
 
 interface IState {
-    comments?: IComment[];
     commentTrigger: boolean;
-    loading: boolean;
     pageSize: number;
     startShowComment: number;
     endShowComments: number;
@@ -17,14 +15,12 @@ interface IState {
 }
 
 const initialState: IState = {
-    comments: null,
     commentTrigger: false,
-    loading: false,
     pageSize: 5,
     startShowComment: 0,
     endShowComments: 5,
     pageComments: 1,
-    totalPageComments: 1,
+    totalPageComments: 0,
     errorsComment: null
 };
 
@@ -54,25 +50,16 @@ const slice = createSlice({
             state.endShowComments = 5;
             state.pageComments = 1;
         },
-        setTotalPages: (state, action) => {
-            state.totalPageComments = action.payload;
-        },
     },
     extraReducers: builder => builder
         .addCase(create.fulfilled, state => {
             state.commentTrigger = !state.commentTrigger;
         })
         .addMatcher(isFulfilled(), state => {
-            state.loading = false;
-            state.errorsComment = null;
-        })
-        .addMatcher(isPending(), state => {
-            state.loading = true;
             state.errorsComment = null;
         })
         .addMatcher(isRejectedWithValue(), (state, action) => {
             state.errorsComment = action.payload;
-            state.loading = false;
         })
 });
 
