@@ -1,5 +1,6 @@
 export * from './AdminPanel/AdminPanel';
 export * from './Comment/Comment';
+export * from './CommentsPaginate/CommentsPaginate';
 export * from './DateFormat/DateFormat';
 export * from './Footer/Footer';
 export * from './Header/Header';
@@ -9,5 +10,6 @@ export * from './Order/Order';
 export * from './Orders/Orders';
 export * from './OrdersCollapse/OrdersCollapse';
 export * from './OrderCollapse/OrderCollapse';
+export * from './OrderPlaceholder/OrderPlaceholder';
 export * from './PaginationApp/PaginationApp';
 export * from './RegisterForm/RegisterForm';

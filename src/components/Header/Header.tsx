@@ -6,7 +6,7 @@ import { Badge, Button, Container, Image, Navbar, Stack } from 'react-bootstrap'
 import { oktenURL } from '../../constants';
 import { UserRoleEnum } from '../../enums';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { authActions } from '../../redux';
+import { authActions, orderActions } from '../../redux';
 import { authService } from '../../services';
 import { IFuncVoid } from '../../types';
 
@@ -23,6 +23,8 @@ const Header: FC = () => {
     const logout: IFuncVoid = useCallback( async () => {
         const { meta: { requestStatus } } = await dispatch(authActions.logout());
         if (requestStatus === 'fulfilled') navigate('/login');
+        dispatch(orderActions.setOrdersDefault());
+        dispatch(orderActions.setDefault());
         dispatch(authActions.resetLoading());
     }, [dispatch, navigate]);
     useEffect(() => {

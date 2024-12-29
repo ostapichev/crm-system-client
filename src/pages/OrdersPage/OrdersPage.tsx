@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { Footer, Orders, OrdersCollapse } from '../../components';
+import { Footer, OrdersCollapse } from '../../components';
 
 const OrdersPage: FC = () => {
     return (

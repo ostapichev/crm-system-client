@@ -58,6 +58,15 @@ const slice = createSlice({
         setSorting: (state, action) => {
             state.sorting_by = action.payload;
         },
+        setOrdersDefault: state => {
+            state.orders = [];
+        },
+        setDefault: state => {
+            state.sorting_by = null;
+            state.sorted = true;
+            state.paramsOrders = null;
+            state.errorsOrder = null;
+        },
     },
     extraReducers: builder => builder
         .addCase(getAll.fulfilled, (state, action) => {

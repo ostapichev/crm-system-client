@@ -1,10 +1,11 @@
 import { FC, Fragment, useState } from 'react';
 
-import { Badge, Button, Form, ListGroup, Modal, Placeholder, Stack } from 'react-bootstrap';
+import { Badge, Button, Form, ListGroup, Modal, Stack } from 'react-bootstrap';
 
 import { Comment } from '../Comment/Comment';
-import { IComment, IGroup, IOrder } from '../../interfaces';
-import { useAppSelector } from '../../hooks';
+import { CommentsPaginate } from '../CommentsPaginate/CommentsPaginate';
+import { IComment, IGroup, IOrder, IPagination } from '../../interfaces';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { IFuncVoid } from '../../types/func.type';
 import { dataInsert } from '../../utils';
 import { DateFormat } from '../DateFormat/DateFormat';
@@ -16,10 +17,10 @@ interface IProps {
 }
 
 const OrderCollapse: FC<IProps> = ({ order, onClick, isOpen }) => {
+    const dispatch = useAppDispatch();
     const [showComments, setShowCommnets] = useState<boolean>(false);
-    const { loading } = useAppSelector(state => state.orderReducer);
     const { groups } = useAppSelector(state => state.groupReducer);
-    const { startShowComment, endShowComments, errorsComment } = useAppSelector(state => state.commentReducer);
+    const { startShowComment, endShowComments, errorsComment, pageSize, pageComments, totalPageComments } = useAppSelector(state => state.commentReducer);
     const {
         id,
         name,
@@ -46,182 +47,32 @@ const OrderCollapse: FC<IProps> = ({ order, onClick, isOpen }) => {
         return 'no group';
     };
     const lastComments: IComment[] = comments.slice(0, 3);
-    const handleClose = () => {
+    const handleClose: IFuncVoid = () => {
         setShowCommnets(false);
-    }
-    const handleShow = () => {
+    };
+    const handleShow: IFuncVoid = () => {
         setShowCommnets(true);
-    }
+    };
     const paginateComments: IComment[] = comments.slice(startShowComment, endShowComments);
     
     return (
         <Fragment>
-            <tr onClick={() => onClick()}>
-                <td>
-                    {
-                        loading
-                            ?
-                            <Placeholder as='p' animation='glow'>
-                                <Placeholder xs={6}/>
-                            </Placeholder>
-                            :
-                            dataInsert(id.toString())
-                    }
-                </td>
-                <td>
-                    {
-                        loading
-                            ?
-                            <Placeholder as='p' animation='glow'>
-                                <Placeholder xs={12}/>
-                            </Placeholder>
-                            :
-                            dataInsert(name)
-                    }
-                </td>
-                <td>
-                    {
-                        loading
-                            ?
-                            <Placeholder as='p' animation='glow'>
-                                <Placeholder xs={10}/>
-                            </Placeholder>
-                            :
-                            dataInsert(surname)
-                    }
-                </td>
-                <td>
-                    {
-                        loading
-                            ?
-                            <Placeholder as='p' animation='glow'>
-                                <Placeholder xs={12}/>
-                            </Placeholder>
-                            :
-                            dataInsert(email)
-                    }
-                </td>
-                <td>
-                    {
-                        loading
-                            ?
-                            <Placeholder as='p' animation='glow'>
-                                <Placeholder xs={10}/>
-                            </Placeholder>
-                            :
-                            dataInsert(phone)
-                    }
-                </td>
-                <td>
-                    {
-                        loading
-                            ?
-                            <Placeholder as='p' animation='glow'>
-                                <Placeholder xs={6}/>
-                            </Placeholder>
-                            :
-                            dataInsert(age?.toString())
-                    }
-                </td>
-                <td>
-                    {
-                        loading
-                            ?
-                            <Placeholder as='p' animation='glow'>
-                                <Placeholder xs={8}/>
-                            </Placeholder>
-                            :
-                            dataInsert(course?.toString())
-                    }
-                </td>
-                <td>
-                    {
-                        loading
-                            ?
-                            <Placeholder as='p' animation='glow'>
-                                <Placeholder xs={8}/>
-                            </Placeholder>
-                            :
-                            dataInsert(course_format?.toString())
-                    }
-                </td>
-                <td>
-                    {
-                        loading
-                            ?
-                            <Placeholder as='p' animation='glow'>
-                                <Placeholder xs={8}/>
-                            </Placeholder>
-                            :
-                            dataInsert(course_type?.toString())
-                    }
-                </td>
-                <td>
-                    {
-                        loading
-                            ?
-                            <Placeholder as='p' animation='glow'>
-                                <Placeholder xs={12}/>
-                            </Placeholder>
-                            :
-                            dataInsert(status?.toString())
-                    }
-                </td>
-                <td>
-                    {
-                        loading
-                            ?
-                            <Placeholder as='p' animation='glow'>
-                                <Placeholder xs={6}/>
-                            </Placeholder>
-                            :
-                            dataInsert(sum?.toString())
-                    }
-                </td>
-                <td>
-                    {
-                        loading
-                            ?
-                            <Placeholder as='p' animation='glow'>
-                                <Placeholder xs={6}/>
-                            </Placeholder>
-                            :
-                            dataInsert(already_paid?.toString())
-                    }
-                </td>
-                <td>
-                    {
-                        loading
-                            ?
-                            <Placeholder as='p' animation='glow'>
-                                <Placeholder xs={10}/>
-                            </Placeholder>
-                            :
-                            <DateFormat originalDate={created_at}/>
-                    }
-                </td>
-                <td>
-                    {
-                        loading
-                            ?
-                            <Placeholder as='p' animation='glow'>
-                                <Placeholder xs={6}/>
-                            </Placeholder>
-                            :
-                            getNameGroup(group_id)
-                    }
-                </td>
-                <td>
-                    {
-                        loading
-                            ?
-                            <Placeholder as='p' animation='glow'>
-                                <Placeholder xs={6}/>
-                            </Placeholder>
-                            :
-                            dataInsert(manager?.surname)
-                    }
-                </td>
+            <tr onClick={ () => onClick() }>
+                <td>{ dataInsert( typeof id === 'string' ? id : id.toString()) }</td>
+                <td>{ dataInsert(name) }</td>
+                <td>{ dataInsert(surname) }</td>
+                <td>{ dataInsert(email) }</td>
+                <td>{ dataInsert(phone) }</td>
+                <td>{ dataInsert(age?.toString()) }</td>
+                <td>{ dataInsert(course?.toString()) }</td>
+                <td>{ dataInsert(course_format?.toString()) }</td>
+                <td>{ dataInsert(course_type?.toString()) }</td>
+                <td>{ dataInsert(status?.toString()) }</td>
+                <td>{ dataInsert(sum?.toString()) }</td>
+                <td>{ dataInsert(already_paid?.toString()) }</td>
+                <td>{ <DateFormat originalDate={ created_at } /> }</td>
+                <td>{ getNameGroup(group_id) }</td>
+                <td>{ dataInsert(manager?.surname) }</td>
             </tr>
             {
                 isOpen &&
@@ -241,7 +92,8 @@ const OrderCollapse: FC<IProps> = ({ order, onClick, isOpen }) => {
                                 <h5>{ comments.length > 1 ? 'Comments:' : 'No comments' }</h5>
                                 <ListGroup onClick={ () => handleShow() } className={ comments.length > 1 ? 'mt-2 mb-3 d-block' : 'd-none' }>
                                     <ListGroup.Item action variant="success">
-                                        { comments &&
+                                        { 
+                                            comments &&
                                             lastComments.map(comment => <Comment
                                                 key={ comment.id }
                                                 comment={ comment }
@@ -275,6 +127,7 @@ const OrderCollapse: FC<IProps> = ({ order, onClick, isOpen }) => {
                                             }
                                         </ListGroup.Item>
                                     </ListGroup>
+                                    <CommentsPaginate />
                                 </Modal.Body>
                                 <Modal.Footer>
                                     <Button variant="secondary" onClick={ handleClose }>

@@ -51,26 +51,10 @@ const Order: FC<IProps> = ({ order, onClick, isOpen }) => {
         <Fragment>
             <tr onClick={() => onClick()}>
                 <td>
-                    {
-                        loading
-                            ?
-                            <Placeholder as="p" animation="glow">
-                                <Placeholder xs={6}/>
-                            </Placeholder>
-                            :
-                            dataInsert(id.toString())
-                    }
+                    { dataInsert(id.toString()) }
                 </td>
                 <td>
-                    {
-                        loading
-                            ?
-                            <Placeholder as="p" animation="glow">
-                                <Placeholder xs={12}/>
-                            </Placeholder>
-                            :
-                            dataInsert(name)
-                    }
+                    { dataInsert(name) }
                 </td>
                 <td>
                     {
@@ -80,7 +64,7 @@ const Order: FC<IProps> = ({ order, onClick, isOpen }) => {
                                 <Placeholder xs={10}/>
                             </Placeholder>
                             :
-                            dataInsert(surname)
+                            surname
                     }
                 </td>
                 <td>
@@ -216,30 +200,6 @@ const Order: FC<IProps> = ({ order, onClick, isOpen }) => {
                     }
                 </td>
             </tr>
-            { 
-                isOpen &&
-                <td colSpan={15}>
-                    <Table borderless striped>
-                        <tbody>
-                            <tr>
-                                <td>{ dataInsert(msg) }</td>
-                                <td>{ dataInsert(utm) }</td>
-                                <td>
-                                {
-                                    comments &&
-                                    lastComments.map(comment => <Comment
-                                        key={ comment.id }
-                                        comment={ comment }
-                                        isOpen={ false }
-                                    />)
-                                }
-                                </td>
-                            </tr>
-                        </tbody>
-                    </Table>
-                </td>
-            }
-
         </Fragment>
     )
         ;

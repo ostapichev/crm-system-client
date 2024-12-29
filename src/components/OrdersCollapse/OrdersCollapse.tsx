@@ -1,20 +1,22 @@
-import { FC, Fragment, useEffect, useState } from 'react';
+import { FC, ReactElement, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useDebounce } from 'use-debounce';
 
 import { Table } from 'react-bootstrap';
 
+import { xsValues } from '../../constants';
 import { IParams } from '../../interfaces';
 import { IFuncVoid, ISortingReverse } from '../../types';
 import { groupActions, orderActions } from '../../redux';
 import { OrderCollapse } from '../OrderCollapse/OrderCollapse';
+import { OrderPlaceholder } from '../OrderPlaceholder/OrderPlaceholder';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 
 import css from '../../components/Orders/Orders.module.css';
 
 const OrdersCollapse: FC = () => {
     const dispatch = useAppDispatch();
-    const { orders, sorted } = useAppSelector(state => state.orderReducer);
+    const { orders, sorted, loading, limit } = useAppSelector(state => state.orderReducer);
     const [orderId, setOrderId] = useState<number>(null);
     const [query, setQuery] = useSearchParams();
     const [debouncedParams] = useDebounce<IParams>(
@@ -44,12 +46,16 @@ const OrdersCollapse: FC = () => {
     const orderByCreatedAt: IFuncVoid = () => sortingOrderBy('created_at');
     const orderByGroup: IFuncVoid = () => sortingOrderBy('group');
     const orderByManager: IFuncVoid = () => sortingOrderBy('manager');
+    const places: ReactElement[] = Array.from({ length: limit }, (_: ReactElement, index) => (
+        <OrderPlaceholder key={ index } xss={ xsValues } />
+    ));
     useEffect(() => {
         dispatch(orderActions.setPage(+query.get('page')));
         dispatch(orderActions.setSorting(query.get('sorting')));
     }, [dispatch, query]);
     useEffect(() => {
         const params: IParams = JSON.parse(debouncedParamsString);
+        dispatch(orderActions.setOrdersDefault());
         dispatch(orderActions.getAll({ params }));
         dispatch(groupActions.getAll());
         setOrderId(null);
@@ -77,13 +83,17 @@ const OrdersCollapse: FC = () => {
             </tr>
             </thead>
             <tbody>
-            {
-                orders.map(order =>
-                    <OrderCollapse key={ order.id }
+            { 
+                loading || !orders.length 
+                    ?
+                    places.map((place: ReactElement) => place) 
+                    :
+                    orders.map(order =>
+                        <OrderCollapse key={ order.id }
                            order={ order }
                            isOpen={ order.id === orderId }
                            onClick={ () => (order.id === orderId ? setOrderId(null) : setOrderId(order.id)) }
-                    /> )
+                        /> )
             }
             </tbody>
         </Table>

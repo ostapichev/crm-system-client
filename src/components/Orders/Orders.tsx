@@ -15,7 +15,7 @@ import css from './Orders.module.css';
 
 const Orders: FC = () => {
     const dispatch = useAppDispatch();
-    const { orders, sorted } = useAppSelector(state => state.orderReducer);
+    const { orders, sorted, loading } = useAppSelector(state => state.orderReducer);
     const [orderId, setOrderId] = useState<number>(null);
     const [query, setQuery] = useSearchParams();
     const [debouncedParams] = useDebounce<IParams>(
@@ -78,13 +78,12 @@ const Orders: FC = () => {
                 </tr>
             </thead>
             <tbody>
-            {
-                orders.map(order => 
-                    <Order key={ order.id } 
-                           order={ order } 
-                           isOpen={ order.id === orderId } 
-                           onClick={ () => (order.id === orderId ? setOrderId(null) : setOrderId(order.id)) } 
-                    /> )
+            { orders.map(order => 
+                        <Order key={ order.id } 
+                               order={ order } 
+                               isOpen={ order.id === orderId } 
+                               onClick={ () => (order.id === orderId ? setOrderId(null) : setOrderId(order.id)) } 
+                        /> )
             }
             </tbody>
         </Table>

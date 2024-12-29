@@ -12,7 +12,7 @@ interface IProps {
 }
 
 const PaginationApp: FC<IProps> = ({ dataPagination }) => {
-    const { loading } = useAppSelector(state => state.orderReducer);
+    const { orders, loading } = useAppSelector(state => state.orderReducer);
     const { page, totalPages, pageChanger } = dataPagination;
     const disabledButtonPrev: IFuncBoolean = (): boolean => {
         return page === 1;
@@ -27,11 +27,11 @@ const PaginationApp: FC<IProps> = ({ dataPagination }) => {
             <Pagination>
                 <Pagination.First
                     onClick={ () => pageChanger('&laquo;') }
-                    disabled={ loading || disabledButtonPrev() }
+                    disabled={ !orders.length || loading || disabledButtonPrev() }
                 />
                 <Pagination.Prev
                     onClick={ () => pageChanger('&lsaquo;') }
-                    disabled={ loading || disabledButtonPrev() }
+                    disabled={ !orders.length || loading || disabledButtonPrev() }
                 />
                 {
                     buttons.map(value => {
@@ -50,7 +50,7 @@ const PaginationApp: FC<IProps> = ({ dataPagination }) => {
                                 <Pagination.Item
                                     key={ value }
                                     onClick={ () => pageChanger(value.toString()) }
-                                    disabled={ loading }
+                                    disabled={ !orders.length || loading }
                                 >
                                     { value }
                                 </Pagination.Item>
@@ -60,11 +60,11 @@ const PaginationApp: FC<IProps> = ({ dataPagination }) => {
                 }
                 <Pagination.Next
                     onClick={ () => pageChanger('&rsaquo;') }
-                    disabled={ loading || disabledButtonNext() }
+                    disabled={ !orders.length || loading || disabledButtonNext() }
                 />
                 <Pagination.Last
                     onClick={ () => pageChanger('&raquo;') }
-                    disabled={ loading || disabledButtonNext() }
+                    disabled={ !orders.length || loading || disabledButtonNext() }
                 />
             </Pagination>
         </Container>
