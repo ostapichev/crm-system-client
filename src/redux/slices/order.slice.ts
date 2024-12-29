@@ -6,8 +6,8 @@ import { orderService } from '../../services';
 
 interface IState {
     orders: IOrder[];
-    page: number;
-    limit: number;
+    pageOrders: number;
+    ordersLimit: number;
     totalOrders: number;
     totalPages: number;
     sorting_by: string;
@@ -20,8 +20,8 @@ interface IState {
 
 const initialState: IState = {
     orders: [],
-    page: 1,
-    limit: 0,
+    pageOrders: 1,
+    ordersLimit: 0,
     totalOrders: 0,
     totalPages: 0,
     sorting_by: null,
@@ -50,7 +50,7 @@ const slice = createSlice({
     initialState,
     reducers: {
         setPage: (state, action) => {
-            state.page = action.payload;
+            state.pageOrders = action.payload;
         },
         setOrderByParams: state => {
             state.sorted = !state.sorted;
@@ -73,10 +73,10 @@ const slice = createSlice({
             const { data, page, limit, sorting_by, total } = action.payload;
             state.orders = data;
             state.totalOrders = total;
-            state.page = page;
-            state.limit = limit;
+            state.pageOrders = page;
+            state.ordersLimit = limit;
             state.sorting_by = sorting_by;
-            state.totalPages = Math.ceil(total / state.limit);
+            state.totalPages = Math.ceil(total / state.ordersLimit);
         })
         .addMatcher(isFulfilled(), state => {
             state.loading = false;

@@ -13,7 +13,7 @@ interface IProps {
 
 const PaginationApp: FC<IProps> = ({ dataPagination }) => {
     const { orders, loading } = useAppSelector(state => state.orderReducer);
-    const { page, totalPages, pageChanger } = dataPagination;
+    const { page, totalPages, isOpenComments, pageChanger } = dataPagination;
     const disabledButtonPrev: IFuncBoolean = (): boolean => {
         return page === 1;
     };
@@ -25,10 +25,13 @@ const PaginationApp: FC<IProps> = ({ dataPagination }) => {
     return (
         <Container className='d-flex justify-content-center mt-4'>
             <Pagination>
-                <Pagination.First
-                    onClick={ () => pageChanger('&laquo;') }
-                    disabled={ !orders.length || loading || disabledButtonPrev() }
-                />
+                {
+                    !isOpenComments &&
+                    <Pagination.First
+                        onClick={ () => pageChanger('&laquo;') }
+                        disabled={ !orders.length || loading || disabledButtonPrev() }
+                    />
+                }
                 <Pagination.Prev
                     onClick={ () => pageChanger('&lsaquo;') }
                     disabled={ !orders.length || loading || disabledButtonPrev() }
@@ -62,10 +65,13 @@ const PaginationApp: FC<IProps> = ({ dataPagination }) => {
                     onClick={ () => pageChanger('&rsaquo;') }
                     disabled={ !orders.length || loading || disabledButtonNext() }
                 />
-                <Pagination.Last
-                    onClick={ () => pageChanger('&raquo;') }
-                    disabled={ !orders.length || loading || disabledButtonNext() }
-                />
+                {
+                    !isOpenComments &&
+                    <Pagination.Last
+                        onClick={ () => pageChanger('&raquo;') }
+                        disabled={ !orders.length || loading || disabledButtonNext() }
+                    />
+                }
             </Pagination>
         </Container>
     );

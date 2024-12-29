@@ -1,12 +1,12 @@
 import { AxiosError } from "axios";
-import { createAsyncThunk, createSlice, isFulfilled, isPending, isRejectedWithValue } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, isFulfilled, isRejectedWithValue } from "@reduxjs/toolkit";
 
 import { commentService } from "../../services/comment.service";
 import { IComment, IErrorComment } from "../../interfaces";
 
 interface IState {
     commentTrigger: boolean;
-    pageSize: number;
+    commentsLimit: number;
     startShowComment: number;
     endShowComments: number;
     pageComments: number;
@@ -16,7 +16,7 @@ interface IState {
 
 const initialState: IState = {
     commentTrigger: false,
-    pageSize: 5,
+    commentsLimit: 5,
     startShowComment: 0,
     endShowComments: 5,
     pageComments: 1,
@@ -42,8 +42,8 @@ const slice = createSlice({
     reducers: {
         setPage: (state, action) => {
             state.pageComments = action.payload;
-            state.startShowComment = (state.pageComments - 1) * state.pageSize;
-            state.endShowComments = (state.pageComments - 1) * state.pageSize + state.pageSize;
+            state.startShowComment = (state.pageComments - 1) * state.commentsLimit;
+            state.endShowComments = (state.pageComments - 1) * state.commentsLimit + state.commentsLimit;
         },
         setDefaultPaginate: state => {
             state.startShowComment = 0;
@@ -52,10 +52,8 @@ const slice = createSlice({
         },
     },
     extraReducers: builder => builder
-        .addCase(create.fulfilled, state => {
-            state.commentTrigger = !state.commentTrigger;
-        })
         .addMatcher(isFulfilled(), state => {
+            state.commentTrigger = !state.commentTrigger;
             state.errorsComment = null;
         })
         .addMatcher(isRejectedWithValue(), (state, action) => {
