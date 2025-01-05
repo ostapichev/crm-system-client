@@ -3,6 +3,7 @@ export interface IErrorAuth {
 }
 
 export interface IErrorOrder {
+    group?: string[];
     email?: string[];
     name?: string[];
     surname?: string[];

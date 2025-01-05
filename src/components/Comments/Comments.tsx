@@ -11,11 +11,11 @@ import { IFuncValueString, IFuncVoid } from '../../types';
 
 interface IProps {
     order: IOrder;
-    handleClose: IFuncVoid;
+    handleCloseComments: IFuncVoid;
     showComments: boolean;
 }
 
-const Comments: FC<IProps> = ({ order, showComments, handleClose }) => {
+const Comments: FC<IProps> = ({ order, showComments, handleCloseComments }) => {
     const dispatch = useAppDispatch();
     const { comments } = order;
     const {
@@ -48,7 +48,7 @@ const Comments: FC<IProps> = ({ order, showComments, handleClose }) => {
     return (
         <Modal
             show={ showComments }
-            onHide={ handleClose }
+            onHide={ handleCloseComments }
             backdrop='static'
             keyboard={ false }
             size='xl'
@@ -80,7 +80,7 @@ const Comments: FC<IProps> = ({ order, showComments, handleClose }) => {
                 </Modal.Body>
             }
             <Modal.Footer>
-                <Button variant='secondary' onClick={ handleClose }>
+                <Button variant='secondary' onClick={ handleCloseComments }>
                     Close
                 </Button>
             </Modal.Footer>

@@ -7,6 +7,7 @@ import { IErrorGroup, IGroup } from "../../interfaces";
 interface IState {
     groups: IGroup[];
     groupTrigger: boolean;
+    groupCreate: string;
     vision: boolean;
     errorGroup: IErrorGroup;
 }
@@ -14,6 +15,7 @@ interface IState {
 const initialState: IState = {
     groups: [],
     groupTrigger: false,
+    groupCreate: null,
     vision: false,
     errorGroup: null
 };
@@ -47,14 +49,17 @@ const slice = createSlice({
     name: 'groupSlice',
     initialState,
     reducers: {
-        setVision: state => {
-            state.vision = !state.vision;
+        setVision: (state, action) => {
+            state.vision = action.payload;
             state.errorGroup = null;
         },
         setVisionDefault: state => {
             state.vision = false;
             state.errorGroup = null;
-        }
+        },
+        setGroupCreate: (state, action) => {
+            state.groupCreate = action.payload;
+        },
     },
     extraReducers: builder => builder
         .addCase(getAll.fulfilled, (state, action) => {

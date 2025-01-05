@@ -6,13 +6,15 @@ import { orderService } from '../../services';
 
 interface IState {
     orders: IOrder[];
+    orderUpdate: IOrder;
     pageOrders: number;
     ordersLimit: number;
     totalOrders: number;
     totalPages: number;
     sorting_by: string;
+    showOrderForm: boolean;
     sorted: boolean;
-    trigger: boolean;
+    orderTrigger: boolean;
     loading: boolean;
     paramsOrders: IParams;
     errorsOrder: IErrorOrder;
@@ -20,13 +22,15 @@ interface IState {
 
 const initialState: IState = {
     orders: [],
+    orderUpdate: null,
     pageOrders: 1,
     ordersLimit: 0,
     totalOrders: 0,
     totalPages: 0,
     sorting_by: null,
+    showOrderForm: false,
     sorted: true,
-    trigger: false,
+    orderTrigger: false,
     loading: false,
     paramsOrders: null,
     errorsOrder: null,
@@ -38,6 +42,18 @@ const getAll = createAsyncThunk<IQueryOrders<IOrder[]>, { params: IParams }>(
         try {
             const { data } = await orderService.getAll(params);
             return data;
+        } catch (e) {
+            const err = e as AxiosError;
+            return rejectWithValue(err.response.data);
+        }
+    }
+);
+
+const update = createAsyncThunk<void, { id: number, order: IOrder }>(
+    'orderSlice/update',
+    async ({ id, order }, { rejectWithValue }) => {
+        try {
+            await orderService.update(id, order)
         } catch (e) {
             const err = e as AxiosError;
             return rejectWithValue(err.response.data);
@@ -61,11 +77,19 @@ const slice = createSlice({
         setOrdersDefault: state => {
             state.orders = [];
         },
+        setOrderUpdate: (state, action) => {
+            state.orderUpdate = action.payload;
+            state.showOrderForm = true;
+            state.errorsOrder = null;
+        },
         setDefault: state => {
             state.sorting_by = null;
             state.sorted = true;
             state.paramsOrders = null;
             state.errorsOrder = null;
+        },
+        setCloseOrderForm: state => {
+            state.showOrderForm = false;
         },
     },
     extraReducers: builder => builder
@@ -77,6 +101,10 @@ const slice = createSlice({
             state.ordersLimit = limit;
             state.sorting_by = sorting_by;
             state.totalPages = Math.ceil(total / state.ordersLimit);
+        })
+        .addCase(update.fulfilled, state => {
+            state.orderUpdate = null;
+            state.orderTrigger = !state.orderTrigger;
         })
         .addMatcher(isFulfilled(), state => {
             state.loading = false;
@@ -96,6 +124,7 @@ const { actions, reducer: orderReducer } = slice;
 const orderActions = {
     ...actions,
     getAll,
+    update,
 };
 
 export {

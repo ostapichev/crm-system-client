@@ -5,12 +5,14 @@ const authValidator = Joi.object({
         .messages({
             'string.pattern.base': 'This field is must be email!',
             'string.required': "This field is required"
-        }).required(),
+        })
+        .required(),
     password: Joi.string()
         .messages({
             'string.pattern.base': 'This field is must be password!',
             'string.required': "This field is required"
-        }).required()
+        })
+        .required()
 });
 
 export {

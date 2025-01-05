@@ -23,7 +23,7 @@ const urls = {
     },
     ordersAPI: {
         getAllOrders: `${baseURL}${orders}`,
-        getById: (orderId: number): string => `${baseURL}${orders}/${orderId}`,
+        byId: (orderId: number): string => `${baseURL}${orders}/${orderId}`,
     },
     groupsAPI: {
         groups: `${baseURL}/groups`,

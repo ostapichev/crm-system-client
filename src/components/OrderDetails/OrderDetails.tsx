@@ -7,7 +7,7 @@ import { Comments } from '../Comments/Comments';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { IComment, IOrder } from '../../interfaces';
 import { IFuncVoid } from '../../types';
-import { commentActions } from '../../redux';
+import { commentActions, orderActions, orderActions2 } from '../../redux';
 import { dataInsert } from '../../utils';
 
 import css from './OrderDetails.module.css';
@@ -23,8 +23,11 @@ const OrderDetails: FC<IProps> = ({ order, isOpen }) => {
     const { msg, utm, comments } = order;
     const { pageComments, errorsComment } = useAppSelector(state => state.commentReducer);
     const lastComments: IComment[] = comments.slice(0, 3);
-    const handleClose: IFuncVoid = (): void => setShowCommnets(false);
-    const handleShow: IFuncVoid = (): void => {
+    const setUpdate: IFuncVoid = () => {
+        dispatch(orderActions.setOrderUpdate(order));
+    };
+    const handleCloseComments: IFuncVoid = (): void => setShowCommnets(false);
+    const handleShowComments: IFuncVoid = (): void => {
         setShowCommnets(true);
         if (pageComments !== 1) dispatch(commentActions.setPage(1));
     };
@@ -45,19 +48,19 @@ const OrderDetails: FC<IProps> = ({ order, isOpen }) => {
                                     <Badge pill bg='success' className='m-1'>utm</Badge>
                                     <strong>{ dataInsert(utm?.toString()) }</strong>
                                 </div>
-                                <Button variant='outline-primary' className='m-1 w-50'>edit</Button>
-                                {
-                                    errorsComment &&
-                                    <Alert variant='danger'>
-                                        { errorsComment?.comment }
-                                    </Alert>
-                                }
+                                <Button 
+                                    onClick={ setUpdate }
+                                    variant='outline-primary' 
+                                    className='m-1 w-50'
+                                >
+                                    edit
+                                </Button>
                             </div>
                             <div className='w-50'>
                                 <div className='text-start'>
                                     <h5>{ comments.length > 1 ? 'Comments:' : 'No comments' }</h5>
                                     <ListGroup
-                                        onClick={ () => handleShow() }
+                                        onClick={ () => handleShowComments() }
                                         className={ comments.length > 1 ? 'mt-2 mb-3 d-block' : 'd-none' }
                                     >
                                         <ListGroup.Item action variant='success'>
@@ -81,7 +84,7 @@ const OrderDetails: FC<IProps> = ({ order, isOpen }) => {
                         </div>
                         <Comments 
                             order={ order } 
-                            handleClose={ handleClose } 
+                            handleCloseComments={ handleCloseComments }
                             showComments={ showComments }  
                         />
                     </td>

@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { joiResolver } from '@hookform/resolvers/joi';
 
-import { Alert, Button, Form, Image, Modal } from 'react-bootstrap';
+import { Alert, Button, FloatingLabel, Form, Image, Modal } from 'react-bootstrap';
 
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { IAuth } from '../../interfaces';
@@ -42,36 +42,40 @@ const LoginForm: FC = () => {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body style={{ backgroundColor: 'aliceblue' }}>
-                    <Form.Group className='mb-3' controlId='formBasicEmail'>
-                        <Form.Label>Email address</Form.Label>
-                        <Form.Control
-                            type='email'
-                            placeholder='Enter email'
+                    <FloatingLabel
+                        controlId='floatingInput'
+                        label='Email'
+                        className='mb-3'
+                    >
+                        <Form.Control 
+                            type='email' 
+                            placeholder='name@example.com'
                             disabled={ loading }
-                            { ...register('email', { required: true }) }
+                            isInvalid={ !!errors.email }
+                            { ...register('email') }
                         />
                         {
                             errors.email &&
-                            <Alert key='danger' variant='danger' className='mt-3'>
+                            <Form.Control.Feedback type='invalid' tooltip>
                                 { errors.email.message }
-                            </Alert>
+                            </Form.Control.Feedback>
                         }
-                    </Form.Group>
-                    <Form.Group className='mb-3' controlId='formBasicPassword'>
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control
-                            type='password'
+                    </FloatingLabel>
+                    <FloatingLabel controlId='floatingPassword' label='Password'>
+                        <Form.Control 
+                            type='password' 
                             placeholder='Password'
                             disabled={ loading }
-                            { ...register('password', { required: true }) }
+                            isInvalid={ !!errors.password }
+                            { ...register('password') }
                         />
                         {
                             errors.password &&
-                            <Alert key='danger' variant='danger' className='mt-3'>
+                            <Form.Control.Feedback type='invalid' tooltip>
                                 { errors.password.message }
-                            </Alert>
+                            </Form.Control.Feedback>
                         }
-                    </Form.Group>
+                    </FloatingLabel>
                     {
                         error?.messages &&
                         <Alert key='danger' variant='danger' className='mt-3'>

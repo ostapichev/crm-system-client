@@ -57,7 +57,6 @@ const Orders: FC = () => {
         const params: IParams = JSON.parse(debouncedParamsString);
         dispatch(orderActions.setOrdersDefault());
         dispatch(orderActions.getAll({ params }));
-        dispatch(groupActions.getAll());
         setOrderId(null);
     }, [dispatch, debouncedParamsString]);
 

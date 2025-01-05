@@ -3,9 +3,9 @@ import { FC, Fragment } from 'react';
 import { DateFormat } from '../DateFormat/DateFormat';
 import { IGroup, IOrder } from '../../interfaces';
 import { useAppSelector } from '../../hooks';
+import { OrderDetails } from '../OrderDetails/OrderDetails';
 import { IFuncValueNumberString, IFuncVoid } from '../../types/func.type';
 import { dataInsert } from '../../utils';
-import { OrderDetails } from '../OrderDetails/OrderDetails';
 
 interface IProps {
     order: IOrder;
@@ -27,7 +27,7 @@ const Order: FC<IProps> = ({ order, onClick, isOpen }) => {
         course_type,
         status,
         sum,
-        already_paid,
+        alreadyPaid,
         created_at,
         group_id,
         manager,
@@ -52,12 +52,12 @@ const Order: FC<IProps> = ({ order, onClick, isOpen }) => {
                 <td>{ dataInsert(course_type?.toString()) }</td>
                 <td>{ dataInsert(status?.toString()) }</td>
                 <td>{ dataInsert(sum?.toString()) }</td>
-                <td>{ dataInsert(already_paid?.toString()) }</td>
+                <td>{ dataInsert(alreadyPaid?.toString()) }</td>
                 <td>{ <DateFormat originalDate={ created_at } /> }</td>
                 <td>{ getNameGroup(group_id) }</td>
                 <td>{ dataInsert(manager?.surname) }</td>
             </tr>
-            <OrderDetails order={ order } isOpen={ isOpen} />
+            <OrderDetails order={ order } isOpen={ isOpen } />
         </Fragment>
     );
 };
