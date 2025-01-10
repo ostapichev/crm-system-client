@@ -27,7 +27,7 @@ const OrderForm2: FC = () => {
         reset();
     };
     const addGroup: IFuncVoid = () => {
-        dispatch(groupActions.setVision(false));
+        dispatch(groupActions.setVision(true));
     };
     const handleGroup = (event: ChangeEvent<HTMLSelectElement>) => {
         dispatch(orderActions2.setOrderCreate(event.target.value));
@@ -86,7 +86,7 @@ const OrderForm2: FC = () => {
                         <button type="button" className={css.btn_group} onClick={addGroup}>Add&#160;group</button>
                     </label>
                     { errors.group_id && <div className={css.err_text}>{errors.group_id.message}</div> }
-                    { errorGroup?.name && <div className={css.err_text}>{errorGroup.name}</div> }
+                    { errorGroup?.messages && <div className={css.err_text}>{errorGroup.messages}</div> }
                     <label className='w-100'>
                         First&#160;name
                         <Form.Control

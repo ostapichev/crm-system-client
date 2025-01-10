@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { Button, ListGroup, Modal } from 'react-bootstrap';
+import { Button, Image, ListGroup, Modal } from 'react-bootstrap';
 
 import { Comment } from '../Comment/Comment';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -8,6 +8,8 @@ import { IComment, IOrder, IPagination } from '../../interfaces';
 import { PaginationApp } from '../PaginationApp/PaginationApp';
 import { commentActions } from '../../redux';
 import { IFuncValueString, IFuncVoid } from '../../types';
+
+import { okten_school_image } from '../../assets';
 
 interface IProps {
     order: IOrder;
@@ -55,12 +57,14 @@ const Comments: FC<IProps> = ({ order, showComments, handleCloseComments }) => {
             centered
             scrollable
         >
-            <Modal.Header closeButton>
-                <Modal.Title>Comments</Modal.Title>
+            <Modal.Header className='bg-info-subtle' closeButton>
+                <Modal.Title>
+                    <Image src={ okten_school_image } className='w-25' alt='okten-school' />
+                </Modal.Title>
             </Modal.Header>
-            <Modal.Body style={{ height: '300px' }}>
+            <Modal.Body style={{ backgroundColor: 'aliceblue', height: '300px' }}>
                 <ListGroup>
-                    <ListGroup.Item variant='info'>
+                    <ListGroup.Item variant='success'>
                         {
                             comments &&
                             paginateComments.map(comment =>
@@ -79,7 +83,7 @@ const Comments: FC<IProps> = ({ order, showComments, handleCloseComments }) => {
                     <PaginationApp dataPagination={ dataPagination } />
                 </Modal.Body>
             }
-            <Modal.Footer>
+            <Modal.Footer style={{ backgroundColor: 'aliceblue'}}>
                 <Button variant='secondary' onClick={ handleCloseComments }>
                     Close
                 </Button>

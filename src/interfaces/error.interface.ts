@@ -1,7 +1,3 @@
-export interface IErrorAuth {
-    messages?: string[];
-}
-
 export interface IErrorOrder {
     group?: string[];
     email?: string[];
@@ -13,8 +9,10 @@ export interface IErrorOrder {
     already_paid?: string[];
 }
 
-export interface IErrorGroup {
-    name?: string[];
+export interface IErrorResponse {
+    messages?: string[];
+    path?: string;
+    statusCode?: number;
 }
 
 export interface IErrorComment {

@@ -5,6 +5,7 @@ import { joiResolver } from '@hookform/resolvers/joi';
 
 import { Alert, Button, FloatingLabel, Form, Image, Modal } from 'react-bootstrap';
 
+import { FormControlFeedbackError } from '../FormControlFeedbackError/FormControlFeedbackError';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { IAuth } from '../../interfaces';
 import { authActions } from '../../redux';
@@ -21,7 +22,7 @@ const LoginForm: FC = () => {
         mode: 'all',
         resolver: joiResolver(authValidator),
     });
-    const login: SubmitHandler<IAuth> = async (user) => {
+    const login: SubmitHandler<IAuth> = async (user: IAuth): Promise<void> => {
         if (localStorage.getItem('accessToken' || 'refreshToken')) authService.deleteTokens();
         const { meta: { requestStatus } } = await dispatch(authActions.login(user));
         if (requestStatus === 'fulfilled') navigate('/orders');
@@ -54,12 +55,7 @@ const LoginForm: FC = () => {
                             isInvalid={ !!errors.email }
                             { ...register('email') }
                         />
-                        {
-                            errors.email &&
-                            <Form.Control.Feedback type='invalid' tooltip>
-                                { errors.email.message }
-                            </Form.Control.Feedback>
-                        }
+                        { errors.email && <FormControlFeedbackError error={ errors.email.message } />}
                     </FloatingLabel>
                     <FloatingLabel controlId='floatingPassword' label='Password'>
                         <Form.Control 
@@ -69,21 +65,14 @@ const LoginForm: FC = () => {
                             isInvalid={ !!errors.password }
                             { ...register('password') }
                         />
-                        {
-                            errors.password &&
-                            <Form.Control.Feedback type='invalid' tooltip>
-                                { errors.password.message }
-                            </Form.Control.Feedback>
-                        }
+                        { errors.password && <FormControlFeedbackError error={ errors.password.message } />}
                     </FloatingLabel>
-                    {
-                        error?.messages &&
-                        <Alert key='danger' variant='danger' className='mt-3'>
-                            { error?.messages }
-                        </Alert>
-                    }
                 </Modal.Body>
-                <Modal.Footer style={{ backgroundColor: 'aliceblue'}}>
+                <Modal.Footer style={{ backgroundColor: 'aliceblue' }}>
+                    { 
+                        error?.messages && 
+                        <Alert className='p-2' key='danger' variant='danger'>{ error?.messages }</Alert> 
+                    }
                     <Button variant='primary' type='submit' disabled={ !isValid || loading }>
                         { loading ? 'loading...' : 'login' }
                     </Button>

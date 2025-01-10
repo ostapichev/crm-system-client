@@ -1,5 +1,7 @@
 import Joi from "joi";
 
+import { CourseEnum, CourseFormatEnum, CourseTypeEnum, StatusEnum } from "../enums";
+
 const orderValidator = Joi.object({
     group_id: Joi.number()
         .messages({
@@ -7,16 +9,14 @@ const orderValidator = Joi.object({
         }),
     name: Joi.string()
         .messages({
-            'string.pattern.base': 'First letter uppercase min 2 max 20 ch',
-            'string.required': "This field is required"
+            'string.pattern.base': 'Name must be a string',
         }),
     surname: Joi.string()
-        .regex(/^[a-zA-Zа-яА-яёЁіІїЇ]{2,20}$/)
         .messages({
-            'string.pattern.base': 'First letter uppercase min 2 max 20 ch'
+            'string.pattern.base': 'Surname must be a string',
         }),
     email: Joi.string()
-        .email({minDomainSegments: 2, tlds: {allow: ['com', 'net']}})
+        .email({ minDomainSegments: 2, tlds: { allow: false }})
         .messages({
             'string.email': 'Email must have a domain only "com" and "net"'
         }),
@@ -33,7 +33,7 @@ const orderValidator = Joi.object({
             'number.base': 'Invalid age',
             'number.integer': 'Age must be an integer',
             'number.min': 'Age must be at least 16',
-            'number.max': 'Age cannot be more than 90'
+            'number.max': 'Age cann',
         }),
     sum: Joi.number()
         .integer()
@@ -45,7 +45,7 @@ const orderValidator = Joi.object({
             'number.min': 'Sum must be at least 1',
             'number.max': 'Sum cannot be more than 1000000'
         }),
-    already_paid: Joi.number()
+    alreadyPaid: Joi.number()
         .integer()
         .min(1)
         .max(1000000)
@@ -56,22 +56,28 @@ const orderValidator = Joi.object({
             'number.max': 'Already paid cannot be more than 1000000'
         }),
     course: Joi.string()
-        .valid('FS', 'QACX', 'JSCX', 'JCX', 'FE', 'PCX')
+        .valid(CourseEnum.FS, CourseEnum.QACX, CourseEnum.JSCX, CourseEnum.JCX, CourseEnum.FE, CourseEnum.PCX)
         .messages({
             'string.only': 'Invalid course selection'
         }),
     course_format: Joi.string()
-        .valid('static', 'online')
+        .valid(CourseFormatEnum.STATIC, CourseFormatEnum.ONLINE)
         .messages({
             'string.only': 'Invalid course format selection'
         }),
     course_type: Joi.string()
-        .valid('pro', 'minimal', 'premium', 'incubator', 'vip')
+        .valid(
+            CourseTypeEnum.PRO, 
+            CourseTypeEnum.MINIMAL, 
+            CourseTypeEnum.PREMIUM, 
+            CourseTypeEnum.INCUBATOR, 
+            CourseTypeEnum.VIP
+        )
         .messages({
             'string.only': 'Invalid course type selection'
         }),
     status: Joi.string()
-        .valid('new', 'in_work', 'new_order', 'agree', 'disagree', 'dubbing')
+        .valid(StatusEnum.NEW, StatusEnum.IN_WORK, StatusEnum.AGREE, StatusEnum.DISAGREE, StatusEnum.DUBBING)
         .messages({
             'string.only': 'Invalid status selection'
         })

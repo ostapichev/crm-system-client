@@ -8,7 +8,7 @@
     margin: 10px;
 }
 
-.btn_group {
+.Btn_group {
     background-color: #4CAF50;
     border-radius: 5px;
     border: none;
@@ -26,8 +26,12 @@
     width: 45%;
 }
 
-.group_form {
+.Group_form {
     width: 45%;
+    position: absolute;
+    bottom: 74px;
+    left: 28px;
+    z-index: 1;
 }
 
 .input_paid {

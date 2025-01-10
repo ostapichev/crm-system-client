@@ -2,14 +2,14 @@ import { AxiosError } from "axios";
 import { createAsyncThunk, createSlice, isRejectedWithValue } from "@reduxjs/toolkit";
 
 import { groupService } from "../../services";
-import { IErrorGroup, IGroup } from "../../interfaces";
+import { IErrorResponse, IGroup } from "../../interfaces";
 
 interface IState {
     groups: IGroup[];
     groupTrigger: boolean;
     groupCreate: string;
     vision: boolean;
-    errorGroup: IErrorGroup;
+    errorGroup: IErrorResponse;
 }
 
 const initialState: IState = {
@@ -72,6 +72,7 @@ const slice = createSlice({
         })
         .addMatcher(isRejectedWithValue(), (state, action) => {
             state.errorGroup = action.payload;
+            console.log(state.errorGroup);
         })
 });
 

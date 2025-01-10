@@ -16,7 +16,7 @@ import css from './Orders.module.css';
 
 const Orders: FC = () => {
     const dispatch = useAppDispatch();
-    const { orders, sorted, loading, ordersLimit } = useAppSelector(state => state.orderReducer);
+    const { orders, sorted, loading, ordersLimit, orderTrigger } = useAppSelector(state => state.orderReducer);
     const [orderId, setOrderId] = useState<number>(null);
     const [query, setQuery] = useSearchParams();
     const [debouncedParams] = useDebounce<IParams>(
@@ -58,7 +58,7 @@ const Orders: FC = () => {
         dispatch(orderActions.setOrdersDefault());
         dispatch(orderActions.getAll({ params }));
         setOrderId(null);
-    }, [dispatch, debouncedParamsString]);
+    }, [dispatch, debouncedParamsString, orderTrigger]);
 
     return (
         <Table className='text-center' size='sm' borderless striped hover>

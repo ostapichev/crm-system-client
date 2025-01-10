@@ -12,7 +12,7 @@ class OrderService {
     };
 
     public update(id: number, order: IOrder): IRes<IOrder> {
-        return axiosService.patch(urls.ordersAPI.byId(id), { order });
+        return axiosService.patch(urls.ordersAPI.byId(id), order);
     };
 };
 

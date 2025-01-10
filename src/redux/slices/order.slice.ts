@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios';
 import { createAsyncThunk, createSlice, isFulfilled, isPending, isRejectedWithValue } from '@reduxjs/toolkit';
 
-import { IErrorOrder, IOrder, IParams, IQueryOrders } from '../../interfaces';
+import { IErrorResponse, IOrder, IParams, IQueryOrders } from '../../interfaces';
 import { orderService } from '../../services';
 
 interface IState {
@@ -17,7 +17,7 @@ interface IState {
     orderTrigger: boolean;
     loading: boolean;
     paramsOrders: IParams;
-    errorsOrder: IErrorOrder;
+    errorsOrder: IErrorResponse;
 }
 
 const initialState: IState = {
@@ -104,6 +104,7 @@ const slice = createSlice({
         })
         .addCase(update.fulfilled, state => {
             state.orderUpdate = null;
+            state.showOrderForm = false;
             state.orderTrigger = !state.orderTrigger;
         })
         .addMatcher(isFulfilled(), state => {
