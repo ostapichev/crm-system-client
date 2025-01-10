@@ -1,13 +1,12 @@
 import { FC } from 'react';
 
-import { Footer, OrderForm3, OrderForm2, Orders } from '../../components';
-import { OrderForm } from '../../components/OrderForm/OrderForm';
+import { Footer, OrderForm, Orders } from '../../components';
 
 const OrdersPage: FC = () => {
     return (
         <div>
             <Orders />
-            <OrderForm3 />
+            <OrderForm />
             <Footer />
         </div>
     );

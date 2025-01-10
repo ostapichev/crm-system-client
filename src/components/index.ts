@@ -13,8 +13,6 @@ export * from './NotContent/NotContent';
 export * from './Order/Order';
 export * from './OrderDetails/OrderDetails';
 export * from './OrderForm/OrderForm';
-export * from './OrderForm3/OrderForm3';
-export * from './OrderForm2/OrderForm2';
 export * from './Orders/Orders';
 export * from './OrderPlaceholder/OrderPlaceholder';
 export * from './PaginationApp/PaginationApp';

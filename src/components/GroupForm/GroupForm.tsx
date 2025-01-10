@@ -44,7 +44,6 @@ const GroupForm: FC = () => {
                 />
                 { !errors.name && <FormControlFeedbackGood /> }
                 { errors.name && <FormControlFeedbackError error={ errors.name.message } /> }
-                { errorGroup?.messages && <FormControlFeedbackError error={ errorGroup?.messages } /> }
                 <div className='d-flex'>
                     <button
                         type="submit"
