@@ -1,0 +1,19 @@
+.Group_form {
+    left: 28px;
+    position: absolute;
+    top: 85px;
+    width: 45%;
+    z-index: 3;
+}
+
+.Button_group {
+    background-color: #4CAF50;
+    border-radius: 5px;
+    border: none;
+    color: snow;
+    font: 8pt Georgia, serif;
+    position: absolute;
+    top: 58px;
+    width: 100%;
+    z-index: 2;
+}

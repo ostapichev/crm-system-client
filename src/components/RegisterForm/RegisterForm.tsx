@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { Button, Form, Image, Modal } from 'react-bootstrap';
+import { Button, FloatingLabel, Form, Image, Modal } from 'react-bootstrap';
 
 import { okten_school_image } from '../../assets';
 
@@ -14,14 +14,18 @@ const RegisterForm: FC = () => {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body style={{ backgroundColor: 'aliceblue'}}>
-                    <Form.Group className='mb-3' controlId='formBasicPassword'>
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control type='password' placeholder='Password' />
-                    </Form.Group>
-                    <Form.Group className='mb-3' controlId='formBasicPassword'>
-                        <Form.Label>Confirm password</Form.Label>
-                        <Form.Control type='password' placeholder='Password' />
-                    </Form.Group>
+                    <FloatingLabel controlId='floatingPassword' label='Password' className='mb-3'>
+                        <Form.Control
+                            type='password'
+                            placeholder='Password'
+                        />
+                    </FloatingLabel>
+                    <FloatingLabel controlId='floatingPassword' label='Confirm password'>
+                        <Form.Control
+                            type='password'
+                            placeholder='Confirm password'
+                        />
+                    </FloatingLabel>
                 </Modal.Body>
                 <Modal.Footer style={{ backgroundColor: 'aliceblue' }}>
                     <Button variant='primary' type='submit'>
