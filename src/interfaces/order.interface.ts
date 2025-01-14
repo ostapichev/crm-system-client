@@ -1,7 +1,9 @@
+import { IComment } from './comment.interface';
 import { CourseEnum, CourseFormatEnum, CourseTypeEnum, StatusEnum } from '../enums';
+import { IUser } from './user.interface';
 
 export interface IOrder {
-    id: number;
+    id?: number;
     name?: string;
     surname?: string;
     email?: string;
@@ -12,6 +14,11 @@ export interface IOrder {
     course_type?: CourseTypeEnum;
     status?: StatusEnum;
     sum?: number;
-    already_paid?: number;
-    created_at: string;
+    alreadyPaid?: number;
+    created_at?: string;
+    manager?: IUser;
+    group_id?: number;
+    msg?: string;
+    utm?: string;
+    comments?: IComment[];
 }

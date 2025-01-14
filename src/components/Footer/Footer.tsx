@@ -10,7 +10,7 @@ import { IFuncNumber } from '../../types';
 
 const Footer: FC = () => {
     const [, setQuery] = useSearchParams();
-    const { page, limit, totalPages, totalOrders } = useAppSelector(state => state.orderReducer);
+    const { pageOrders, ordersLimit, totalPages, totalOrders } = useAppSelector(state => state.orderReducer);
     const pageChanger = useCallback((value: string): void => {
         setQuery(prev => {
             const newPage: number = value === '&raquo;' || value === ' ...'
@@ -36,13 +36,13 @@ const Footer: FC = () => {
         });
     }, [setQuery, totalPages]);
     const getPage: IFuncNumber = (): number => {
-        return Math.ceil(totalOrders / limit);
+        return Math.ceil(totalOrders / ordersLimit);
     };
     const dataPagination: IPagination = {
         totalPages,
-        page: page >= totalPages ? getPage() : page,
+        page: pageOrders >= totalPages ? getPage() : pageOrders,
         siblings: 2,
-        limit,
+        limit: ordersLimit,
         pageChanger,
     };
 

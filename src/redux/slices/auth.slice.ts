@@ -2,13 +2,13 @@ import { AxiosError } from 'axios';
 import { createAsyncThunk, createSlice, isFulfilled, isPending, isRejectedWithValue } from '@reduxjs/toolkit';
 
 import { authService } from '../../services';
-import { IAuth, IErrorAuth, IUser } from '../../interfaces';
+import { IAuth, IErrorResponse, IUser } from '../../interfaces';
 
 interface IState {
     me: IUser;
     loading: boolean;
     authTrigger: boolean;
-    error?: IErrorAuth;
+    error?: IErrorResponse;
 }
 
 const initialState: IState = {
@@ -78,7 +78,7 @@ const slice = createSlice({
             state.error = null;
         })
         .addMatcher(isRejectedWithValue(), (state, actions) => {
-            state.error = actions.payload as IErrorAuth;
+            state.error = actions.payload as IErrorResponse;
             state.loading = false;
         })
 });

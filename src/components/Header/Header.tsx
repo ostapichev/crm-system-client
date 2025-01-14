@@ -6,7 +6,7 @@ import { Badge, Button, Container, Image, Navbar, Stack } from 'react-bootstrap'
 import { oktenURL } from '../../constants';
 import { UserRoleEnum } from '../../enums';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { authActions } from '../../redux';
+import { authActions, groupActions } from '../../redux';
 import { authService } from '../../services';
 import { IFuncVoid } from '../../types';
 
@@ -20,6 +20,7 @@ const Header: FC = () => {
     const [hoverAdmin, setHoverAdmin] = useState<boolean>(false);
     const [hoverHome, setHoverHome] = useState<boolean>(false);
     const { me } = useAppSelector(state => state.authReducer);
+    const { groupTrigger } = useAppSelector(state => state.groupReducer);
     const logout: IFuncVoid = useCallback( async () => {
         const { meta: { requestStatus } } = await dispatch(authActions.logout());
         if (requestStatus === 'fulfilled') navigate('/login');
@@ -42,6 +43,9 @@ const Header: FC = () => {
             clearTimeout(timeoutId);
         };
     }, [logout, navigate]);
+    useEffect(() => {
+        dispatch(groupActions.getAll());
+    }, [dispatch, groupTrigger]);
     useEffect(() => {
         if (!me && authService.getAccessToken()) {
             dispatch(authActions.me());

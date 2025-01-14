@@ -1,18 +1,20 @@
-import { FC } from 'react';
-
-import { Placeholder } from 'react-bootstrap';
+import { FC, Fragment } from 'react';
 
 import { DateFormat } from '../DateFormat/DateFormat';
+import { IGroup, IOrder } from '../../interfaces';
 import { useAppSelector } from '../../hooks';
-import { IOrder } from '../../interfaces';
+//import { OrderDetails } from '../OrderDetails/OrderDetails';
+import { IFuncValueNumberString, IFuncVoid } from "../../types";
 import { dataInsert } from '../../utils';
 
 interface IProps {
     order: IOrder;
+    onClick: IFuncVoid;
+    isOpen: boolean;
 }
 
-const Order: FC<IProps> = ({ order }) => {
-    const { loading } = useAppSelector(state => state.orderReducer);
+const Order: FC<IProps> = ({ order, onClick, isOpen }) => {
+    const { groups } = useAppSelector(state => state.groupReducer);
     const {
         id,
         name,
@@ -25,156 +27,38 @@ const Order: FC<IProps> = ({ order }) => {
         course_type,
         status,
         sum,
-        already_paid,
+        alreadyPaid,
         created_at,
+        group_id,
+        manager,
     } = order;
+    const getNameGroup: IFuncValueNumberString = (group_id: number | null): string => {
+        const group: IGroup = groups.find(group => group.id === group_id);
+        if (group) return dataInsert(group.name);
+        return 'no group';
+    };
 
     return (
-        <tr>
-            <td>
-                {
-                    loading
-                        ?
-                        <Placeholder as="p" animation="glow">
-                            <Placeholder xs={6} />
-                        </Placeholder>
-                        :
-                        dataInsert(id.toString())
-                }
-            </td>
-            <td>
-                {
-                    loading
-                        ?
-                        <Placeholder as="p" animation="glow">
-                            <Placeholder xs={12} />
-                        </Placeholder>
-                        :
-                        dataInsert(name)
-                }
-            </td>
-            <td>
-                {
-                    loading
-                        ?
-                        <Placeholder as="p" animation="glow">
-                            <Placeholder xs={10} />
-                        </Placeholder>
-                        :
-                        dataInsert(surname)
-                }
-            </td>
-            <td>
-                {
-                    loading
-                        ?
-                        <Placeholder as="p" animation="glow">
-                            <Placeholder xs={12} />
-                        </Placeholder>
-                        :
-                        dataInsert(email)
-                }
-            </td>
-            <td>
-                {
-                    loading
-                        ?
-                        <Placeholder as="p" animation="glow">
-                            <Placeholder xs={10} />
-                        </Placeholder>
-                        :
-                        dataInsert(phone)
-                }
-            </td>
-            <td>
-                {
-                    loading
-                        ?
-                        <Placeholder as="p" animation="glow">
-                            <Placeholder xs={6} />
-                        </Placeholder>
-                        :
-                        dataInsert(age?.toString())
-                }
-            </td>
-            <td>
-                {
-                    loading
-                        ?
-                        <Placeholder as="p" animation="glow">
-                            <Placeholder xs={8} />
-                        </Placeholder>
-                        :
-                        dataInsert(course?.toString())
-                }
-            </td>
-            <td>
-                {
-                    loading
-                        ?
-                        <Placeholder as="p" animation="glow">
-                            <Placeholder xs={8} />
-                        </Placeholder>
-                        :
-                        dataInsert(course_format?.toString())
-                }
-            </td>
-            <td>
-                {
-                    loading
-                        ?
-                        <Placeholder as="p" animation="glow">
-                            <Placeholder xs={8} />
-                        </Placeholder>
-                        :
-                        dataInsert(course_type?.toString())
-                }
-            </td>
-            <td>
-                {
-                    loading
-                        ?
-                        <Placeholder as="p" animation="glow">
-                            <Placeholder xs={12} />
-                        </Placeholder>
-                        :
-                        dataInsert(status?.toString())
-                }
-            </td>
-            <td>
-                {
-                    loading
-                        ?
-                        <Placeholder as="p" animation="glow">
-                            <Placeholder xs={6} />
-                        </Placeholder>
-                        :
-                        dataInsert(sum?.toString())
-                }
-            </td>
-            <td>
-                {
-                    loading
-                        ?
-                        <Placeholder as="p" animation="glow">
-                            <Placeholder xs={6} />
-                        </Placeholder>
-                        :
-                        dataInsert(already_paid?.toString())
-                }
-            </td>
-            <td>
-                {
-                    loading
-                        ?
-                        <Placeholder as="p" animation="glow">
-                            <Placeholder xs={10} />
-                        </Placeholder>
-                        :
-                        <DateFormat originalDate={ created_at } />
-                }
-            </td>
-        </tr>
+        <Fragment>
+            <tr onClick={ () => onClick() }>
+                <td>{ dataInsert( typeof id === 'string' ? id : id.toString()) }</td>
+                <td>{ dataInsert(name) }</td>
+                <td>{ dataInsert(surname) }</td>
+                <td>{ dataInsert(email) }</td>
+                <td>{ dataInsert(phone) }</td>
+                <td>{ dataInsert(age?.toString()) }</td>
+                <td>{ dataInsert(course?.toString()) }</td>
+                <td>{ dataInsert(course_format?.toString()) }</td>
+                <td>{ dataInsert(course_type?.toString()) }</td>
+                <td>{ dataInsert(status?.toString()) }</td>
+                <td>{ dataInsert(sum?.toString()) }</td>
+                <td>{ dataInsert(alreadyPaid?.toString()) }</td>
+                <td>{ <DateFormat originalDate={ created_at } /> }</td>
+                <td>{ getNameGroup(group_id) }</td>
+                <td>{ dataInsert(manager?.surname) }</td>
+            </tr>
+
+        </Fragment>
     );
 };
 

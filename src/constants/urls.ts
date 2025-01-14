@@ -3,6 +3,7 @@ const baseURL = 'http://localhost:3500';
 const auth = '/auth';
 const orders = '/orders';
 const groups = '/groups';
+const comments = '/comments';
 const admin = '/admin';
 
 const urls = {
@@ -22,6 +23,9 @@ const urls = {
     ordersAPI: {
         getAllOrders: `${baseURL}${orders}`,
         getById: (id: number): string => `${baseURL}${orders}/${id}`,
+    },
+    commentsAPI: {
+        comments: (orderId: number): string => `${baseURL}${orders}${comments}/${orderId}`,
     },
     groupsAPI: {
         groups: `${baseURL}${groups}`,

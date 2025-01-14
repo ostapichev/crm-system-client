@@ -3,8 +3,9 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { joiResolver } from '@hookform/resolvers/joi';
 
-import { Alert, Button, Form, Image, Modal } from 'react-bootstrap';
+import { Alert, Button, FloatingLabel, Form, Image, Modal } from 'react-bootstrap';
 
+import { FormControlFeedbackError } from '../FormControlFeedbackError/FormControlFeedbackError';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { IAuth } from '../../interfaces';
 import { authActions } from '../../redux';
@@ -21,7 +22,7 @@ const LoginForm: FC = () => {
         mode: 'all',
         resolver: joiResolver(authValidator),
     });
-    const login: SubmitHandler<IAuth> = async (user) => {
+    const login: SubmitHandler<IAuth> = async (user: IAuth): Promise<void> => {
         if (localStorage.getItem('accessToken' || 'refreshToken')) authService.deleteTokens();
         const { meta: { requestStatus } } = await dispatch(authActions.login(user));
         if (requestStatus === 'fulfilled') navigate('/orders');
@@ -42,44 +43,36 @@ const LoginForm: FC = () => {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body style={{ backgroundColor: 'aliceblue' }}>
-                    <Form.Group className='mb-3' controlId='formBasicEmail'>
-                        <Form.Label>Email address</Form.Label>
+                    <FloatingLabel
+                        controlId='floatingInput'
+                        label='Email'
+                        className='mb-3'
+                    >
                         <Form.Control
                             type='email'
-                            placeholder='Enter email'
+                            placeholder='name@example.com'
                             disabled={ loading }
-                            { ...register('email', { required: true }) }
+                            isInvalid={ !!errors.email }
+                            { ...register('email') }
                         />
-                        {
-                            errors.email &&
-                            <Alert key='danger' variant='danger' className='mt-3'>
-                                { errors.email.message }
-                            </Alert>
-                        }
-                    </Form.Group>
-                    <Form.Group className='mb-3' controlId='formBasicPassword'>
-                        <Form.Label>Password</Form.Label>
+                        { errors.email && <FormControlFeedbackError error={ errors.email.message } /> }
+                    </FloatingLabel>
+                    <FloatingLabel controlId='floatingPassword' label='Password'>
                         <Form.Control
                             type='password'
                             placeholder='Password'
                             disabled={ loading }
-                            { ...register('password', { required: true }) }
+                            isInvalid={ !!errors.password }
+                            { ...register('password') }
                         />
-                        {
-                            errors.password &&
-                            <Alert key='danger' variant='danger' className='mt-3'>
-                                { errors.password.message }
-                            </Alert>
-                        }
-                    </Form.Group>
+                        { errors.password && <FormControlFeedbackError error={ errors.password.message } />}
+                    </FloatingLabel>
+                </Modal.Body>
+                <Modal.Footer style={{ backgroundColor: 'aliceblue' }}>
                     {
                         error?.messages &&
-                        <Alert key='danger' variant='danger' className='mt-3'>
-                            { error?.messages }
-                        </Alert>
+                        <Alert className='p-2' key='danger' variant='danger'>{ error?.messages }</Alert>
                     }
-                </Modal.Body>
-                <Modal.Footer style={{ backgroundColor: 'aliceblue'}}>
                     <Button variant='primary' type='submit' disabled={ !isValid || loading }>
                         { loading ? 'loading...' : 'login' }
                     </Button>
