@@ -1,8 +1,8 @@
 import { AxiosError } from "axios";
-import { createAsyncThunk, createSlice, isFulfilled, isRejectedWithValue } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, isFulfilled, isPending, isRejectedWithValue } from "@reduxjs/toolkit";
 
 import { commentService } from "../../services/comment.service";
-import { IComment, IErrorComment } from "../../interfaces";
+import { IComment, IErrorResponse } from "../../interfaces";
 
 interface IState {
     commentTrigger: boolean;
@@ -11,7 +11,8 @@ interface IState {
     endShowComments: number;
     pageComments: number;
     totalPageComments: number;
-    errorsComment?: IErrorComment;
+    loading: boolean;
+    errorsComment?: IErrorResponse;
 }
 
 const initialState: IState = {
@@ -21,6 +22,7 @@ const initialState: IState = {
     endShowComments: 5,
     pageComments: 1,
     totalPageComments: 0,
+    loading: false,
     errorsComment: null
 };
 
@@ -28,7 +30,7 @@ const create = createAsyncThunk<void, {order_id: number, comment: IComment}>(
     'commentSlice/create',
     async ({ order_id, comment }, { rejectWithValue }) => {
         try {
-            await commentService.create(order_id, comment);
+            await commentService.addComment(order_id, comment);
         } catch (e) {
             const err = e as AxiosError;
             return rejectWithValue(err.response.data);
@@ -45,15 +47,18 @@ const slice = createSlice({
             state.startShowComment = (state.pageComments - 1) * state.commentsLimit;
             state.endShowComments = (state.pageComments - 1) * state.commentsLimit + state.commentsLimit;
         },
-        setDefaultPaginate: state => {
-            state.startShowComment = 0;
-            state.endShowComments = 5;
-            state.pageComments = 1;
-        },
     },
     extraReducers: builder => builder
-        .addMatcher(isFulfilled(), state => {
+        .addCase(create.fulfilled, state => {
             state.commentTrigger = !state.commentTrigger;
+            state.errorsComment = null;
+        })
+        .addMatcher(isFulfilled(), state => {
+            state.loading = false;
+            state.errorsComment = null;
+        })
+        .addMatcher(isPending(), state => {
+            state.loading = true;
             state.errorsComment = null;
         })
         .addMatcher(isRejectedWithValue(), (state, action) => {

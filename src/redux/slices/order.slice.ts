@@ -6,6 +6,7 @@ import { orderService } from '../../services';
 
 interface IState {
     orders: IOrder[];
+    orderId: number;
     orderUpdate: IOrder;
     pageOrders: number;
     ordersLimit: number;
@@ -23,6 +24,7 @@ interface IState {
 const initialState: IState = {
     orders: [],
     orderUpdate: null,
+    orderId: null,
     pageOrders: 1,
     ordersLimit: 0,
     totalOrders: 0,
@@ -91,6 +93,9 @@ const slice = createSlice({
         setCloseOrderForm: state => {
             state.showOrderForm = false;
         },
+        setOrderId: (state, action) => {
+            state.orderId = action.payload;
+        }
     },
     extraReducers: builder => builder
         .addCase(getAll.fulfilled, (state, action) => {

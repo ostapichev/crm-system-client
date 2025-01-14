@@ -3,6 +3,7 @@ const baseURL = 'http://localhost:3500';
 const auth = '/auth';
 const orders = '/orders';
 const admin = '/admin';
+const comments = '/comments';
 
 const urls = {
     adminAPI: {
@@ -19,7 +20,7 @@ const urls = {
         logout: `${baseURL}${auth}/sign-out`,
     },
     commentsAPI: {
-        create: (orderId: number) => `${baseURL}${orders}/${orderId}`,
+        comments: (orderId: number): string => `${baseURL}${orders}${comments}/${orderId}`,
     },
     ordersAPI: {
         getAllOrders: `${baseURL}${orders}`,

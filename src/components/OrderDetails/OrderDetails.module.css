@@ -1,6 +1,7 @@
 .Details {
     background-color: snow;
     border-bottom: 1px solid black;
+    cursor: default;
     display: flex;
     justify-content: space-between;
 }

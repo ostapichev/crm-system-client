@@ -8,7 +8,7 @@ import { xsValues } from '../../constants';
 import { IParams } from '../../interfaces';
 import { IFuncVoid, ISortingReverse } from '../../types';
 import { Order } from '../Order/Order';
-import { groupActions, orderActions } from '../../redux';
+import { orderActions } from '../../redux';
 import { OrderPlaceholder } from '../OrderPlaceholder/OrderPlaceholder';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 
@@ -17,6 +17,7 @@ import css from './Orders.module.css';
 const Orders: FC = () => {
     const dispatch = useAppDispatch();
     const { orders, sorted, loading, ordersLimit, orderTrigger } = useAppSelector(state => state.orderReducer);
+    const { commentTrigger } = useAppSelector(state => state.commentReducer);
     const [orderId, setOrderId] = useState<number>(null);
     const [query, setQuery] = useSearchParams();
     const [debouncedParams] = useDebounce<IParams>(
@@ -52,13 +53,13 @@ const Orders: FC = () => {
     useEffect(() => {
         dispatch(orderActions.setPage(+query.get('page')));
         dispatch(orderActions.setSorting(query.get('sorting')));
+        setOrderId(null);
     }, [dispatch, query]);
     useEffect(() => {
         const params: IParams = JSON.parse(debouncedParamsString);
         dispatch(orderActions.setOrdersDefault());
         dispatch(orderActions.getAll({ params }));
-        setOrderId(null);
-    }, [dispatch, debouncedParamsString, orderTrigger]);
+    }, [dispatch, debouncedParamsString, orderTrigger, commentTrigger]);
 
     return (
         <Table className='text-center' size='sm' borderless striped hover>

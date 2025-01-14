@@ -1,8 +1,9 @@
 import { FC, Fragment, useState } from 'react';
 
-import { Alert, Badge, Button, Form, ListGroup, Stack } from 'react-bootstrap';
+import { Alert, Badge, Button, ListGroup } from 'react-bootstrap';
 
 import { Comment } from '../Comment/Comment';
+import { CommentForm } from '../CommentForm/CommentForm';
 import { Comments } from '../Comments/Comments';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { IComment, IOrder } from '../../interfaces';
@@ -19,7 +20,7 @@ interface IProps {
 
 const OrderDetails: FC<IProps> = ({ order, isOpen }) => {
     const dispatch = useAppDispatch();
-    const [showComments, setShowCommnets] = useState<boolean>(false);
+    const [showComments, setShowComments] = useState<boolean>(false);
     const { msg, utm, comments, manager } = order;
     const { me } = useAppSelector(state => state.authReducer);
     const { pageComments, errorsComment } = useAppSelector(state => state.commentReducer);
@@ -27,12 +28,12 @@ const OrderDetails: FC<IProps> = ({ order, isOpen }) => {
     const setUpdate: IFuncVoid = () => {
         dispatch(orderActions.setOrderUpdate(order));
     };
-    const handleCloseComments: IFuncVoid = (): void => setShowCommnets(false);
+    const handleCloseComments: IFuncVoid = (): void => setShowComments(false);
     const handleShowComments: IFuncVoid = (): void => {
-        setShowCommnets(true);
+        setShowComments(true);
         if (pageComments !== 1) dispatch(commentActions.setPage(1));
     };
-    const isOwner: boolean = order.manager && order.manager?.id !== me?.id;
+    const isOwner: boolean = manager && manager?.id !== me?.id;
     
     return (
         <Fragment>
@@ -66,17 +67,23 @@ const OrderDetails: FC<IProps> = ({ order, isOpen }) => {
                                         belongs&#160;to&#160;another&#160;manager&#46;
                                     </Alert>
                                 }
+                                {
+                                    errorsComment &&
+                                    <Alert key='danger' variant='danger'>
+                                        { errorsComment.messages }
+                                    </Alert>
+                                }
                             </div>
                             <div className='w-50'>
                                 <div className='text-start'>
-                                    <h5>{ comments.length > 1 ? 'Comments:' : 'No comments' }</h5>
+                                    <h5>{ comments.length ? 'Comments:' : 'No comments' }</h5>
                                     <ListGroup
                                         onClick={ () => handleShowComments() }
-                                        className={ comments.length > 1 ? 'mt-2 mb-3 d-block' : 'd-none' }
+                                        className={ comments.length ? 'mt-2 mb-3 d-block' : 'd-none' }
                                     >
                                         <ListGroup.Item action variant='success'>
                                             {
-                                                comments &&
+                                                comments.length &&
                                                 lastComments.map(comment => 
                                                     <Comment
                                                         key={ comment.id }
@@ -87,10 +94,7 @@ const OrderDetails: FC<IProps> = ({ order, isOpen }) => {
                                         </ListGroup.Item>
                                     </ListGroup>
                                 </div>
-                                <Stack direction='horizontal' gap={1} className='w-50 mb-2'>
-                                    <Form.Control className='me-auto' placeholder='Add comment' />
-                                    <Button className={ css.Button } disabled={ isOwner } variant='primary'>add</Button>
-                                </Stack>
+                                <CommentForm order_id={ order.id } isOwner={ isOwner } />
                             </div>
                         </div>
                         <Comments 

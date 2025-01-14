@@ -55,7 +55,7 @@ const LoginForm: FC = () => {
                             isInvalid={ !!errors.email }
                             { ...register('email') }
                         />
-                        { errors.email && <FormControlFeedbackError error={ errors.email.message } />}
+                        { errors.email && <FormControlFeedbackError error={ errors.email.message } /> }
                     </FloatingLabel>
                     <FloatingLabel controlId='floatingPassword' label='Password'>
                         <Form.Control 
