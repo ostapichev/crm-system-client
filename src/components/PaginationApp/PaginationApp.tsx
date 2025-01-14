@@ -12,8 +12,8 @@ interface IProps {
 }
 
 const PaginationApp: FC<IProps> = ({ dataPagination }) => {
-    const { loading } = useAppSelector(state => state.orderReducer);
-    const { page, totalPages, pageChanger } = dataPagination;
+    const { orders, loading } = useAppSelector(state => state.orderReducer);
+    const { page, totalPages, isOpenComments, pageChanger } = dataPagination;
     const disabledButtonPrev: IFuncBoolean = (): boolean => {
         return page === 1;
     };
@@ -23,15 +23,18 @@ const PaginationApp: FC<IProps> = ({ dataPagination }) => {
     let buttons: IPaginateButtons = returnPaginationRange(dataPagination);
 
     return (
-        <Container className='d-flex justify-content-center mt-4'>
+        <Container className='d-flex justify-content-center mt-2'>
             <Pagination>
-                <Pagination.First
-                    onClick={ () => pageChanger('&laquo;') }
-                    disabled={ loading || disabledButtonPrev() }
-                />
+                {
+                    !isOpenComments &&
+                    <Pagination.First
+                        onClick={ () => pageChanger('&laquo;') }
+                        disabled={ !orders.length || loading || disabledButtonPrev() }
+                    />
+                }
                 <Pagination.Prev
                     onClick={ () => pageChanger('&lsaquo;') }
-                    disabled={ loading || disabledButtonPrev() }
+                    disabled={ !orders.length || loading || disabledButtonPrev() }
                 />
                 {
                     buttons.map(value => {
@@ -50,7 +53,7 @@ const PaginationApp: FC<IProps> = ({ dataPagination }) => {
                                 <Pagination.Item
                                     key={ value }
                                     onClick={ () => pageChanger(value.toString()) }
-                                    disabled={ loading }
+                                    disabled={ !orders.length || loading }
                                 >
                                     { value }
                                 </Pagination.Item>
@@ -60,12 +63,15 @@ const PaginationApp: FC<IProps> = ({ dataPagination }) => {
                 }
                 <Pagination.Next
                     onClick={ () => pageChanger('&rsaquo;') }
-                    disabled={ loading || disabledButtonNext() }
+                    disabled={ !orders.length || loading || disabledButtonNext() }
                 />
-                <Pagination.Last
-                    onClick={ () => pageChanger('&raquo;') }
-                    disabled={ loading || disabledButtonNext() }
-                />
+                {
+                    !isOpenComments &&
+                    <Pagination.Last
+                        onClick={ () => pageChanger('&raquo;') }
+                        disabled={ !orders.length || loading || disabledButtonNext() }
+                    />
+                }
             </Pagination>
         </Container>
     );

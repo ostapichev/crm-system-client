@@ -3,5 +3,6 @@ export interface IPagination {
     totalPages: number;
     limit?: number;
     siblings?: number;
+    isOpenComments?: boolean;
     pageChanger: (value: string) => void;
 }

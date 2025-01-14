@@ -1,4 +1,7 @@
 export * from './AdminPanel/AdminPanel';
+export * from './Comment/Comment';
+export * from './CommentForm/CommentForm';
+export * from './Comments/Comments';
 export * from './DateFormat/DateFormat';
 export * from './Footer/Footer';
 export * from './FormControlFeedbackError/FormControlFeedbackError';
@@ -7,6 +10,7 @@ export * from './Header/Header';
 export * from './LoginForm/LoginForm';
 export * from './NotContent/NotContent';
 export * from './Order/Order';
+export * from './OrderDetails/OrderDetails';
 export * from './OrderPlaceholder/OrderPlaceholder';
 export * from './Orders/Orders';
 export * from './PaginationApp/PaginationApp';

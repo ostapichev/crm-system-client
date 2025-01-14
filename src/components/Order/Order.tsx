@@ -3,7 +3,7 @@ import { FC, Fragment } from 'react';
 import { DateFormat } from '../DateFormat/DateFormat';
 import { IGroup, IOrder } from '../../interfaces';
 import { useAppSelector } from '../../hooks';
-//import { OrderDetails } from '../OrderDetails/OrderDetails';
+import { OrderDetails } from '../OrderDetails/OrderDetails';
 import { IFuncValueNumberString, IFuncVoid } from "../../types";
 import { dataInsert } from '../../utils';
 
@@ -57,7 +57,7 @@ const Order: FC<IProps> = ({ order, onClick, isOpen }) => {
                 <td>{ getNameGroup(group_id) }</td>
                 <td>{ dataInsert(manager?.surname) }</td>
             </tr>
-
+            <OrderDetails order={ order } isOpen={ isOpen } />
         </Fragment>
     );
 };
