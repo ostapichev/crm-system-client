@@ -23,7 +23,7 @@ const PaginationApp: FC<IProps> = ({ dataPagination }) => {
     let buttons: IPaginateButtons = returnPaginationRange(dataPagination);
 
     return (
-        <Container className='d-flex justify-content-center mt-2'>
+        <Container className='d-flex justify-content-center align-items-center mt-4 w-auto'>
             <Pagination>
                 {
                     !isOpenComments &&

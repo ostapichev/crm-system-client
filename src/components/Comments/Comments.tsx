@@ -77,13 +77,14 @@ const Comments: FC<IProps> = ({ order, showComments, handleCloseComments }) => {
                     </ListGroup.Item>
                 </ListGroup>
             </Modal.Body>
-            {
-                comments.length > commentsLimit &&
-                <Modal.Body>
-                    <PaginationApp dataPagination={ dataPagination } />
-                </Modal.Body>
-            }
-            <Modal.Footer style={{ backgroundColor: 'aliceblue'}}>
+            <Modal.Footer
+                className='d-flex justify-content-end alighn-items-center'
+                style={{ backgroundColor: 'aliceblue'}}
+            >
+                {
+                    comments.length > commentsLimit &&
+                        <PaginationApp dataPagination={ dataPagination } />
+                }
                 <Button variant='secondary' onClick={ handleCloseComments }>
                     Close
                 </Button>
