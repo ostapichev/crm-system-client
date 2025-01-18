@@ -26,8 +26,7 @@ class AuthService {
     };
 
     public deleteTokens(): void {
-        localStorage.removeItem(this.accessKey);
-        localStorage.removeItem(this.refreshKey);
+        localStorage.clear();
     };
 
     public async refresh(): Promise<void> {

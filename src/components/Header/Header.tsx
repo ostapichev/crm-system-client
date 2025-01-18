@@ -6,7 +6,7 @@ import { Badge, Button, Container, Image, Navbar, Stack } from 'react-bootstrap'
 import { oktenURL } from '../../constants';
 import { UserRoleEnum } from '../../enums';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { authActions, groupActions } from '../../redux';
+import { authActions, groupActions, orderActions } from '../../redux';
 import { authService } from '../../services';
 import { IFuncVoid } from '../../types';
 
@@ -25,6 +25,8 @@ const Header: FC = () => {
         const { meta: { requestStatus } } = await dispatch(authActions.logout());
         if (requestStatus === 'fulfilled') navigate('/login');
         dispatch(authActions.resetLoading());
+        dispatch(orderActions.setDefault());
+        localStorage.removeItem('checkbox');
     }, [dispatch, navigate]);
     useEffect(() => {
         let timeoutId: NodeJS.Timeout = null;

@@ -32,7 +32,6 @@ const FilterBlock: FC = () => {
                         >
                             <Form.Select
                                 aria-label='Floating label select example'
-                                style={{ cursor: 'pointer' }}
                             >
                                 <option>All formats</option>
                                 <option>{ CourseFormatEnum.ONLINE }</option>

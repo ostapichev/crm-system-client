@@ -24,6 +24,7 @@ const Orders: FC = () => {
         {
             page: query.get('page'),
             sorting_by: query.get('order_by'),
+            manager: query.get('manager'),
         }, 500);
     const debouncedParamsString = JSON.stringify(debouncedParams);
     const sortingOrderBy: ISortingReverse = (order_by: string) => {
@@ -52,9 +53,15 @@ const Orders: FC = () => {
     ));
     useEffect(() => {
         dispatch(orderActions.setPage(+query.get('page')));
-        dispatch(orderActions.setSorting(query.get('sorting')));
+        if (query.get('order_by')) {
+            dispatch(orderActions.setDefaultSorted(!!query.get('order_by').includes('-')));
+        }
+        if (query.get('manager')) {
+            dispatch(orderActions.setDefaultCheckBox());
+        }
+        dispatch(orderActions.setSortingBy(query.get('order_by')));
         setOrderId(null);
-    }, [dispatch, query]);
+    }, [dispatch, query, sorted]);
     useEffect(() => {
         const params: IParams = JSON.parse(debouncedParamsString);
         dispatch(orderActions.setOrdersDefault());

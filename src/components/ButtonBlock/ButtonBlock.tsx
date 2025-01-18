@@ -1,11 +1,38 @@
 import { FC, useState } from 'react';
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import { Col, Container, Form, OverlayTrigger, Row, Stack, Tooltip } from 'react-bootstrap';
 
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { orderActions } from "../../redux";
+import { IFuncVoid } from "../../types";
+
 const ButtonBlock: FC = () => {
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    const [query, setQuery] = useSearchParams();
+    const { me } = useAppSelector(state => state.authReducer);
+    const { checkbox } = useAppSelector(state => state.orderReducer);
     const [hoverReload, setHoverReload] = useState<boolean>(false);
     const [hoverCreateOrder, setHoverCreateOrder] = useState<boolean>(false);
     const [hoverCreateExel, setHoverCreateExel] = useState<boolean>(false);
+    const handler: IFuncVoid = () => {
+        dispatch(orderActions.setCheckBox());
+        query.set('page', '1');
+        if (checkbox) {
+            query.set('manager', me.id.toString());
+            localStorage.setItem('checkbox', 'checked');
+        } else {
+            query.delete('manager');
+            localStorage.removeItem('checkbox');
+        }
+        setQuery(query);
+    };
+    const reset: IFuncVoid = (): void => {
+        dispatch(orderActions.setDefault());
+        localStorage.removeItem('checkbox');
+        navigate('/orders');
+    };
 
     return (
         <Stack className='d-flex justify-content-center align-items-center'>
@@ -14,7 +41,12 @@ const ButtonBlock: FC = () => {
                 style={{ fontSize: '1.2rem' }}
                 controlId='formBasicCheckbox'
             >
-                <Form.Check type='checkbox' label='My orders' />
+                <Form.Check 
+                    type='checkbox' 
+                    label='My orders' 
+                    onChange={ handler } 
+                    checked={ !!localStorage.getItem('checkbox') } 
+                />
             </Form.Group>
             <Container fluid>
                 <Row className='d-flex justify-content-md-center'>
@@ -22,6 +54,7 @@ const ButtonBlock: FC = () => {
                         md='auto'
                         onMouseEnter={ (): void => setHoverReload(true) }
                         onMouseLeave={ (): void => setHoverReload(false) }
+                        onClick={reset}
                     >
                         {
                             hoverReload

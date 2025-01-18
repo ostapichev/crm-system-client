@@ -17,6 +17,7 @@ interface IState {
     sorted: boolean;
     orderTrigger: boolean;
     loading: boolean;
+    checkbox: boolean;
     paramsOrders: IParams;
     errorsOrder: IErrorResponse;
 }
@@ -34,6 +35,7 @@ const initialState: IState = {
     sorted: true,
     orderTrigger: false,
     loading: false,
+    checkbox: true,
     paramsOrders: null,
     errorsOrder: null,
 };
@@ -73,8 +75,11 @@ const slice = createSlice({
         setOrderByParams: state => {
             state.sorted = !state.sorted;
         },
-        setSorting: (state, action) => {
+        setSortingBy: (state, action) => {
             state.sorting_by = action.payload;
+        },
+        setDefaultSorted: (state, action) => {
+            state.sorted = action.payload;
         },
         setOrdersDefault: state => {
             state.orders = [];
@@ -84,18 +89,23 @@ const slice = createSlice({
             state.showOrderForm = true;
             state.errorsOrder = null;
         },
+        setCheckBox: state => {
+            state.checkbox = !state.checkbox;
+        },
+        setDefaultCheckBox: state => {
+            state.checkbox = false;
+        },
         setDefault: state => {
+            state.orders = [];
             state.sorting_by = null;
             state.sorted = true;
+            state.checkbox = true;
             state.paramsOrders = null;
             state.errorsOrder = null;
         },
         setCloseOrderForm: state => {
             state.showOrderForm = false;
         },
-        setOrderId: (state, action) => {
-            state.orderId = action.payload;
-        }
     },
     extraReducers: builder => builder
         .addCase(getAll.fulfilled, (state, action) => {
