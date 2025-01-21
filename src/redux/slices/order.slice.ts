@@ -95,8 +95,10 @@ const slice = createSlice({
         setDefaultCheckBox: state => {
             state.checkbox = false;
         },
+        setInputName: (state, action) => {
+            state.paramsOrders.name = action.payload;
+        },
         setDefault: state => {
-            state.orders = [];
             state.sorting_by = null;
             state.sorted = true;
             state.checkbox = true;

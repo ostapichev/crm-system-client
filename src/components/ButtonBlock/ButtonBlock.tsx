@@ -54,14 +54,14 @@ const ButtonBlock: FC = () => {
                         md='auto'
                         onMouseEnter={ (): void => setHoverReload(true) }
                         onMouseLeave={ (): void => setHoverReload(false) }
-                        onClick={reset}
+                        onClick={ reset }
                     >
                         {
                             hoverReload
                                 ?
                                 <OverlayTrigger
                                     key='bottom'
-                                    placement='bottom'
+                                    placement='top'
                                     overlay={
                                         <Tooltip id='tooltip-bottom'>
                                             <strong>reset filter</strong>
@@ -97,7 +97,7 @@ const ButtonBlock: FC = () => {
                                 ?
                                 <OverlayTrigger
                                     key='bottom'
-                                    placement='bottom'
+                                    placement='top'
                                     overlay={
                                         <Tooltip id='tooltip-bottom'>
                                             <strong>create order</strong>
@@ -126,7 +126,7 @@ const ButtonBlock: FC = () => {
                                 ?
                                 <OverlayTrigger
                                     key='bottom'
-                                    placement='bottom'
+                                    placement='top'
                                     overlay={
                                         <Tooltip id='tooltip-bottom'>
                                             <strong>create exel file</strong>

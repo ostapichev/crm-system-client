@@ -24,6 +24,18 @@ const Orders: FC = () => {
         {
             page: query.get('page'),
             sorting_by: query.get('order_by'),
+            name: query.get('name'),
+            surname: query.get('surname'),
+            email: query.get('email'),
+            phone: query.get('phone'),
+            age: query.get('age'),
+            course: query.get('course'),
+            course_format: query.get('course_format'),
+            course_type: query.get('course_type'),
+            status: query.get('status'),
+            group: query.get('group'),
+            created_at_after: query.get('created_after'),
+            created_at_before: query.get('created_before'),
             manager: query.get('manager'),
         }, 500);
     const debouncedParamsString = JSON.stringify(debouncedParams);
@@ -69,42 +81,44 @@ const Orders: FC = () => {
     }, [dispatch, debouncedParamsString, orderTrigger, commentTrigger]);
 
     return (
-        <Table className='text-center' size='sm' borderless striped hover>
-            <thead>
-            <tr>
-                <th onClick={ orderById } className={ css.Column }>id</th>
-                <th onClick={ orderByName } className={ css.Column }>name</th>
-                <th onClick={ orderBySurname } className={ css.Column }>surname</th>
-                <th onClick={ orderByEmail } className={ css.Column }>email</th>
-                <th onClick={ orderByPhone } className={ css.Column }>phone</th>
-                <th onClick={ orderByAge } className={ css.Column }>age</th>
-                <th onClick={ orderByCourse } className={ css.Column }>course</th>
-                <th onClick={ orderByCourseFormat } className={ css.Column }>course_format</th>
-                <th onClick={ orderByCourseType } className={ css.Column }>course_type</th>
-                <th onClick={ orderByStatus } className={ css.Column }>status</th>
-                <th onClick={ orderBySum } className={ css.Column }>sum</th>
-                <th onClick={ orderByAlreadyPaid } className={ css.Column }>alreadyPaid</th>
-                <th onClick={ orderByCreatedAt } className={ css.Column }>created_at</th>
-                <th onClick={ orderByGroup } className={ css.Column }>group</th>
-                <th onClick={ orderByManager } className={ css.Column }>manager</th>
-            </tr>
-            </thead>
-            <tbody>
-            {
-                loading || !orders.length
-                    ?
-                    places.map((place: ReactElement) => place)
-                    :
-                    orders.map(order =>
-                        <Order
-                            key={ order.id }
-                            order={ order }
-                            isOpen={ order.id === orderId }
-                            onClick={ () => (order.id === orderId ? setOrderId(null) : setOrderId(order.id)) }
-                        />)
-            }
-            </tbody>
-        </Table>
+        <div style={{ 'height': '90vh' }}>
+            <Table className='text-center' size='sm' borderless striped hover>
+                <thead>
+                <tr>
+                    <th onClick={ orderById } className={ css.Column }>id</th>
+                    <th onClick={ orderByName } className={ css.Column }>name</th>
+                    <th onClick={ orderBySurname } className={ css.Column }>surname</th>
+                    <th onClick={ orderByEmail } className={ css.Column }>email</th>
+                    <th onClick={ orderByPhone } className={ css.Column }>phone</th>
+                    <th onClick={ orderByAge } className={ css.Column }>age</th>
+                    <th onClick={ orderByCourse } className={ css.Column }>course</th>
+                    <th onClick={ orderByCourseFormat } className={ css.Column }>course_format</th>
+                    <th onClick={ orderByCourseType } className={ css.Column }>course_type</th>
+                    <th onClick={ orderByStatus } className={ css.Column }>status</th>
+                    <th onClick={ orderBySum } className={ css.Column }>sum</th>
+                    <th onClick={ orderByAlreadyPaid } className={ css.Column }>alreadyPaid</th>
+                    <th onClick={ orderByCreatedAt } className={ css.Column }>created_at</th>
+                    <th onClick={ orderByGroup } className={ css.Column }>group</th>
+                    <th onClick={ orderByManager } className={ css.Column }>manager</th>
+                </tr>
+                </thead>
+                <tbody>
+                {
+                    loading
+                        ?
+                        places.map((place: ReactElement) => place)
+                        :
+                        orders.map(order =>
+                            <Order
+                                key={ order.id }
+                                order={ order }
+                                isOpen={ order.id === orderId }
+                                onClick={ () => (order.id === orderId ? setOrderId(null) : setOrderId(order.id)) }
+                            />)
+                }
+                </tbody>
+            </Table>
+        </div>
     );
 };
 
