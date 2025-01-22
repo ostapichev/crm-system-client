@@ -31,14 +31,20 @@ const OrderForm: FC = () => {
         );
         if (requestStatus === 'fulfilled') reset();
     };
+    const save: SubmitHandler<IOrder> = async (order: IOrder): Promise<void> => {
+        dispatch(orderActions.create({ order }));
+        reset();
+    }; 
     const addGroup: IFuncVoid = (): void => {
         dispatch(groupActions.setVision(true));
     };
     const handleCloseForm: IFuncVoid = (): void => {
         dispatch(orderActions.setCloseOrderForm());
         dispatch(groupActions.setVision(false));
+        reset();
     };
     useEffect(() => {
+        console.log(errorsOrder);
         if (orderUpdate) {
             setValue('group_id', orderUpdate.group_id);
             setValue('name', orderUpdate.name);
@@ -52,6 +58,8 @@ const OrderForm: FC = () => {
             setValue('course_format', orderUpdate.course_format);
             setValue('course_type', orderUpdate.course_type);
             setValue('status', orderUpdate.status);
+        } else {
+            setValue('status', StatusEnum.NEW);
         }
     }, [orderUpdate, setValue]);
 
@@ -70,7 +78,7 @@ const OrderForm: FC = () => {
             <div className={ vision ? css.Group_form : 'd-none' }>
                 <GroupForm />
             </div>
-            <Form onSubmit={ handleSubmit(update) }>
+            <Form onSubmit={ handleSubmit(orderUpdate ? update : save) }>
                 <Modal.Body style={{ backgroundColor: 'aliceblue' }}>
                     <Container>
                         <Row>
@@ -111,10 +119,10 @@ const OrderForm: FC = () => {
                                         { ...register('status') }
                                     >
                                         <option>{ StatusEnum.NEW }</option>
-                                        <option>{ StatusEnum.IN_WORK }</option>
-                                        <option>{ StatusEnum.AGREE }</option>
-                                        <option>{ StatusEnum.DISAGREE }</option>
-                                        <option>{ StatusEnum.DUBBING }</option>
+                                        <option disabled={ !orderUpdate }>{ StatusEnum.IN_WORK }</option>
+                                        <option disabled={ !orderUpdate }>{ StatusEnum.AGREE }</option>
+                                        <option disabled={ !orderUpdate }>{ StatusEnum.DISAGREE }</option>
+                                        <option disabled={ !orderUpdate }>{ StatusEnum.DUBBING }</option>
                                     </Form.Select>
                                 </FloatingLabel>
                             </Col>
@@ -290,7 +298,7 @@ const OrderForm: FC = () => {
                         type='submit'
                         variant='primary'
                     >
-                        Save&nbsp;changes
+                        { !!orderUpdate ? 'Save changes' : 'Create order' }
                     </Button>
                 </Modal.Footer>
             </Form>

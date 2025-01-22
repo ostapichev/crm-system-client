@@ -33,6 +33,9 @@ const ButtonBlock: FC = () => {
         localStorage.removeItem('checkbox');
         navigate('/orders');
     };
+    const create: IFuncVoid = (): void => {
+        dispatch(orderActions.setCreateOrder());
+    };
 
     return (
         <Stack className='d-flex justify-content-center align-items-center'>
@@ -91,6 +94,7 @@ const ButtonBlock: FC = () => {
                         md='auto'
                         onMouseEnter={ (): void => setHoverCreateOrder(true) }
                         onMouseLeave={ (): void => setHoverCreateOrder(false) }
+                        onClick={ create }
                     >
                         {
                             hoverCreateOrder

@@ -53,6 +53,18 @@ const getAll = createAsyncThunk<IQueryOrders<IOrder[]>, { params: IParams }>(
     }
 );
 
+const create = createAsyncThunk<void, { order: IOrder }>(
+    'orderSlice/create',
+    async ({ order }, { rejectWithValue }) => {
+        try {
+            await orderService.create(order);
+        } catch (e) {
+            const err = e as AxiosError;
+            return rejectWithValue(err.response.data);
+        }
+    }
+);
+
 const update = createAsyncThunk<void, { id: number, order: IOrder }>(
     'orderSlice/update',
     async ({ id, order }, { rejectWithValue }) => {
@@ -89,6 +101,13 @@ const slice = createSlice({
             state.showOrderForm = true;
             state.errorsOrder = null;
         },
+        setCreateOrder: state => {
+            state.showOrderForm = true;
+            state.errorsOrder = null;
+        },
+        setResetErrors: state => {
+            state.errorsOrder = null;
+        },
         setCheckBox: state => {
             state.checkbox = !state.checkbox;
         },
@@ -107,6 +126,7 @@ const slice = createSlice({
         },
         setCloseOrderForm: state => {
             state.showOrderForm = false;
+            state.orderUpdate = null;
         },
     },
     extraReducers: builder => builder
@@ -121,6 +141,8 @@ const slice = createSlice({
         })
         .addCase(update.fulfilled, state => {
             state.orderUpdate = null;
+        })
+        .addMatcher(isFulfilled(create, update), state => {
             state.showOrderForm = false;
             state.orderTrigger = !state.orderTrigger;
         })
@@ -142,6 +164,7 @@ const { actions, reducer: orderReducer } = slice;
 const orderActions = {
     ...actions,
     getAll,
+    create,
     update,
 };
 

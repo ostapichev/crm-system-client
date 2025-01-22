@@ -62,7 +62,7 @@ const OrderDetails: FC<IProps> = ({ order, isOpen }) => {
                                 {
                                     isOwner &&
                                     <Alert key='warning' variant='warning'>
-                                        You&#160;can't&#160;comment&#160;and&#160;
+                                        You&#160;can't&#160;write&#160;comment&#160;and&#160;
                                         edit&#160;this&#160;order&#46;&#160;It&#160;
                                         belongs&#160;to&#160;another&#160;manager&#46;
                                     </Alert>

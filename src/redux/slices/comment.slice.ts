@@ -47,6 +47,9 @@ const slice = createSlice({
             state.startShowComment = (state.pageComments - 1) * state.commentsLimit;
             state.endShowComments = (state.pageComments - 1) * state.commentsLimit + state.commentsLimit;
         },
+        setResetError: state => {
+            state.errorsComment = null;
+        },
     },
     extraReducers: builder => builder
         .addCase(create.fulfilled, state => {

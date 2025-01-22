@@ -21,7 +21,7 @@ const urls = {
         logout: `${baseURL}${auth}/sign-out`,
     },
     ordersAPI: {
-        getAllOrders: `${baseURL}${orders}`,
+        orders: `${baseURL}${orders}`,
         getById: (id: number): string => `${baseURL}${orders}/${id}`,
     },
     commentsAPI: {

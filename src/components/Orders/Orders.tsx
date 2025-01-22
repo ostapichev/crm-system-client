@@ -5,10 +5,10 @@ import { useDebounce } from 'use-debounce';
 import { Table } from 'react-bootstrap';
 
 import { xsValues } from '../../constants';
-import { IParams } from '../../interfaces';
+import { IOrder, IParams } from '../../interfaces';
 import { IFuncVoid, ISortingReverse } from '../../types';
 import { Order } from '../Order/Order';
-import { orderActions } from '../../redux';
+import { commentActions, orderActions } from '../../redux';
 import { OrderPlaceholder } from '../OrderPlaceholder/OrderPlaceholder';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 
@@ -60,6 +60,14 @@ const Orders: FC = () => {
     const orderByCreatedAt: IFuncVoid = (): void => sortingOrderBy('created_at');
     const orderByGroup: IFuncVoid = (): void => sortingOrderBy('group');
     const orderByManager: IFuncVoid = (): void => sortingOrderBy('manager');
+    const orderOpen: (order: IOrder) => void = (order: IOrder): void => {
+        if (order.id === orderId) {
+            setOrderId(null);
+        } else {
+            setOrderId(order.id);
+            dispatch(commentActions.setResetError());
+        }
+    };
     const places: ReactElement[] = Array.from({ length: ordersLimit }, (_: ReactElement, index) => (
         <OrderPlaceholder key={ index } xss={ xsValues } />
     ));
@@ -113,7 +121,7 @@ const Orders: FC = () => {
                                 key={ order.id }
                                 order={ order }
                                 isOpen={ order.id === orderId }
-                                onClick={ () => (order.id === orderId ? setOrderId(null) : setOrderId(order.id)) }
+                                onClick={ () => orderOpen(order) }
                             />)
                 }
                 </tbody>

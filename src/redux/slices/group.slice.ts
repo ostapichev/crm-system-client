@@ -72,7 +72,6 @@ const slice = createSlice({
         })
         .addMatcher(isRejectedWithValue(), (state, action) => {
             state.errorGroup = action.payload;
-            console.log(state.errorGroup);
         })
 });
 
