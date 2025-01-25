@@ -23,6 +23,7 @@ const urls = {
     ordersAPI: {
         orders: `${baseURL}${orders}`,
         getById: (id: number): string => `${baseURL}${orders}/${id}`,
+        downloadExel: `${baseURL}${orders}/download`,
     },
     commentsAPI: {
         comments: (orderId: number): string => `${baseURL}${orders}${comments}/${orderId}`,

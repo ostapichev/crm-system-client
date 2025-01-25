@@ -44,7 +44,6 @@ const OrderForm: FC = () => {
         reset();
     };
     useEffect(() => {
-        console.log(errorsOrder);
         if (orderUpdate) {
             setValue('group_id', orderUpdate.group_id);
             setValue('name', orderUpdate.name);

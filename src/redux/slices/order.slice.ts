@@ -1,5 +1,7 @@
-import { AxiosError } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 import { createAsyncThunk, createSlice, isFulfilled, isPending, isRejectedWithValue } from '@reduxjs/toolkit';
+import dayjs from 'dayjs';
+import FileSaver from 'file-saver';
 
 import { IErrorResponse, IOrder, IParams, IQueryOrders } from '../../interfaces';
 import { orderService } from '../../services';
@@ -77,12 +79,31 @@ const update = createAsyncThunk<void, { id: number, order: IOrder }>(
     }
 );
 
+const getExelFile = createAsyncThunk<void, { params: IParams }>(
+    'orderSlice/getExelFile',
+    async ({ params }, { rejectWithValue }) => {
+        const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.sheet;charset=UTF-8";
+        const fileName: string = dayjs().format('YYYY-MM-DD').toString();
+        try {
+            const response: AxiosResponse = await orderService.createExelFile(params);
+            const blob = new Blob([response.data],{type: fileType});
+            return FileSaver.saveAs(blob,`${fileName}.xlsx`);
+        } catch (e) {
+            const err = e as AxiosError;
+            return rejectWithValue(err.response.data);
+        }
+    }
+);
+
 const slice = createSlice({
     name: 'orderSlice',
     initialState,
     reducers: {
         setPage: (state, action) => {
             state.pageOrders = action.payload;
+        },
+        setLimit: state => {
+            state.ordersLimit = 500;
         },
         setOrderByParams: state => {
             state.sorted = !state.sorted;
@@ -105,17 +126,11 @@ const slice = createSlice({
             state.showOrderForm = true;
             state.errorsOrder = null;
         },
-        setResetErrors: state => {
-            state.errorsOrder = null;
-        },
         setCheckBox: state => {
             state.checkbox = !state.checkbox;
         },
         setDefaultCheckBox: state => {
             state.checkbox = false;
-        },
-        setInputName: (state, action) => {
-            state.paramsOrders.name = action.payload;
         },
         setDefault: state => {
             state.sorting_by = null;
@@ -142,6 +157,9 @@ const slice = createSlice({
         .addCase(update.fulfilled, state => {
             state.orderUpdate = null;
         })
+        .addCase(getExelFile.fulfilled, state => {
+            state.ordersLimit = state.totalOrders;
+        })
         .addMatcher(isFulfilled(create, update), state => {
             state.showOrderForm = false;
             state.orderTrigger = !state.orderTrigger;
@@ -166,6 +184,7 @@ const orderActions = {
     getAll,
     create,
     update,
+    getExelFile,
 };
 
 export {

@@ -4,6 +4,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { Col, Container, Form, OverlayTrigger, Row, Stack, Tooltip } from 'react-bootstrap';
 
 import { useAppDispatch, useAppSelector } from "../../hooks";
+import { IParams } from "../../interfaces";
 import { orderActions } from "../../redux";
 import { IFuncVoid } from "../../types";
 
@@ -12,7 +13,7 @@ const ButtonBlock: FC = () => {
     const navigate = useNavigate();
     const [query, setQuery] = useSearchParams();
     const { me } = useAppSelector(state => state.authReducer);
-    const { checkbox } = useAppSelector(state => state.orderReducer);
+    const { checkbox, totalOrders } = useAppSelector(state => state.orderReducer);
     const [hoverReload, setHoverReload] = useState<boolean>(false);
     const [hoverCreateOrder, setHoverCreateOrder] = useState<boolean>(false);
     const [hoverCreateExel, setHoverCreateExel] = useState<boolean>(false);
@@ -36,6 +37,27 @@ const ButtonBlock: FC = () => {
     const create: IFuncVoid = (): void => {
         dispatch(orderActions.setCreateOrder());
     };
+    const getFile: IFuncVoid = async () => {
+        const params: IParams = {
+            limit: totalOrders,
+            sorting_by: query.get('order_by'),
+            name: query.get('name'),
+            surname: query.get('surname'),
+            email: query.get('email'),
+            phone: query.get('phone'),
+            age: query.get('age'),
+            course: query.get('course'),
+            course_format: query.get('course_format'),
+            course_type: query.get('course_type'),
+            status: query.get('status'),
+            created_at_after: query.get('created_at_after'),
+            created_at_before: query.get('created_at_before'),
+            group: query.get('group'),
+            manager: query.get('manager'),
+        };
+        dispatch(orderActions.setLimit());
+        await dispatch(orderActions.getExelFile({ params }));
+    }
 
     return (
         <Stack className='d-flex justify-content-center align-items-center'>
@@ -124,6 +146,7 @@ const ButtonBlock: FC = () => {
                         md='auto'
                         onMouseEnter={ (): void => setHoverCreateExel(true) }
                         onMouseLeave={ (): void => setHoverCreateExel(false) }
+                        onClick={ getFile }
                     >
                         {
                             hoverCreateExel

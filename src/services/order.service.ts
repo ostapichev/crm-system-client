@@ -18,6 +18,11 @@ class OrderService {
     public update(id: number, order: IOrder): IRes<IOrder> {
         return axiosService.patch(urls.ordersAPI.getById(id), order);
     };
+
+    public createExelFile(params: IParams): IResQuery<IOrder[]> {
+        const config: AxiosRequestConfig = { responseType: 'blob', params };
+        return axiosService.get(urls.ordersAPI.downloadExel, config);
+    };
 }
 
 export const orderService = new OrderService();
