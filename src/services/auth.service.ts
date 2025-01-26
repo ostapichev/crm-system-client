@@ -18,14 +18,14 @@ class AuthService {
 
     public async logout(): Promise<void> {
         await axiosService.post(urls.authAPI.logout);
-        this.deleteTokens();
+        this.clearDataStorage();
     };
 
     public me(): IRes<IUser>{
         return axiosService.get<IUser>(urls.authAPI.me);
     };
 
-    public deleteTokens(): void {
+    public clearDataStorage(): void {
         localStorage.clear();
     };
 

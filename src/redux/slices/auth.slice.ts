@@ -70,7 +70,6 @@ const slice = createSlice({
         })
         .addMatcher(isFulfilled(login, me), (state, action) => {
             state.me = action.payload;
-            state.loading = false;
             state.error = null;
         })
         .addMatcher(isPending(), state => {

@@ -89,7 +89,7 @@ const Orders: FC = () => {
     }, [dispatch, debouncedParamsString, orderTrigger, commentTrigger]);
 
     return (
-        <div style={{ 'height': '90vh' }}>
+        <div style={{ 'height': '90%' }}>
             <Table className='text-center' size='sm' borderless striped hover>
                 <thead>
                 <tr>

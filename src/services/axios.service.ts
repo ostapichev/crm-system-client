@@ -29,7 +29,7 @@ axiosService.interceptors.response.use(res => {
                     afterRefresh();
                     return axiosService(originalRequest);
                 } catch (e) {
-                    authService.deleteTokens();
+                    authService.clearDataStorage();
                     isRefreshing = false;
                     return Promise.reject(error);
                 }
@@ -38,7 +38,7 @@ axiosService.interceptors.response.use(res => {
                 return Promise.reject(error);
             }
             return new Promise(resolve => {
-                const myFunc = () => {
+                const myFunc: IFuncVoid = () => {
                     resolve(axiosService(originalRequest));
                 };
                 subscribeToWaitList(myFunc);
@@ -47,12 +47,12 @@ axiosService.interceptors.response.use(res => {
         return Promise.reject(error);
     });
 
-const subscribeToWaitList = (cb: IFuncVoid): void => {
+const subscribeToWaitList: (cb: IFuncVoid) => void = (cb: IFuncVoid): void => {
     waitList.push(cb);
 };
-const afterRefresh = () => {
+const afterRefresh: IFuncVoid = (): void => {
     while (waitList.length) {
-        const cb = waitList.pop();
+        const cb: IFuncVoid = waitList.pop();
         cb();
     }
 };

@@ -23,7 +23,7 @@ const LoginForm: FC = () => {
         resolver: joiResolver(authValidator),
     });
     const login: SubmitHandler<IAuth> = async (user: IAuth): Promise<void> => {
-        if (localStorage.getItem('accessToken' || 'refreshToken')) authService.deleteTokens();
+        if (localStorage.length > 0) authService.clearDataStorage();
         const { meta: { requestStatus } } = await dispatch(authActions.login(user));
         if (requestStatus === 'fulfilled') navigate('/orders');
         reset();
