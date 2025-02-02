@@ -1,3 +1,4 @@
+export * from './admin-panel.service';
 export * from './auth.service';
 export * from './axios.service';
 export * from './comment.service';

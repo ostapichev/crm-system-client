@@ -8,11 +8,15 @@ const admin = '/admin';
 
 const urls = {
     adminAPI: {
-        create: `${baseURL}${admin}/create`,
-        getAllUsers: `${baseURL}${admin}`,
+        create: `${baseURL}${admin}`,
         getById: (id: number): string => `${baseURL}/${admin}/${id}`,
         banUser: (id: number): string => `${baseURL}/${admin}/ban/${id}`,
         unBanUser: (id: number): string => `${baseURL}/${admin}/unban/${id}`,
+        statisticOrders: `${baseURL}${admin}/orders-statistic`,
+        statisticUser: (id: number): string => `${baseURL}/users/statistic/${id}`,
+    },
+    usersAPI: {
+        getUsers: `${baseURL}/users`,
     },
     authAPI: {
         signIn: `${baseURL}${auth}/sign-in`,

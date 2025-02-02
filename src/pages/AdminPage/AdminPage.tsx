@@ -1,10 +1,14 @@
 import { FC } from 'react';
 
-import { AdminPanel } from '../../components';
+import { Users, SearchUsers, StatisticOrders } from '../../components';
 
 const AdminPage: FC = () => {
     return (
-        <AdminPanel />
+        <div className='bg-light'>
+            <StatisticOrders />
+            <SearchUsers />
+            <Users />
+        </div>
     );
 };
 

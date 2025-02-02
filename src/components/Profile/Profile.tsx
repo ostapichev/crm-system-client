@@ -1,13 +1,13 @@
 import { FC } from 'react';
 
-const AdminPanel: FC = () => {
+const Profile: FC = () => {
     return (
         <div>
-            AdminPanel
+            Profile
         </div>
     );
 };
 
 export {
-    AdminPanel
+    Profile
 };

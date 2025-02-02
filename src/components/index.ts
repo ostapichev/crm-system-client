@@ -1,4 +1,3 @@
-export * from './AdminPanel/AdminPanel';
 export * from './ButtonBlock/ButtonBlock';
 export * from './Comment/Comment';
 export * from './CommentForm/CommentForm';
@@ -19,4 +18,9 @@ export * from './OrderForm/OrderForm';
 export * from './OrderPlaceholder/OrderPlaceholder';
 export * from './Orders/Orders';
 export * from './PaginationApp/PaginationApp';
+export * from './Profile/Profile';
 export * from './RegisterForm/RegisterForm';
+export * from './SearchUsers/SearchUsers';
+export * from './StatisticOrders/StatisticOrders';
+export * from './UserForm/UserForm';
+export * from './Users/Users';

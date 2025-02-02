@@ -15,4 +15,5 @@ export interface IParams {
     created_at_after?: string;
     created_at_before?: string;
     manager?: string;
+    search?: string;
 }

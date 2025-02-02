@@ -8,7 +8,6 @@ import { orderService } from '../../services';
 
 interface IState {
     orders: IOrder[];
-    orderId: number;
     orderUpdate: IOrder;
     pageOrders: number;
     ordersLimit: number;
@@ -27,7 +26,6 @@ interface IState {
 const initialState: IState = {
     orders: [],
     orderUpdate: null,
-    orderId: null,
     pageOrders: 1,
     ordersLimit: 0,
     totalOrders: 0,
@@ -103,7 +101,7 @@ const slice = createSlice({
             state.pageOrders = action.payload;
         },
         setLimit: state => {
-            state.ordersLimit = 500;
+            state.ordersLimit = state.ordersLimit;
         },
         setOrderByParams: state => {
             state.sorted = !state.sorted;

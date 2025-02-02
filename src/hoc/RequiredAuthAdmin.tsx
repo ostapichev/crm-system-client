@@ -10,7 +10,6 @@ interface IProps {
 
 const RequiredAuthAdmin: FC<IProps> = ({ children }) => {
     const { me } = useAppSelector(state => state.authReducer);
-    console.log(me);
     if (!(me?.role === UserRoleEnum.ADMIN)) {
         return <Navigate to='/orders' />
     }
