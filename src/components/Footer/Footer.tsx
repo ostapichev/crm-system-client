@@ -10,12 +10,12 @@ import { IFuncNumber } from '../../types';
 
 const Footer: FC = () => {
     const [, setQuery] = useSearchParams();
-    const { pageOrders, ordersLimit, totalPages, totalOrders } = useAppSelector(state => state.orderReducer);
+    const { pageOrders, ordersLimit, totalOrdersPages, totalOrders } = useAppSelector(state => state.orderReducer);
     const pageChanger = useCallback((value: string): void => {
         setQuery(prev => {
             const newPage: number = value === '&raquo;' || value === ' ...'
                 ?
-                totalPages
+                totalOrdersPages
                 :
                 value === '&laquo;' || value === '... '
                     ?
@@ -27,20 +27,20 @@ const Footer: FC = () => {
                         :
                         value === '&rsaquo;'
                             ?
-                            Math.min((+prev.get('page') || 1) + 1, totalPages)
+                            Math.min((+prev.get('page') || 1) + 1, totalOrdersPages)
                             :
                             +value;
             const query = new URLSearchParams(prev.toString());
             query.set('page', newPage.toString());
             return query;
         });
-    }, [setQuery, totalPages]);
+    }, [setQuery, totalOrdersPages]);
     const getPage: IFuncNumber = (): number => {
         return Math.ceil(totalOrders / ordersLimit);
     };
     const dataPagination: IPagination = {
-        totalPages,
-        page: pageOrders >= totalPages ? getPage() : pageOrders,
+        totalPages: totalOrdersPages,
+        page: pageOrders >= totalOrdersPages ? getPage() : pageOrders,
         siblings: 2,
         limit: ordersLimit,
         pageChanger,
@@ -50,7 +50,7 @@ const Footer: FC = () => {
         <Navbar className='bg-dark-subtle' fixed='bottom' sticky='bottom'>
             <Container>
                 {
-                    totalPages > 1 && <PaginationApp dataPagination={ dataPagination } />
+                    totalOrdersPages > 1 && <PaginationApp dataPagination={ dataPagination } />
                 }
             </Container>
         </Navbar>

@@ -1,23 +1,35 @@
 import { FC, useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { useDebounce } from 'use-debounce';
+
+import { Button, Card } from 'react-bootstrap';
 
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { IParams } from '../../interfaces';
-import { Button, Card } from 'react-bootstrap';
-import { IFuncVoid } from '../../types';
-import { UserForm } from '../UserForm/UserForm';
 import { adminPanelActions } from '../../redux';
+import { IFuncVoid } from '../../types';
 import { User } from '../User/User';
+import { UserForm } from '../UserForm/UserForm';
 
 const Users: FC = () => {
     const dispatch = useAppDispatch();
     const { users } = useAppSelector(state => state.adminPanelReducer);
+    const [query] = useSearchParams();
     const [openForm, setOpenForm] = useState<boolean>(false);
     const handleCloseForm: IFuncVoid = (): void => setOpenForm(false);
     const handleShowForm: IFuncVoid = (): void => setOpenForm(true);
+    const [debouncedParams] = useDebounce<IParams>(
+        {
+            page: query.get('page'),
+        }, 500);
+    const debouncedParamsString = JSON.stringify(debouncedParams);
     useEffect(() => {
-        const params: IParams = {};
+        dispatch(adminPanelActions.setPage(+query.get('page')));
+    }, [dispatch, query]);
+    useEffect(() => {
+        const params: IParams = JSON.parse(debouncedParamsString);
         dispatch(adminPanelActions.getAll({ params }));
-    }, [dispatch]);
+    }, [dispatch, debouncedParamsString]);
     
     return (
         <div>

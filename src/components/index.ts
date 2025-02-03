@@ -24,3 +24,4 @@ export * from './SearchUsers/SearchUsers';
 export * from './StatisticOrders/StatisticOrders';
 export * from './UserForm/UserForm';
 export * from './Users/Users';
+export * from './UsersPanel/UsersPanel';

@@ -55,7 +55,6 @@ const ButtonBlock: FC = () => {
             group: query.get('group'),
             manager: query.get('manager'),
         };
-        dispatch(orderActions.setLimit());
         await dispatch(orderActions.getExelFile({ params }));
     }
 

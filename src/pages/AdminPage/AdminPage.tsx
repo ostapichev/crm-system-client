@@ -1,13 +1,13 @@
 import { FC } from 'react';
 
-import { Users, SearchUsers, StatisticOrders } from '../../components';
+import {SearchUsers, StatisticOrders, UsersPanel} from '../../components';
 
 const AdminPage: FC = () => {
     return (
         <div className='bg-light'>
             <StatisticOrders />
             <SearchUsers />
-            <Users />
+            <UsersPanel />
         </div>
     );
 };

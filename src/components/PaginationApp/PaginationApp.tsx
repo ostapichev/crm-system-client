@@ -12,7 +12,7 @@ interface IProps {
 }
 
 const PaginationApp: FC<IProps> = ({ dataPagination }) => {
-    const { orders, loading } = useAppSelector(state => state.orderReducer);
+    const { loading } = useAppSelector(state => state.orderReducer);
     const { page, totalPages, isOpenComments, pageChanger } = dataPagination;
     const disabledButtonPrev: IFuncBoolean = (): boolean => {
         return page === 1;
@@ -29,12 +29,12 @@ const PaginationApp: FC<IProps> = ({ dataPagination }) => {
                     !isOpenComments &&
                     <Pagination.First
                         onClick={ () => pageChanger('&laquo;') }
-                        disabled={ !orders.length || loading || disabledButtonPrev() }
+                        disabled={ loading || disabledButtonPrev() }
                     />
                 }
                 <Pagination.Prev
                     onClick={ () => pageChanger('&lsaquo;') }
-                    disabled={ !orders.length || loading || disabledButtonPrev() }
+                    disabled={ loading || disabledButtonPrev() }
                 />
                 {
                     buttons.map(value => {
@@ -53,7 +53,7 @@ const PaginationApp: FC<IProps> = ({ dataPagination }) => {
                                 <Pagination.Item
                                     key={ value }
                                     onClick={ () => pageChanger(value.toString()) }
-                                    disabled={ !orders.length || loading }
+                                    disabled={ loading }
                                 >
                                     { value }
                                 </Pagination.Item>
@@ -63,13 +63,13 @@ const PaginationApp: FC<IProps> = ({ dataPagination }) => {
                 }
                 <Pagination.Next
                     onClick={ () => pageChanger('&rsaquo;') }
-                    disabled={ !orders.length || loading || disabledButtonNext() }
+                    disabled={ loading || disabledButtonNext() }
                 />
                 {
                     !isOpenComments &&
                     <Pagination.Last
                         onClick={ () => pageChanger('&raquo;') }
-                        disabled={ !orders.length || loading || disabledButtonNext() }
+                        disabled={ loading || disabledButtonNext() }
                     />
                 }
             </Pagination>

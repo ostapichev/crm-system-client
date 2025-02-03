@@ -7,4 +7,6 @@ export interface IUser {
     email: string;
     is_active: boolean;
     role: UserRoleEnum;
+    last_login?: string;
+    created_at: string;
 }

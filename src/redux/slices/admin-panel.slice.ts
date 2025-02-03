@@ -9,7 +9,7 @@ interface IState {
     pageUsers: number;
     usersLimit: number;
     totalUsers: number;
-    totalPages: number;
+    totalUsersPages: number;
     userTrigger: boolean;
     loading: boolean;
     orderStatistic: IStatisticOrders;
@@ -23,7 +23,7 @@ const initialState: IState = {
     pageUsers: 1,
     usersLimit: 0,
     totalUsers: 0,
-    totalPages: 0,
+    totalUsersPages: 0,
     userTrigger: false,
     loading: false,
     orderStatistic: {},
@@ -85,7 +85,7 @@ const getStatisticOrder = createAsyncThunk<IStatisticOrders, void>(
     'adminPanelSlice/getStatisticOrder',
     async (_, { rejectWithValue }) => {
         try {
-            const {data} = await adminPanelService.getStatisticOrder();
+            const { data } = await adminPanelService.getStatisticOrder();
             return data;
         } catch (e) {
             const err = e as AxiosError;
@@ -98,7 +98,7 @@ const getStatisticUser = createAsyncThunk<IStatisticOrders, { id: number }>(
     'adminPanelSlice/getStatisticUser',
     async ({ id }, { rejectWithValue }) => {
         try {
-            const {data} = await adminPanelService.getStatisticUser(id);
+            const { data } = await adminPanelService.getStatisticUser(id);
             return data;
         } catch (e) {
             const err = e as AxiosError;
@@ -112,10 +112,7 @@ const slice = createSlice({
     initialState,
     reducers: {
         setPage: (state, action) => {
-            state.paramsUsers = action.payload;
-        },
-        setLimit: state => {
-            state.usersLimit = state.usersLimit;
+            state.pageUsers = action.payload;
         },
         setDefault: state => {
             state.paramsUsers = {};
@@ -124,12 +121,12 @@ const slice = createSlice({
     },
     extraReducers: builder => builder
         .addCase(getAll.fulfilled, (state, action) => {
-            const { data, page, limit, total, search } = action.payload;
+            const { data, page, limit, total } = action.payload;
             state.users = data;
             state.totalUsers = total;
             state.pageUsers = page;
             state.usersLimit = limit;
-            state.totalPages = Math.ceil(total / state.usersLimit);
+            state.totalUsersPages = Math.ceil(total / state.usersLimit);
         })
         .addCase(getStatisticOrder.fulfilled, (state, action) => {
             state.orderStatistic = action.payload;

@@ -12,7 +12,7 @@ interface IState {
     pageOrders: number;
     ordersLimit: number;
     totalOrders: number;
-    totalPages: number;
+    totalOrdersPages: number;
     sorting_by: string;
     showOrderForm: boolean;
     sorted: boolean;
@@ -29,7 +29,7 @@ const initialState: IState = {
     pageOrders: 1,
     ordersLimit: 0,
     totalOrders: 0,
-    totalPages: 0,
+    totalOrdersPages: 0,
     sorting_by: null,
     showOrderForm: false,
     sorted: true,
@@ -100,9 +100,6 @@ const slice = createSlice({
         setPage: (state, action) => {
             state.pageOrders = action.payload;
         },
-        setLimit: state => {
-            state.ordersLimit = state.ordersLimit;
-        },
         setOrderByParams: state => {
             state.sorted = !state.sorted;
         },
@@ -150,7 +147,7 @@ const slice = createSlice({
             state.pageOrders = page;
             state.ordersLimit = limit;
             state.sorting_by = sorting_by;
-            state.totalPages = Math.ceil(total / state.ordersLimit);
+            state.totalOrdersPages = Math.ceil(total / state.ordersLimit);
         })
         .addCase(update.fulfilled, state => {
             state.orderUpdate = null;
