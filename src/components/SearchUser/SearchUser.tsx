@@ -2,13 +2,13 @@ import { FC } from 'react';
 
 import { Button, FloatingLabel, Form } from 'react-bootstrap';
 
-const SearchUsers: FC = () => {
+const SearchUser: FC = () => {
     return (
-        <div className='d-flex justify-content-center mt-5'>
+        <div className='d-flex justify-content-center w-75'>
             <FloatingLabel
                 controlId="floatingInput"
                 label='Enter the name or the surname'
-                className="d-flex flex-nowrap mb-3 w-25"
+                className="d-flex flex-nowrap w-25"
             >
                 <Form.Control type='search' placeholder='name' />
                 <Button variant='outline-primary'>
@@ -20,5 +20,5 @@ const SearchUsers: FC = () => {
 };
 
 export {
-    SearchUsers
+    SearchUser
 };

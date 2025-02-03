@@ -5,7 +5,6 @@ import { urls } from '../constants';
 import { IFeedback, IParams, IStatisticOrders, IUser } from '../interfaces';
 import { IRes, IResQuery } from '../types';
 
-
 class AdminPanelService {
     public createUser(user: IUser): IRes<IUser> {
         return axiosService.post(urls.adminAPI.create, user);
@@ -17,11 +16,11 @@ class AdminPanelService {
     };
 
     public banUser(id: number): IRes<IFeedback> {
-        return axiosService.post(urls.adminAPI.banUser(id));
+        return axiosService.patch(urls.adminAPI.banUser(id));
     };
 
     public unBanUser(id: number): IRes<IFeedback> {
-        return axiosService.post(urls.adminAPI.unBanUser(id));
+        return axiosService.patch(urls.adminAPI.unBanUser(id));
     };
 
     public getStatisticOrder(): IRes<IStatisticOrders> {

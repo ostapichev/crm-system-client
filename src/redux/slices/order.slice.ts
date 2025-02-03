@@ -137,6 +137,7 @@ const slice = createSlice({
         setCloseOrderForm: state => {
             state.showOrderForm = false;
             state.orderUpdate = null;
+            state.errorsOrder = null;
         },
     },
     extraReducers: builder => builder

@@ -9,9 +9,9 @@ const admin = '/admin';
 const urls = {
     adminAPI: {
         create: `${baseURL}${admin}`,
-        getById: (id: number): string => `${baseURL}/${admin}/${id}`,
-        banUser: (id: number): string => `${baseURL}/${admin}/ban/${id}`,
-        unBanUser: (id: number): string => `${baseURL}/${admin}/unban/${id}`,
+        getById: (id: number): string => `${baseURL}${admin}/${id}`,
+        banUser: (id: number): string => `${baseURL}${admin}/ban/${id}`,
+        unBanUser: (id: number): string => `${baseURL}${admin}/unban/${id}`,
         statisticOrders: `${baseURL}${admin}/orders-statistic`,
         statisticUser: (id: number): string => `${baseURL}/users/statistic/${id}`,
     },

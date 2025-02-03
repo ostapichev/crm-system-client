@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useDebounce } from 'use-debounce';
 
@@ -7,17 +7,18 @@ import { Button, Card } from 'react-bootstrap';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { IParams } from '../../interfaces';
 import { adminPanelActions } from '../../redux';
+import { SearchUser } from '../SearchUser/SearchUser';
 import { IFuncVoid } from '../../types';
 import { User } from '../User/User';
 import { UserForm } from '../UserForm/UserForm';
 
 const Users: FC = () => {
     const dispatch = useAppDispatch();
-    const { users } = useAppSelector(state => state.adminPanelReducer);
+    const { users, userTrigger } = useAppSelector(state => state.adminPanelReducer);
     const [query] = useSearchParams();
-    const [openForm, setOpenForm] = useState<boolean>(false);
-    const handleCloseForm: IFuncVoid = (): void => setOpenForm(false);
-    const handleShowForm: IFuncVoid = (): void => setOpenForm(true);
+    const handleShowForm: IFuncVoid = (): void => {
+        dispatch(adminPanelActions.setOpenUserForm());
+    }
     const [debouncedParams] = useDebounce<IParams>(
         {
             page: query.get('page'),
@@ -29,17 +30,18 @@ const Users: FC = () => {
     useEffect(() => {
         const params: IParams = JSON.parse(debouncedParamsString);
         dispatch(adminPanelActions.getAll({ params }));
-    }, [dispatch, debouncedParamsString]);
+    }, [dispatch, debouncedParamsString, userTrigger]);
     
     return (
         <div>
             <Card
                 bg='Light'
                 text='dark'
-                className='m-5 w-full'
+                className='ms-5 me-5 w-full'
             >
                 <Card.Header className='d-flex flex-wrap justify-content-between'>
                     <div className='display-6'>Users</div>
+                    <SearchUser />
                     <Button
                         onClick={ handleShowForm }    
                         variant='outline-secondary'
@@ -57,7 +59,7 @@ const Users: FC = () => {
                     }
                 </Card.Body>
             </Card>
-            <UserForm openForm={ openForm } closeForm={ handleCloseForm } />
+            <UserForm />
         </div>
     );
 };

@@ -4,13 +4,13 @@ import { useSearchParams } from 'react-router-dom';
 import { useAppSelector } from "../../hooks";
 import { IPagination } from '../../interfaces';
 import { PaginationApp } from "../PaginationApp/PaginationApp";
-import { IFuncNumber } from '../../types';
-import {Users} from "../Users/Users";
+import { IFuncNumber, IFuncValueString } from '../../types';
+import { Users } from "../Users/Users";
 
 const UsersPanel: FC = () => {
     const [, setQuery] = useSearchParams();
     const { pageUsers, totalUsersPages, usersLimit, totalUsers } = useAppSelector(state => state.adminPanelReducer);
-    const pageChanger = useCallback((value: string): void => {
+    const pageChanger: IFuncValueString = useCallback((value: string): void => {
         setQuery(prev => {
             const newPage: number = value === '&raquo;' || value === ' ...'
                 ?

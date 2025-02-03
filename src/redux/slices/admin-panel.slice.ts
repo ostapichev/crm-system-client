@@ -10,6 +10,7 @@ interface IState {
     usersLimit: number;
     totalUsers: number;
     totalUsersPages: number;
+    showUserForm: boolean;
     userTrigger: boolean;
     loading: boolean;
     orderStatistic: IStatisticOrders;
@@ -24,6 +25,7 @@ const initialState: IState = {
     usersLimit: 0,
     totalUsers: 0,
     totalUsersPages: 0,
+    showUserForm: false,
     userTrigger: false,
     loading: false,
     orderStatistic: {},
@@ -116,6 +118,13 @@ const slice = createSlice({
         },
         setDefault: state => {
             state.paramsUsers = {};
+            state.errorUser = null;
+        },
+        setOpenUserForm: state => {
+            state.showUserForm = true;
+        },
+        setCloseUserForm: state => {
+            state.showUserForm = false;
             state.errorUser = null;
         },
     },

@@ -6,12 +6,12 @@ import { Container, Navbar } from 'react-bootstrap';
 import { useAppSelector } from '../../hooks';
 import { IPagination } from '../../interfaces';
 import { PaginationApp } from '../PaginationApp/PaginationApp';
-import { IFuncNumber } from '../../types';
+import { IFuncNumber, IFuncValueString } from '../../types';
 
 const Footer: FC = () => {
     const [, setQuery] = useSearchParams();
     const { pageOrders, ordersLimit, totalOrdersPages, totalOrders } = useAppSelector(state => state.orderReducer);
-    const pageChanger = useCallback((value: string): void => {
+    const pageChanger: IFuncValueString = useCallback((value: string): void => {
         setQuery(prev => {
             const newPage: number = value === '&raquo;' || value === ' ...'
                 ?

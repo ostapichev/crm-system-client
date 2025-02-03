@@ -68,6 +68,8 @@ const OrderForm: FC = () => {
             show={ showOrderForm }
             onHide={ handleCloseForm }
             backdrop='static'
+            keyboard={ false }
+            centered
         >
             <Modal.Header className='bg-info-subtle' closeButton>
                 <Modal.Title>

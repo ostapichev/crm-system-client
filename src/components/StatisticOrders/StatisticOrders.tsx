@@ -16,8 +16,8 @@ const StatisticOrders: FC = () => {
     }, [dispatch]);
     
     return (
-        <Container fluid>
-            <Row className='d-flex justify-content-space-around mt-3'>
+        <Container className='pt-3 pb-3' fluid>
+            <Row className='d-flex justify-content-space-around'>
                 <Col className='d-flex justify-content-center align-items-center'>
                     <Card
                         bg='info'
