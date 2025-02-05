@@ -6,6 +6,7 @@ export * from './group.interface';
 export * from './order.interface';
 export * from './pagination.interface';
 export * from './params.interface';
+export * from './search-user.interface';
 export * from './statistic-orders.interface';
 export * from './token.interface';
 export * from './query.interface';

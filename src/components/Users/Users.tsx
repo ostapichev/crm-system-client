@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useDebounce } from 'use-debounce';
 
@@ -15,13 +15,15 @@ import { UserForm } from '../UserForm/UserForm';
 const Users: FC = () => {
     const dispatch = useAppDispatch();
     const { users, userTrigger } = useAppSelector(state => state.adminPanelReducer);
+    const [openForm, setOpenForm] = useState<boolean>(false);
     const [query] = useSearchParams();
     const handleShowForm: IFuncVoid = (): void => {
-        dispatch(adminPanelActions.setOpenUserForm());
-    }
+        setOpenForm(true);
+    };
     const [debouncedParams] = useDebounce<IParams>(
         {
             page: query.get('page'),
+            search: query.get('search'),
         }, 500);
     const debouncedParamsString = JSON.stringify(debouncedParams);
     useEffect(() => {
@@ -59,7 +61,7 @@ const Users: FC = () => {
                     }
                 </Card.Body>
             </Card>
-            <UserForm />
+            <UserForm openForm={ openForm } setOpenForm={ setOpenForm }/>
         </div>
     );
 };

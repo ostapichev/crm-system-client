@@ -14,16 +14,21 @@ import { userValidator } from '../../validators';
 
 import { okten_school_image } from '../../assets';
 
-const UserForm: FC = () => {
+interface IProps {
+    openForm: boolean;
+    setOpenForm: (value: boolean) => void;
+}
+
+const UserForm: FC<IProps> = ({ openForm, setOpenForm }) => {
     const dispatch = useAppDispatch();
-    const { showUserForm, errorUser } = useAppSelector(state => state.adminPanelReducer);
-    const { handleSubmit, register, reset, clearErrors, formState: { isValid, errors, touchedFields } } = useForm<IUser>({
+    const { errorUser } = useAppSelector(state => state.adminPanelReducer);
+    const { handleSubmit, register, reset, formState: { isValid, errors, touchedFields } } = useForm<IUser>({
         mode: 'all',
         resolver: joiResolver(userValidator),
     });
     const closeForm: IFuncVoid = (): void => {
-        dispatch(adminPanelActions.setCloseUserForm());
-        clearErrors();
+        dispatch(adminPanelActions.setDefault());
+        setOpenForm(false);
         reset();
     };
     const save: SubmitHandler<IUser> = async (user: IUser) => {
@@ -33,7 +38,7 @@ const UserForm: FC = () => {
 
     return (
         <Modal
-            show={ showUserForm }
+            show={ openForm }
             onHide={ closeForm }
             backdrop='static'
             keyboard={ false }

@@ -48,7 +48,9 @@ const UsersPanel: FC = () => {
     return (
         <div>
             <Users />
-            <PaginationApp dataPagination={ dataPagination } />
+            {
+                totalUsersPages > 1 && <PaginationApp dataPagination={ dataPagination } />
+            }
         </div>
     );
 };
