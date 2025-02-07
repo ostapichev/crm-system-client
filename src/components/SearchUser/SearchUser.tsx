@@ -14,7 +14,7 @@ const SearchUser: FC = () => {
         mode: 'all',
         resolver: joiResolver(searchValidator),
     });
-    const searchUser: SubmitHandler<ISearchUser> = (data: ISearchUser) => {
+    const searchUser: SubmitHandler<ISearchUser> = (data: ISearchUser): void => {
         query.set('page', '1');
         query.set('search', data.search);
         setQuery(query);

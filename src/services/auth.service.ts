@@ -25,6 +25,10 @@ class AuthService {
         return axiosService.get<IUser>(urls.authAPI.me);
     };
 
+    public activateRequestUser(formData: FormData, token: string): Promise<void> {
+        return axiosService.post(urls.authAPI.activateUser(token), formData);
+    };
+
     public clearDataStorage(): void {
         localStorage.clear();
     };

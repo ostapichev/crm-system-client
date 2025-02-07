@@ -8,14 +8,16 @@ interface IState {
     me: IUser;
     loading: boolean;
     authTrigger: boolean;
-    error?: IErrorResponse;
+    errorConfirmPassword: string;
+    errorAuth: IErrorResponse;
 }
 
 const initialState: IState = {
     me: null,
     loading: false,
     authTrigger: true,
-    error: null,
+    errorConfirmPassword: null,
+    errorAuth: null,
 };
 
 const login = createAsyncThunk<IUser, IAuth>(
@@ -42,6 +44,18 @@ const logout = createAsyncThunk<void, void>(
     }
 );
 
+const activateRequestUser = createAsyncThunk<void, { formData: FormData, activateToken: string }>(
+    'authSlice/activateRequestUser',
+    async ({ formData, activateToken }, { rejectWithValue }) => {
+        try {
+             return await authService.activateRequestUser(formData, activateToken);
+        } catch (e) {
+            const err = e as AxiosError;
+            return rejectWithValue(err.response.data);
+        }
+    }
+);
+
 const me = createAsyncThunk<IUser, void> (
     'authSlice/me',
     async () => {
@@ -54,6 +68,9 @@ const slice = createSlice({
     name: 'authSlice',
     initialState,
     reducers: {
+        setConfirmPassword: (state, action) => {
+            state.errorConfirmPassword = action.payload;
+        },
         resetLoading: (state) => {
             state.loading = false;
         },
@@ -61,23 +78,27 @@ const slice = createSlice({
     extraReducers: builder => builder
         .addCase(me.rejected, state => {
             state.loading = false;
-            state.error = null;
+            state.errorAuth = null;
+        })
+        .addCase(activateRequestUser.fulfilled, state => {
+            state.errorConfirmPassword = null;
         })
         .addCase(logout.fulfilled, state => {
             state.loading = false;
             state.me = null;
-            state.error = null;
+            state.errorAuth = null;
         })
         .addMatcher(isFulfilled(login, me), (state, action) => {
             state.me = action.payload;
-            state.error = null;
+            state.errorAuth = null;
+            state.loading = true;
         })
         .addMatcher(isPending(), state => {
             state.loading = true;
-            state.error = null;
+            state.errorAuth = null;
         })
         .addMatcher(isRejectedWithValue(), (state, actions) => {
-            state.error = actions.payload as IErrorResponse;
+            state.errorAuth = actions.payload as IErrorResponse;
             state.loading = false;
         })
 });
@@ -87,7 +108,8 @@ const authActions = {
     ...actions,
     login,
     logout,
-    me
+    activateRequestUser,
+    me,
 };
 
 export {

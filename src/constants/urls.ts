@@ -1,5 +1,6 @@
 const oktenURL = 'https://owu.com.ua';
 const baseURL = 'http://localhost:3500';
+const clientURL = 'http://localhost:3000';
 const auth = '/auth';
 const orders = '/orders';
 const groups = '/groups';
@@ -9,31 +10,36 @@ const admin = '/admin';
 const urls = {
     adminAPI: {
         create: `${baseURL}${admin}`,
-        getById: (id: number): string => `${baseURL}${admin}/${id}`,
-        banUser: (id: number): string => `${baseURL}${admin}/ban/${id}`,
-        unBanUser: (id: number): string => `${baseURL}${admin}/unban/${id}`,
-        statisticOrders: `${baseURL}${admin}/orders-statistic`,
-        statisticUser: (id: number): string => `${baseURL}/users/statistic/${id}`,
+        getActivateUser: (id: number): string => `${admin}/activate-user/${id}`,
+        banUser: (id: number): string => `${admin}/ban/${id}`,
+        unBanUser: (id: number): string => `${admin}/unban/${id}`,
+        statisticOrders: `${admin}/orders-statistic`,
+        statisticUser: (id: number): string => `/users/statistic/${id}`,
     },
     usersAPI: {
         getUsers: `${baseURL}/users`,
     },
     authAPI: {
-        signIn: `${baseURL}${auth}/sign-in`,
-        me: `${baseURL}${auth}/me`,
-        refresh: `${baseURL}${auth}/refresh`,
-        logout: `${baseURL}${auth}/sign-out`,
+        signIn: `${auth}/sign-in`,
+        activateUser: (activateToken: string): string => `${auth}/activate/${activateToken}`,
+        me: `${auth}/me`,
+        refresh: `${auth}/refresh`,
+        logout: `${auth}/sign-out`,
     },
     ordersAPI: {
-        orders: `${baseURL}${orders}`,
-        getById: (id: number): string => `${baseURL}${orders}/${id}`,
-        downloadExel: `${baseURL}${orders}/download`,
+        orders: `${orders}`,
+        getById: (id: number): string => `${orders}/${id}`,
+        downloadExel: `${orders}/download`,
     },
     commentsAPI: {
-        comments: (orderId: number): string => `${baseURL}${orders}${comments}/${orderId}`,
+        comments: (orderId: number): string => `${orders}${comments}/${orderId}`,
     },
     groupsAPI: {
-        groups: `${baseURL}${groups}`,
+        groups: `${groups}`,
+    },
+    localURL: {
+        activate: `${clientURL}/activate`,
+        recovery: `${clientURL}/recovery`,
     },
 };
 

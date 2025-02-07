@@ -3,6 +3,7 @@ export * from './Comment/Comment';
 export * from './CommentForm/CommentForm';
 export * from './Comments/Comments';
 export * from './DateFormat/DateFormat';
+export * from './FeedbackActivation/FeedbackActivation';
 export * from './FilterBlock/FilterBlock';
 export * from './Footer/Footer';
 export * from './FormControlFeedbackError/FormControlFeedbackError';

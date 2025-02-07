@@ -2,7 +2,7 @@ import { AxiosError } from 'axios';
 import { createAsyncThunk, createSlice, isFulfilled, isPending, isRejectedWithValue } from '@reduxjs/toolkit';
 
 import { adminPanelService } from '../../services';
-import { IStatisticOrders, IParams, IUser, IErrorResponse, IQueryUsers } from '../../interfaces';
+import { IStatisticOrders, IParams, IUser, IErrorResponse, IQueryUsers, IActivateUser } from '../../interfaces';
 
 interface IState {
     users: IUser[];
@@ -14,6 +14,7 @@ interface IState {
     loading: boolean;
     orderStatistic: IStatisticOrders;
     userStatistic: IStatisticOrders;
+    activateUser: IActivateUser;
     paramsUsers: IParams;
     errorUser: IErrorResponse;
 }
@@ -28,6 +29,7 @@ const initialState: IState = {
     loading: false,
     orderStatistic: {},
     userStatistic: {},
+    activateUser: {},
     paramsUsers: null,
     errorUser: null
 };
@@ -107,6 +109,19 @@ const getStatisticUser = createAsyncThunk<IStatisticOrders, { id: number }>(
     }
 );
 
+const getActivateUser = createAsyncThunk<IActivateUser, { id: number}>(
+    'adminPanelSlice/getActivateUser',
+    async ({ id }, { rejectWithValue }) => {
+        try {
+            const { data } = await adminPanelService.getActivateUser(id);
+            return data;
+        } catch (e) {
+            const err = e as AxiosError;
+            return rejectWithValue(err.response.data);
+        }
+    }
+)
+
 const slice = createSlice({
     name: 'adminPanelSlice',
     initialState,
@@ -116,6 +131,13 @@ const slice = createSlice({
         },
         setDefault: state => {
             state.paramsUsers = {};
+            state.errorUser = null;
+        },
+        setErrorActivation: (state, action) => {
+            state.activateUser.message = action.payload;
+        },
+        setCloseFeedbackActivation: state => {
+            state.activateUser.message = null;
             state.errorUser = null;
         },
     },
@@ -133,6 +155,13 @@ const slice = createSlice({
         })
         .addCase(getStatisticUser.fulfilled, (state, action) => {
             state.userStatistic = action.payload;
+        })
+        .addCase(getActivateUser.fulfilled, (state, action) => {
+            state.activateUser = action.payload;
+            state.activateUser.message = JSON.stringify(state.activateUser.message);
+            state.loading = false;
+            state.userTrigger = !state.userTrigger;
+
         })
         .addMatcher(isFulfilled(), state => {
             state.loading = false;
@@ -162,6 +191,7 @@ const adminPanelActions = {
     unban,
     getStatisticOrder,
     getStatisticUser,
+    getActivateUser,
 };
 
 export {

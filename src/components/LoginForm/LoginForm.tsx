@@ -17,7 +17,7 @@ import { okten_school_image } from '../../assets';
 const LoginForm: FC = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const { error, loading } = useAppSelector(state => state.authReducer);
+    const { errorAuth, loading } = useAppSelector(state => state.authReducer);
     const { handleSubmit, register, reset, formState: { errors, dirtyFields, isValid } } = useForm<IAuth>({
         mode: 'all',
         resolver: joiResolver(authValidator),
@@ -70,8 +70,8 @@ const LoginForm: FC = () => {
                 </Modal.Body>
                 <Modal.Footer style={{ backgroundColor: 'aliceblue' }}>
                     {
-                        error?.messages &&
-                        <Alert className='p-2' key='danger' variant='danger'>{ error?.messages }</Alert>
+                        errorAuth?.messages &&
+                        <Alert className='p-2' variant='danger'>{ errorAuth?.messages }</Alert>
                     }
                     <Button variant='primary' type='submit' disabled={ !isValid || loading }>
                         { loading ? 'loading...' : 'login' }

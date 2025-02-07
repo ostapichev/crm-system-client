@@ -15,10 +15,8 @@ const router = createBrowserRouter([
             </RequiredAuthLogin>
     },
     {
-        path: 'activate/:token', element:
-            <RequiredAuthLogin>
-                <RegisterPage page='activateUser' />
-            </RequiredAuthLogin>
+        path: 'activate/:activateToken', element:
+            <RegisterPage page='activateUser' />
     },
     {
         path: 'recovery/:token', element:

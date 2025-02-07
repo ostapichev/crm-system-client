@@ -4,6 +4,7 @@ import { useDebounce } from 'use-debounce';
 
 import { Button, Card } from 'react-bootstrap';
 
+import { FeedbackActivation } from '../FeedbackActivation/FeedbackActivation';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { IParams } from '../../interfaces';
 import { adminPanelActions } from '../../redux';
@@ -62,6 +63,7 @@ const Users: FC = () => {
                 </Card.Body>
             </Card>
             <UserForm openForm={ openForm } setOpenForm={ setOpenForm }/>
+            <FeedbackActivation />
         </div>
     );
 };

@@ -1,13 +1,47 @@
 import { FC } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { useNavigate, useParams } from 'react-router-dom';
+import { joiResolver } from '@hookform/resolvers/joi';
 
-import { Button, FloatingLabel, Form, Image, Modal } from 'react-bootstrap';
+import { Alert, Button, FloatingLabel, Form, Image, Modal }  from 'react-bootstrap';
+
+import { FormControlFeedbackError } from '../FormControlFeedbackError/FormControlFeedbackError';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { IAuth } from '../../interfaces';
+import { authActions } from '../../redux';
+import { passwordValidator } from '../../validators/password.validator';
 
 import { okten_school_image } from '../../assets';
 
 const RegisterForm: FC = () => {
+    const dispatch = useAppDispatch();
+    const { loading, errorConfirmPassword, errorAuth } = useAppSelector(state => state.authReducer);
+    const navigate = useNavigate();
+    const { activateToken } = useParams<{ activateToken: string }>();
+    const { handleSubmit, register, getValues, reset, formState: { errors } } = useForm<IAuth>({
+        mode: 'all',
+        resolver: joiResolver(passwordValidator)
+    });
+    const recoveryActivateRequestUser: SubmitHandler<IAuth> = async (): Promise<void> => {
+        const { password, confirmPassword } = getValues();
+        if (password !== confirmPassword) {
+            dispatch(authActions.setConfirmPassword('Password mismatch!'));
+            return;
+        }
+        const formData = new FormData();
+        formData.append('password', password);
+        const { meta: { requestStatus } } = await dispatch(authActions.activateRequestUser(
+            { formData, activateToken }
+        ));
+        if (requestStatus === 'fulfilled') {
+            navigate('/login');
+        }
+        reset();
+    };
+
     return (
         <Modal.Dialog centered>
-            <Form>
+            <Form onSubmit={ handleSubmit(recoveryActivateRequestUser) }>
                 <Modal.Header className='bg-info-subtle'>
                     <Modal.Title>
                         <Image src= { okten_school_image } className='w-25' alt='okten-school' />
@@ -18,17 +52,37 @@ const RegisterForm: FC = () => {
                         <Form.Control
                             type='password'
                             placeholder='Password'
+                            disabled={ loading }
+                            isInvalid={ !!errors.password }
+                            { ...register('password', { required: true }) }
                         />
+                        { errors.password && <FormControlFeedbackError error={ errors.password.message } /> }
                     </FloatingLabel>
                     <FloatingLabel controlId='floatingPassword' label='Confirm password'>
                         <Form.Control
                             type='password'
                             placeholder='Confirm password'
+                            disabled={ loading }
+                            isInvalid={ !!errors.confirmPassword }
+                            { ...register('confirmPassword', { required: true }) }
                         />
+                        { errors.confirmPassword && <FormControlFeedbackError error={ errors.confirmPassword.message } /> }
                     </FloatingLabel>
                 </Modal.Body>
                 <Modal.Footer style={{ backgroundColor: 'aliceblue' }}>
-                    <Button variant='primary' type='submit'>
+                    {
+                        errorAuth?.messages &&
+                        <Alert className='p-2' variant='danger'>{ errorAuth?.messages }</Alert>
+                    }
+                    {
+                        errorConfirmPassword &&
+                        <Alert className='p-2' variant='danger'>{ errorConfirmPassword }</Alert>
+                    }
+                    <Button
+                        variant='primary'
+                        type='submit'
+                        disabled={ loading }
+                    >
                         Submit
                     </Button>
                 </Modal.Footer>

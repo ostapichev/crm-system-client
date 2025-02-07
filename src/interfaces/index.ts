@@ -1,3 +1,4 @@
+export * from './activate-user.interface';
 export * from './auth.interface';
 export * from './comment.interface';
 export * from './error.interface';

@@ -12,7 +12,11 @@ const rootReducer = combineReducers({
 });
 
 const setupStore = () => configureStore({
-    reducer: rootReducer
+    reducer: rootReducer,
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: false,
+        }),
 });
 
 type RootState = ReturnType<typeof rootReducer>;
