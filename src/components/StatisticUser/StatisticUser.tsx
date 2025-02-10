@@ -5,14 +5,14 @@ import { Badge, Card } from 'react-bootstrap';
 
 import { adminPanelService } from '../../services';
 import { IFuncVoid } from '../../types';
-import { IStatisticOrders } from '../../interfaces';
+import { IStatisticUser } from '../../interfaces';
 
 interface IProps {
     id: number;
 }
 
 const StatisticUser: FC<IProps> = ({ id }) => {
-    const [userStatistic, setUserStatistic] = useState<IStatisticOrders>({
+    const [userStatistic, setUserStatistic] = useState<IStatisticUser>({
         orders: 0,
         in_work: 0,
         agree: 0,

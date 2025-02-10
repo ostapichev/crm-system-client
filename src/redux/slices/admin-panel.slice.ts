@@ -2,7 +2,15 @@ import { AxiosError } from 'axios';
 import { createAsyncThunk, createSlice, isFulfilled, isPending, isRejectedWithValue } from '@reduxjs/toolkit';
 
 import { adminPanelService } from '../../services';
-import { IStatisticOrders, IParams, IUser, IErrorResponse, IQueryUsers, IActivateUser } from '../../interfaces';
+import {
+    IStatisticOrders,
+    IParams,
+    IUser,
+    IErrorResponse,
+    IQueryUsers,
+    IActivateUser,
+    IStatisticUser,
+} from '../../interfaces';
 
 interface IState {
     users: IUser[];
@@ -13,7 +21,7 @@ interface IState {
     userTrigger: boolean;
     loading: boolean;
     orderStatistic: IStatisticOrders;
-    userStatistic: IStatisticOrders;
+    userStatistic: IStatisticUser;
     activateUser: IActivateUser;
     paramsUsers: IParams;
     errorUser: IErrorResponse;

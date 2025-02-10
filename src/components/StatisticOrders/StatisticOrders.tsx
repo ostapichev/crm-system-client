@@ -10,7 +10,7 @@ const StatisticOrders: FC = () => {
     const dispatch = useAppDispatch();
     const { totalOrders } = useAppSelector(state => state.orderReducer);
     const { orderStatistic, totalUsers } = useAppSelector(state => state.adminPanelReducer);
-    const { agree, disagree, in_work, dubbing, news } = orderStatistic;
+    const { agree, disagree, in_work, dubbing, news, status_null } = orderStatistic;
     useEffect(() => {
         dispatch(adminPanelActions.getStatisticOrder());
     }, [dispatch]);
@@ -127,6 +127,22 @@ const StatisticOrders: FC = () => {
                         </Card.Header>
                         <Card.Body className='text-center p-0'>
                             <Card.Text className='m-1 fs-5'>{ disagree }</Card.Text>
+                        </Card.Body>
+                    </Card>
+                </Col>
+                <Col className='d-flex justify-content-center align-items-center'>
+                    <Card
+                        bg='info'
+                        key='Info'
+                        text='white'
+                        style={{ width: '10rem', height: '90%' }}
+                        className='m-2'
+                    >
+                        <Card.Header>
+                            <Card.Title className='text-center fs-4 fw-bold m-0'>{ StatusEnum.NULL }</Card.Title>
+                        </Card.Header>
+                        <Card.Body className='text-center p-0'>
+                            <Card.Text className='m-1 fs-5'>{ status_null }</Card.Text>
                         </Card.Body>
                     </Card>
                 </Col>
