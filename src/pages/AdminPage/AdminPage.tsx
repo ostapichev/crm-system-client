@@ -1,12 +1,13 @@
 import { FC } from 'react';
 
-import { StatisticOrders, UsersPanel } from '../../components';
+import { FooterApp, StatisticOrders, Users } from '../../components';
 
 const AdminPage: FC = () => {
     return (
         <div className='bg-light'>
             <StatisticOrders />
-            <UsersPanel />
+            <Users />
+            <FooterApp pageName='admin' />
         </div>
     );
 };

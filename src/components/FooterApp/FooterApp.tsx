@@ -8,14 +8,23 @@ import { IPagination } from '../../interfaces';
 import { PaginationApp } from '../PaginationApp/PaginationApp';
 import { IFuncNumber, IFuncValueString } from '../../types';
 
-const Footer: FC = () => {
+interface IProps {
+    pageName: string;
+}
+
+const FooterApp: FC<IProps> = ({ pageName }) => {
     const [, setQuery] = useSearchParams();
     const { pageOrders, ordersLimit, totalOrdersPages, totalOrders } = useAppSelector(state => state.orderReducer);
+    const { pageUsers, totalUsersPages, usersLimit, totalUsers } = useAppSelector(state => state.adminPanelReducer);
+    const totalPages = pageName === 'orders' ? totalOrdersPages : totalUsersPages;
+    const totalItems = pageName === 'orders' ? totalOrders : totalUsers;
+    const page = pageName === 'orders' ? pageOrders : pageUsers;
+    const limit = pageName === 'orders' ? ordersLimit : usersLimit;
     const pageChanger: IFuncValueString = useCallback((value: string): void => {
         setQuery(prev => {
             const newPage: number = value === '&raquo;' || value === ' ...'
                 ?
-                totalOrdersPages
+                totalPages
                 :
                 value === '&laquo;' || value === '... '
                     ?
@@ -27,22 +36,22 @@ const Footer: FC = () => {
                         :
                         value === '&rsaquo;'
                             ?
-                            Math.min((+prev.get('page') || 1) + 1, totalOrdersPages)
+                            Math.min((+prev.get('page') || 1) + 1, totalPages)
                             :
                             +value;
             const query = new URLSearchParams(prev.toString());
             query.set('page', newPage.toString());
             return query;
         });
-    }, [setQuery, totalOrdersPages]);
+    }, [setQuery, totalPages]);
     const getPage: IFuncNumber = (): number => {
-        return Math.ceil(totalOrders / ordersLimit);
+        return Math.ceil(totalItems / limit);
     };
     const dataPagination: IPagination = {
-        totalPages: totalOrdersPages,
-        page: pageOrders >= totalOrdersPages ? getPage() : pageOrders,
+        totalPages,
+        page: page >= totalPages ? getPage() : page,
         siblings: 2,
-        limit: ordersLimit,
+        limit,
         pageChanger,
     };
 
@@ -50,7 +59,7 @@ const Footer: FC = () => {
         <Navbar className='bg-dark-subtle z-0' fixed='bottom' sticky='bottom'>
             <Container>
                 {
-                    totalOrdersPages > 1 && <PaginationApp dataPagination={ dataPagination } />
+                    totalPages > 1 && <PaginationApp dataPagination={ dataPagination } />
                 }
             </Container>
         </Navbar>
@@ -58,5 +67,5 @@ const Footer: FC = () => {
 };
 
 export {
-    Footer
+    FooterApp
 };

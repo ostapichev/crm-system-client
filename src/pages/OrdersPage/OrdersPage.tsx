@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { FilterBlock, Footer, OrderForm, Orders } from '../../components';
+import {FilterBlock, FooterApp, OrderForm, Orders} from '../../components';
 
 const OrdersPage: FC = () => {
     return (
@@ -8,7 +8,7 @@ const OrdersPage: FC = () => {
             <FilterBlock />
             <Orders />
             <OrderForm />
-            <Footer />
+            <FooterApp pageName='orders' />
         </div>
     );
 };
