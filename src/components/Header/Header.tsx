@@ -73,6 +73,7 @@ const Header: FC = () => {
                                         variant='light'
                                         id='dropdown-item-button'
                                         title={ me.surname }
+                                        align='end' flip={ true }
                                     >
                                         <Profile me={ me } />
                                     </DropdownButton>

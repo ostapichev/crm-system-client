@@ -47,7 +47,7 @@ const Footer: FC = () => {
     };
 
     return (
-        <Navbar className='bg-dark-subtle' fixed='bottom' sticky='bottom'>
+        <Navbar className='bg-dark-subtle z-0' fixed='bottom' sticky='bottom'>
             <Container>
                 {
                     totalOrdersPages > 1 && <PaginationApp dataPagination={ dataPagination } />

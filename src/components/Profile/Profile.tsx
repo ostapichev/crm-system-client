@@ -26,7 +26,7 @@ const Profile: FC<IProps> = ({ me }) => {
     }, [dispatch, orderTrigger, commentTrigger, id]);
 
     return (
-        <Dropdown.ItemText className='p-1'>
+        <Dropdown.ItemText className='p-1 bg-info-subtle'>
             <Image src={ okten_school_image } className='w-25 ms-2 mb-2' alt='okten-school' />
             <Card style={{ width: '20rem' }}>
                 <Card.Header className='fw-bold fs-5'>

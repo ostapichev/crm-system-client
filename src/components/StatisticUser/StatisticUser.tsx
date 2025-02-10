@@ -1,9 +1,11 @@
-import { AxiosError } from "axios";
+import { AxiosError } from 'axios';
 import { FC, useEffect, useMemo, useState } from 'react';
 
-import { adminPanelService } from "../../services";
-import { IFuncVoid } from "../../types";
-import { IStatisticOrders } from "../../interfaces";
+import { Badge, Card } from 'react-bootstrap';
+
+import { adminPanelService } from '../../services';
+import { IFuncVoid } from '../../types';
+import { IStatisticOrders } from '../../interfaces';
 
 interface IProps {
     id: number;
@@ -32,22 +34,49 @@ const StatisticUser: FC<IProps> = ({ id }) => {
     }, [queryUserStatistic]);
 
     return (
-        <div className="d-flex flex-column align-items-center">
-            <div className="fs-6 text-serif">
-                Total orders:&nbsp;<span className="fw-bold fs-6 text-serif">{ orders }</span>
-            </div>
-            <div className={(in_work > 0) ? "fs-6 text-serif" : 'd-none'}>
-                In work:&nbsp;<span className="fw-bold fs-6 text-serif">{in_work}</span>
-            </div>
-            <div className={(agree > 0) ? "fs-6 text-serif" : 'd-none'}>
-                Agree:&nbsp;<span className="fw-bold fs-6 text-serif">{agree}</span>
-            </div>
-            <div className={(disagree > 0) ? "fs-6 text-serif" : 'd-none'}>
-                Disagree:&nbsp;<span className="fw-bold fs-6 text-serif">{disagree}</span>
-            </div>
-            <div className={(dubbing > 0) ? "fs-6 text-serif" : 'd-none'}>
-                Dubbing:&nbsp;<span className="fw-bold fs-6 text-serif">{dubbing}</span>
-            </div>
+        <div className='w-100'>
+            <Card.Text className='m-1 w-75 d-flex justify-content-between align-items-start'>
+                <strong>total&#58;&nbsp;</strong>
+                <Badge bg='success' pill>
+                    { orders }
+                </Badge>
+            </Card.Text>
+            {
+                in_work > 0 &&
+                <Card.Text className='m-1 w-75 d-flex justify-content-between align-items-start'>
+                    <strong>in work&#58;&nbsp;</strong>
+                    <Badge bg='primary' pill>
+                        { in_work }
+                    </Badge>
+                </Card.Text>
+            }
+            {
+                agree > 0 &&
+                <Card.Text className='m-1 w-75 d-flex justify-content-between align-items-start'>
+                    <strong>agree&#58;&nbsp;</strong>
+                    <Badge bg='primary' pill>
+                        { agree }
+                    </Badge>
+                </Card.Text>
+            }
+            {
+                disagree > 0 &&
+                <Card.Text className='m-1 w-75 d-flex justify-content-between align-items-start'>
+                    <strong>disagree&#58;&nbsp;</strong>
+                    <Badge bg='primary' pill>
+                        { disagree }
+                    </Badge>
+                </Card.Text>
+            }
+            {
+                dubbing > 0 &&
+                <Card.Text className='m-1 w-75 d-flex justify-content-between align-items-start'>
+                    <strong>dubbing&#58;&nbsp;</strong>
+                    <Badge bg='primary' pill>
+                        { dubbing }
+                    </Badge>
+                </Card.Text>
+            }
         </div>
     );
 };

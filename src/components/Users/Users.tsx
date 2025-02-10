@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { IParams } from '../../interfaces';
 import { adminPanelActions } from '../../redux';
 import { SearchUser } from '../SearchUser/SearchUser';
-import {IFuncNumber, IFuncVoid} from '../../types';
+import { IFuncVoid } from '../../types';
 import { User } from '../User/User';
 import { UserForm } from '../UserForm/UserForm';
 
@@ -20,9 +20,6 @@ const Users: FC = () => {
     const [query] = useSearchParams();
     const handleShowForm: IFuncVoid = (): void => {
         setOpenForm(true);
-    };
-    const userStatistic: (value: number) => void = (id: number): void => {
-        dispatch(adminPanelActions.getStatisticUser({ id }));
     };
     const [debouncedParams] = useDebounce<IParams>(
         {
@@ -61,7 +58,6 @@ const Users: FC = () => {
                             <User 
                                 key={ user.id } 
                                 user={ user }
-                                statistic={ userStatistic }
                             />)
                     }
                 </Card.Body>

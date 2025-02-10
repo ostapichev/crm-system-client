@@ -1,4 +1,4 @@
-import {FC, MouseEventHandler, useState} from 'react';
+import { FC, MouseEventHandler, useState } from 'react';
 
 import { Alert, Button, Card, Row } from 'react-bootstrap';
 
@@ -7,19 +7,18 @@ import { DateFormat } from "../DateFormat/DateFormat";
 import { IUser } from '../../interfaces';
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { adminPanelActions } from "../../redux";
+import { StatisticUser } from "../StatisticUser/StatisticUser";
 
 interface IProps {
     user: IUser;
-    statistic: (value: number) => void;
 }
 
-const User: FC<IProps> = ({ user, statistic }) => {
+const User: FC<IProps> = ({ user }) => {
     const dispatch = useAppDispatch();
     const [activate, setActivate] = useState<boolean>(false);
     const [buttonText, setButtonText] = useState<string>(null);
-    const { userStatistic, activateUser } = useAppSelector(state => state.adminPanelReducer);
+    const { activateUser } = useAppSelector(state => state.adminPanelReducer);
     const { id, name, surname, email, is_active, last_login } = user;
-    const { orders, agree, disagree, in_work, dubbing } = userStatistic;
     const ban: MouseEventHandler<HTMLButtonElement> = async (): Promise<void> => {
         await dispatch(adminPanelActions.ban({ id }));
     };
@@ -63,13 +62,9 @@ const User: FC<IProps> = ({ user, statistic }) => {
                     </Card.Text>
                 </Row>
                 <Row className='w-25'>
-                    <Card.Text className='m-1'>total: <strong>{ orders }</strong></Card.Text>
-                    <Card.Text className='m-1'>in work: <strong>{ in_work }</strong></Card.Text>
-                    <Card.Text className='m-1'>agree: <strong>{ agree }</strong></Card.Text>
-                    <Card.Text className='m-1'>disagree: <strong>{ disagree }</strong></Card.Text>
-                    <Card.Text className='m-1'>dubbing: <strong>{ dubbing }</strong></Card.Text>
+                    <StatisticUser id={ id } />
                 </Row>
-                <Row className='w-25 d-flex flex-column justify-content-start'>
+                <Row className='w-25 m-0 d-flex flex-column justify-content-start'>
                     <Button
                         type='button'
                         className='h-25 m-1'
