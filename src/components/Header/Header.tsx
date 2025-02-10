@@ -1,11 +1,12 @@
 import { FC, Fragment, useCallback, useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 
-import { Badge, Button, Container, Image, Navbar, Stack } from 'react-bootstrap';
+import { Button, Container, DropdownButton, Image, Navbar, Stack } from 'react-bootstrap';
 
 import { oktenURL } from '../../constants';
 import { UserRoleEnum } from '../../enums';
 import { useAppDispatch, useAppSelector } from '../../hooks';
+import { Profile } from "../Profile/Profile";
 import { authActions, groupActions, orderActions } from '../../redux';
 import { authService } from '../../services';
 import { IFuncVoid } from '../../types';
@@ -67,9 +68,14 @@ const Header: FC = () => {
                             me
                                 ?
                                 <Stack direction='horizontal' gap={2}>
-                                    <h1>
-                                        <Badge bg='info'>{ me.surname }</Badge>
-                                    </h1>
+                                    <DropdownButton
+                                        size='lg'
+                                        variant='light'
+                                        id='dropdown-item-button'
+                                        title={ me.surname }
+                                    >
+                                        <Profile me={ me } />
+                                    </DropdownButton>
                                     {
                                         me.role === UserRoleEnum.ADMIN &&
                                         <Fragment>

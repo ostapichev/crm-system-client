@@ -2,11 +2,7 @@ import { FC } from 'react';
 
 import { RegisterForm } from '../../components';
 
-interface IProps {
-    page: string;
-}
-
-const RegisterPage: FC<IProps> = ({ page }) => {
+const RegisterPage: FC = () => {
     return (
         <div className='modal show bg-info d-block'>
             <RegisterForm />

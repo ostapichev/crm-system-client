@@ -1,4 +1,4 @@
-import { FC, MouseEventHandler, useState } from 'react';
+import {FC, MouseEventHandler, useState} from 'react';
 
 import { Alert, Button, Card, Row } from 'react-bootstrap';
 
@@ -10,9 +10,10 @@ import { adminPanelActions } from "../../redux";
 
 interface IProps {
     user: IUser;
+    statistic: (value: number) => void;
 }
 
-const User: FC<IProps> = ({ user }) => {
+const User: FC<IProps> = ({ user, statistic }) => {
     const dispatch = useAppDispatch();
     const [activate, setActivate] = useState<boolean>(false);
     const [buttonText, setButtonText] = useState<string>(null);
@@ -37,9 +38,9 @@ const User: FC<IProps> = ({ user }) => {
         const link = `${urls.localURL.activate}/${activateUser.activateToken}`;
         await navigator.clipboard.writeText(link)
             .then(() => setButtonText('Link copied to clipboard!'));
-        setTimeout(() => {
-            setButtonText(null);
-        }, 5000);
+            setTimeout(() => {
+                setButtonText(null);
+            }, 5000);
         setActivate(false);
     };
 
