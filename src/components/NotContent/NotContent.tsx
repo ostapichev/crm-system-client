@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { Badge } from "react-bootstrap";
+import { Badge } from 'react-bootstrap';
 
 const NotContent: FC = () => {
     return (
@@ -18,7 +18,7 @@ const NotContent: FC = () => {
                 className='fs-1'
                 style={{ fontFamily: 'Helvetica serif' }}
             >
-                <Badge bg='danger'>Not found content</Badge>
+                <Badge bg='danger'>Not&nbsp;found&nbsp;content</Badge>
             </p>
         </div>
     );

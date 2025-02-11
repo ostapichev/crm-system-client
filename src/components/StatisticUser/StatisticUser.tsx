@@ -3,9 +3,9 @@ import { FC, useEffect, useMemo, useState } from 'react';
 
 import { Badge, Card } from 'react-bootstrap';
 
+import { IStatisticUser } from '../../interfaces';
 import { adminPanelService } from '../../services';
 import { IFuncVoid } from '../../types';
-import { IStatisticUser } from '../../interfaces';
 
 interface IProps {
     id: number;
@@ -35,7 +35,7 @@ const StatisticUser: FC<IProps> = ({ id }) => {
 
     return (
         <div className='w-100'>
-            <Card.Text className='m-1 w-75 d-flex justify-content-between align-items-start'>
+            <Card.Text className='m-1 w-75 d-flex justify-content-between align-items-center'>
                 <strong>total&#58;&nbsp;</strong>
                 <Badge bg='success' pill>
                     { orders }
@@ -43,8 +43,8 @@ const StatisticUser: FC<IProps> = ({ id }) => {
             </Card.Text>
             {
                 in_work > 0 &&
-                <Card.Text className='m-1 w-75 d-flex justify-content-between align-items-start'>
-                    <strong>in work&#58;&nbsp;</strong>
+                <Card.Text className='m-1 w-75 d-flex justify-content-between align-items-center'>
+                    <strong>in&nbsp;work&#58;&nbsp;</strong>
                     <Badge bg='primary' pill>
                         { in_work }
                     </Badge>
@@ -52,7 +52,7 @@ const StatisticUser: FC<IProps> = ({ id }) => {
             }
             {
                 agree > 0 &&
-                <Card.Text className='m-1 w-75 d-flex justify-content-between align-items-start'>
+                <Card.Text className='m-1 w-75 d-flex justify-content-between align-items-center'>
                     <strong>agree&#58;&nbsp;</strong>
                     <Badge bg='primary' pill>
                         { agree }
@@ -61,7 +61,7 @@ const StatisticUser: FC<IProps> = ({ id }) => {
             }
             {
                 disagree > 0 &&
-                <Card.Text className='m-1 w-75 d-flex justify-content-between align-items-start'>
+                <Card.Text className='m-1 w-75 d-flex justify-content-between align-items-center'>
                     <strong>disagree&#58;&nbsp;</strong>
                     <Badge bg='primary' pill>
                         { disagree }
@@ -70,7 +70,7 @@ const StatisticUser: FC<IProps> = ({ id }) => {
             }
             {
                 dubbing > 0 &&
-                <Card.Text className='m-1 w-75 d-flex justify-content-between align-items-start'>
+                <Card.Text className='m-1 w-75 d-flex justify-content-between align-items-center'>
                     <strong>dubbing&#58;&nbsp;</strong>
                     <Badge bg='primary' pill>
                         { dubbing }

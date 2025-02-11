@@ -8,7 +8,7 @@ interface IProps {
 
 const FormControlFeedbackError: FC<IProps> = ({ error }) => {
     return (
-        <Form.Control.Feedback type="invalid" tooltip>
+        <Form.Control.Feedback type='invalid' tooltip>
             { error }
         </Form.Control.Feedback>
     );

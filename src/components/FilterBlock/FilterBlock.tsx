@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 
 import { Col, FloatingLabel, Form, Row, Stack } from 'react-bootstrap';
 
-import { ButtonBlock } from "../ButtonBlock/ButtonBlock";
+import { ButtonBlock } from '../ButtonBlock/ButtonBlock';
 import { CourseEnum, CourseFormatEnum, CourseTypeEnum, StatusEnum } from '../../enums';
 import { Group } from '../Group/Group';
 import { useAppSelector } from '../../hooks';

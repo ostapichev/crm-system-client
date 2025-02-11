@@ -46,14 +46,14 @@ const GroupForm: FC = () => {
                 { errors.name && <FormControlFeedbackError error={ errors.name.message } /> }
                 <div className='d-flex'>
                     <button
-                        type="submit"
+                        type='submit'
                         className={ css.Button_group }
                         disabled={ !isValid }
                     >
                         save
                     </button>
                     <button
-                        type="button"
+                        type='button'
                         className={ css.Button_group }
                         onClick={ select }
                     >

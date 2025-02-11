@@ -80,7 +80,7 @@ const update = createAsyncThunk<void, { id: number, order: IOrder }>(
 const getExelFile = createAsyncThunk<void, { params: IParams }>(
     'orderSlice/getExelFile',
     async ({ params }, { rejectWithValue }) => {
-        const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.sheet;charset=UTF-8";
+        const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.sheet;charset=UTF-8';
         const fileName: string = dayjs().format('YYYY-MM-DD').toString();
         try {
             const response: AxiosResponse = await orderService.createExelFile(params);

@@ -1,8 +1,8 @@
-import { AxiosError } from "axios";
-import { createAsyncThunk, createSlice, isFulfilled, isPending, isRejectedWithValue } from "@reduxjs/toolkit";
+import { AxiosError } from 'axios';
+import { createAsyncThunk, createSlice, isFulfilled, isPending, isRejectedWithValue } from '@reduxjs/toolkit';
 
-import {commentService} from "../../services";
-import { IComment, IErrorResponse } from "../../interfaces";
+import { commentService } from '../../services';
+import { IComment, IErrorResponse } from '../../interfaces';
 
 interface IState {
     commentTrigger: boolean;
@@ -26,7 +26,7 @@ const initialState: IState = {
     errorsComment: null
 };
 
-const create = createAsyncThunk<void, {order_id: number, comment: IComment}>(
+const create = createAsyncThunk<void, { order_id: number, comment: IComment }>(
     'commentSlice/create',
     async ({ order_id, comment }, { rejectWithValue }) => {
         try {

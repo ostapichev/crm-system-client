@@ -88,7 +88,7 @@ const ButtonBlock: FC = () => {
                                     placement='top'
                                     overlay={
                                         <Tooltip id='tooltip-bottom'>
-                                            <strong>reset filter</strong>
+                                            <strong>reset&nbsp;filter</strong>
                                         </Tooltip>
                                     }
                                 >
@@ -125,7 +125,7 @@ const ButtonBlock: FC = () => {
                                     placement='top'
                                     overlay={
                                         <Tooltip id='tooltip-bottom'>
-                                            <strong>create order</strong>
+                                            <strong>create&nbsp;order</strong>
                                         </Tooltip>
                                     }
                                 >
@@ -155,7 +155,7 @@ const ButtonBlock: FC = () => {
                                     placement='top'
                                     overlay={
                                         <Tooltip id='tooltip-bottom'>
-                                            <strong>create exel file</strong>
+                                            <strong>create&nbsp;exel&nbsp;file</strong>
                                         </Tooltip>
                                     }
                                 >

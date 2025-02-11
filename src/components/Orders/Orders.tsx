@@ -112,7 +112,7 @@ const Orders: FC = () => {
                 </thead>
                 <tbody>
                 {
-                    loading
+                    loading && !orders.length
                         ?
                         places.map((place: ReactElement) => place)
                         :

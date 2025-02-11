@@ -1,8 +1,8 @@
-import { AxiosError } from "axios";
-import { createAsyncThunk, createSlice, isRejectedWithValue } from "@reduxjs/toolkit";
+import { AxiosError } from 'axios';
+import { createAsyncThunk, createSlice, isRejectedWithValue } from '@reduxjs/toolkit';
 
-import { groupService } from "../../services";
-import { IErrorResponse, IGroup } from "../../interfaces";
+import { groupService } from '../../services';
+import { IErrorResponse, IGroup } from '../../interfaces';
 
 interface IState {
     groups: IGroup[];
@@ -52,13 +52,6 @@ const slice = createSlice({
         setVision: (state, action) => {
             state.vision = action.payload;
             state.errorGroup = null;
-        },
-        setVisionDefault: state => {
-            state.vision = false;
-            state.errorGroup = null;
-        },
-        setGroupCreate: (state, action) => {
-            state.groupCreate = action.payload;
         },
     },
     extraReducers: builder => builder

@@ -2,7 +2,7 @@ import { AxiosRequestConfig } from 'axios';
 
 import { axiosService } from './axios.service';
 import { urls } from '../constants';
-import {IActivateUser, IFeedback, IParams, IStatisticOrders, IUser} from '../interfaces';
+import { IActivateUser, IFeedback, IParams, IStatisticOrders, IUser } from '../interfaces';
 import { IRes, IResQuery } from '../types';
 
 class AdminPanelService {

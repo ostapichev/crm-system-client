@@ -17,13 +17,13 @@ interface IProps {
 
 const CommentForm: FC<IProps> = ({ order_id, isOwner }) => {
     const dispatch = useAppDispatch();
-    const { handleSubmit, register, setValue, formState: { errors, isValid } } = useForm<IComment>({
-        mode: "all",
+    const { handleSubmit, register, reset, formState: { errors, isValid } } = useForm<IComment>({
+        mode: 'all',
         resolver: joiResolver(commentValidator),
     });
     const save: SubmitHandler<IComment> = async (comment) => {
         await dispatch(commentActions.create({ order_id, comment }));
-        setValue('text', '');
+        reset();
     };
 
     return (

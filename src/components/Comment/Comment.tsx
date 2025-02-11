@@ -19,7 +19,7 @@ const Comment: FC<IProps> = ({ comment, isOpen }) => {
 
     return (
         <div className='d-flex flex-column border-bottom border-info'>
-            <i>{ user.name } { user.surname }, { <DateFormat originalDate={ created_at } /> }</i>
+            <i>{ user.name }&nbsp;{ user.surname },&nbsp;{ <DateFormat originalDate={ created_at } /> }</i>
             <i>
                 <strong>{ getTextFormat(text) }</strong>
             </i>

@@ -1,4 +1,4 @@
-import Joi from "joi";
+import Joi from 'joi';
 
 const groupValidator = Joi.object({
     name: Joi.string()
@@ -6,7 +6,7 @@ const groupValidator = Joi.object({
         .required()
         .messages({
             'string.pattern.base': 'Only special format group. For example: dec-2023',
-            'string.required': "This field is required"
+            'string.required': 'This field is required'
         })
 })
 

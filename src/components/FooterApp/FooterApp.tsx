@@ -56,7 +56,7 @@ const FooterApp: FC<IProps> = ({ pageName }) => {
     };
 
     return (
-        <Navbar className='bg-dark-subtle z-0' fixed='bottom' sticky='bottom'>
+        <Navbar className='bg-dark-subtle z-1' fixed='bottom' sticky='bottom'>
             <Container>
                 {
                     totalPages > 1 && <PaginationApp dataPagination={ dataPagination } />

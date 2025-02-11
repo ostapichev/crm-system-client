@@ -15,8 +15,8 @@ import { okten_school_image } from '../../assets';
 
 const RegisterForm: FC = () => {
     const dispatch = useAppDispatch();
-    const { loading, errorConfirmPassword, errorAuth } = useAppSelector(state => state.authReducer);
     const navigate = useNavigate();
+    const { loading, errorConfirmPassword, errorAuth } = useAppSelector(state => state.authReducer);
     const { activateToken } = useParams<{ activateToken: string }>();
     const { handleSubmit, register, getValues, reset, formState: { errors } } = useForm<IAuth>({
         mode: 'all',

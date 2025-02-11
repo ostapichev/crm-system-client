@@ -3,7 +3,3 @@ export interface IErrorResponse {
     path?: string;
     statusCode?: number;
 }
-
-export interface IErrorComment {
-    comment?: string[];
-}

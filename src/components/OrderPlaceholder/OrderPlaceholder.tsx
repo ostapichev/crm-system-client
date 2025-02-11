@@ -13,7 +13,7 @@ const OrderPlaceholder: FC<IProps> = ({ xss = new Array(xsValues.length) }) => (
         {
             xss.map((xs: number, index: number) => (
                 <td key={ index }>
-                    <Placeholder as="div" animation="glow">
+                    <Placeholder as='div' animation='glow'>
                         <Placeholder xs={ xs } />
                     </Placeholder>
                 </td>
