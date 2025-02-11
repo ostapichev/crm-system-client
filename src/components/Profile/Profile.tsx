@@ -16,11 +16,11 @@ interface IProps {
 
 const Profile: FC<IProps> = ({ me }) => {
     const dispatch = useAppDispatch();
-    const { userStatistic } = useAppSelector(state => state.adminPanelReducer);
     const { orderTrigger } = useAppSelector(state => state.orderReducer);
     const { commentTrigger } = useAppSelector(state => state.commentReducer);
     const { id, name, surname, email, role, created_at } = me;
-    const { orders, in_work, agree, disagree, dubbing } = userStatistic;
+    const userStats = useAppSelector(state => state.adminPanelReducer.userStatistic[me.id]) || {};
+    const { orders, in_work, agree, disagree, dubbing } = userStats;
     useEffect(() => {
         dispatch(adminPanelActions.getStatisticUser({ id }));
     }, [dispatch, orderTrigger, commentTrigger, id]);

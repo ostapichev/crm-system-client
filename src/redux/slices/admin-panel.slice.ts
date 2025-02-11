@@ -21,7 +21,7 @@ interface IState {
     userTrigger: boolean;
     loading: boolean;
     orderStatistic: IStatisticOrders;
-    userStatistic: IStatisticUser;
+    userStatistic: Record<number, IStatisticUser>;
     activateUser: IActivateUser;
     paramsUsers: IParams;
     errorUser: IErrorResponse;
@@ -162,14 +162,17 @@ const slice = createSlice({
             state.orderStatistic = action.payload;
         })
         .addCase(getStatisticUser.fulfilled, (state, action) => {
-            state.userStatistic = action.payload;
+            const { id } = action.meta.arg;
+            state.userStatistic = {
+                ...state.userStatistic,
+                [id]: action.payload,
+            };
         })
         .addCase(getActivateUser.fulfilled, (state, action) => {
             state.activateUser = action.payload;
             state.activateUser.message = JSON.stringify(state.activateUser.message);
             state.loading = false;
             state.userTrigger = !state.userTrigger;
-
         })
         .addMatcher(isFulfilled(), state => {
             state.loading = false;

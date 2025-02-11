@@ -1,13 +1,12 @@
-import { FC, Fragment, MouseEventHandler, useState}  from 'react';
+import { FC, Fragment, MouseEventHandler, useEffect, useState } from 'react';
 
-import { Alert, Button, Card, Placeholder, Row } from 'react-bootstrap';
+import { Alert, Badge, Button, Card, Placeholder, Row } from 'react-bootstrap';
 
 import { urls } from "../../constants";
 import { DateFormat } from "../DateFormat/DateFormat";
 import { IUser } from '../../interfaces';
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { adminPanelActions } from "../../redux";
-import { StatisticUser } from "../StatisticUser/StatisticUser";
 
 interface IProps {
     user: IUser;
@@ -18,7 +17,9 @@ const User: FC<IProps> = ({ user }) => {
     const [activate, setActivate] = useState<boolean>(false);
     const [buttonText, setButtonText] = useState<string>(null);
     const { activateUser, loading } = useAppSelector(state => state.adminPanelReducer);
+    const userStats = useAppSelector(state => state.adminPanelReducer.userStatistic[user.id]) || {};
     const { id, name, surname, email, is_active, last_login } = user;
+    const { orders, in_work, agree, disagree, dubbing } = userStats;
     const ban: MouseEventHandler<HTMLButtonElement> = async (): Promise<void> => {
         await dispatch(adminPanelActions.ban({ id }));
     };
@@ -42,6 +43,9 @@ const User: FC<IProps> = ({ user }) => {
             }, 5000);
         setActivate(false);
     };
+    useEffect(() => {
+        dispatch(adminPanelActions.getStatisticUser({ id }));
+    }, [dispatch, id]);
 
     return (
         <Card
@@ -112,7 +116,48 @@ const User: FC<IProps> = ({ user }) => {
                                 </Card.Text>
                             </Row>
                             <Row className='w-25'>
-                                <StatisticUser id={ id } />
+                                <Card.Text className='m-1 w-75 d-flex justify-content-between align-items-center'>
+                                    <strong>total&#58;&nbsp;</strong>
+                                    <Badge bg='success' pill>
+                                        { orders }
+                                    </Badge>
+                                </Card.Text>
+                                {
+                                    in_work > 0 &&
+                                    <Card.Text className='m-1 w-75 d-flex justify-content-between align-items-center'>
+                                        <strong>in&nbsp;work&#58;&nbsp;</strong>
+                                        <Badge bg='primary' pill>
+                                            { in_work }
+                                        </Badge>
+                                    </Card.Text>
+                                }
+                                {
+                                    agree > 0 &&
+                                    <Card.Text className='m-1 w-75 d-flex justify-content-between align-items-center'>
+                                        <strong>agree&#58;&nbsp;</strong>
+                                        <Badge bg='primary' pill>
+                                            { agree }
+                                        </Badge>
+                                    </Card.Text>
+                                }
+                                {
+                                    disagree > 0 &&
+                                    <Card.Text className='m-1 w-75 d-flex justify-content-between align-items-center'>
+                                        <strong>disagree&#58;&nbsp;</strong>
+                                        <Badge bg='primary' pill>
+                                            { disagree }
+                                        </Badge>
+                                    </Card.Text>
+                                }
+                                {
+                                    dubbing > 0 &&
+                                    <Card.Text className='m-1 w-75 d-flex justify-content-between align-items-center'>
+                                        <strong>dubbing&#58;&nbsp;</strong>
+                                        <Badge bg='primary' pill>
+                                            { dubbing }
+                                        </Badge>
+                                    </Card.Text>
+                                }
                             </Row>
                             <Row className='w-25 m-0 d-flex flex-column justify-content-start'>
                                 <Button
