@@ -115,7 +115,7 @@ const User: FC<IProps> = ({ user }) => {
                                     <strong>{ last_login ? <DateFormat originalDate={ last_login } /> : 'no data' }</strong>
                                 </Card.Text>
                             </Row>
-                            <Row className='w-25'>
+                            <Row className='w-25 d-flex flex-column justify-content-start'>
                                 <Card.Text className='m-1 w-75 d-flex justify-content-between align-items-center'>
                                     <strong>total&#58;&nbsp;</strong>
                                     <Badge bg='success' pill>

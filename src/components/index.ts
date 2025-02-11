@@ -22,6 +22,5 @@ export * from './Profile/Profile';
 export * from './RegisterForm/RegisterForm';
 export * from './SearchUser/SearchUser';
 export * from './StatisticOrders/StatisticOrders';
-export * from './StatisticUser/StatisticUser';
 export * from './UserForm/UserForm';
 export * from './Users/Users';

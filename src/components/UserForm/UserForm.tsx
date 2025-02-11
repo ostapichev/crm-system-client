@@ -33,6 +33,7 @@ const UserForm: FC<IProps> = ({ openForm, setOpenForm }) => {
     };
     const save: SubmitHandler<IUser> = async (user: IUser) => {
         await dispatch(adminPanelActions.create({ user }));
+        setOpenForm(false);
         reset();
     };
 
