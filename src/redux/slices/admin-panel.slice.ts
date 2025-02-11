@@ -170,7 +170,6 @@ const slice = createSlice({
         })
         .addCase(getActivateUser.fulfilled, (state, action) => {
             state.activateUser = action.payload;
-            state.activateUser.message = JSON.stringify(state.activateUser.message);
             state.loading = false;
             state.userTrigger = !state.userTrigger;
         })

@@ -103,7 +103,7 @@ const slice = createSlice({
         })
 });
 
-const {actions, reducer: authReducer} = slice;
+const { actions, reducer: authReducer } = slice;
 const authActions = {
     ...actions,
     login,
