@@ -23,7 +23,6 @@ interface IState {
     orderStatistic: IStatisticOrders;
     userStatistic: Record<number, IStatisticUser>;
     activateUser: IActivateUser;
-    paramsUsers: IParams;
     errorUser: IErrorResponse;
 }
 
@@ -38,7 +37,6 @@ const initialState: IState = {
     orderStatistic: {},
     userStatistic: {},
     activateUser: {},
-    paramsUsers: null,
     errorUser: null
 };
 
@@ -138,7 +136,6 @@ const slice = createSlice({
             state.pageUsers = action.payload;
         },
         setDefault: state => {
-            state.paramsUsers = {};
             state.errorUser = null;
         },
         setErrorActivation: (state, action) => {
@@ -170,7 +167,6 @@ const slice = createSlice({
         })
         .addCase(getActivateUser.fulfilled, (state, action) => {
             state.activateUser = action.payload;
-            state.loading = false;
             state.userTrigger = !state.userTrigger;
         })
         .addMatcher(isFulfilled(), state => {
@@ -179,7 +175,6 @@ const slice = createSlice({
         })
         .addMatcher(isFulfilled(create, ban, unban), state => {
             state.userTrigger = !state.userTrigger;
-            state.loading = false;
             state.errorUser = null;
         })
         .addMatcher(isPending(), state => {

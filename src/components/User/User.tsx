@@ -2,11 +2,11 @@ import { FC, Fragment, MouseEventHandler, useEffect, useState } from 'react';
 
 import { Alert, Badge, Button, Card, Placeholder, Row } from 'react-bootstrap';
 
-import { urls } from "../../constants";
-import { DateFormat } from "../DateFormat/DateFormat";
+import { urls } from '../../constants';
+import { DateFormat } from '../DateFormat/DateFormat';
 import { IUser } from '../../interfaces';
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { adminPanelActions } from "../../redux";
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { adminPanelActions } from '../../redux';
 
 interface IProps {
     user: IUser;
@@ -100,7 +100,7 @@ const User: FC<IProps> = ({ user }) => {
                     <Fragment>
                         <Card.Header>
                             <Fragment>
-                                ID&#58;&nbsp;<strong>{ id }</strong>
+                                <h5 className='mb-0'>ID&#58;&nbsp;<strong>{ id }</strong></h5>
                             </Fragment>
                         </Card.Header>
                         <Card.Body className='d-flex'>
@@ -172,7 +172,7 @@ const User: FC<IProps> = ({ user }) => {
                                     is_active
                                         ?
                                         <Button
-                                            variant='outline-dark'
+                                            variant='outline-primary'
                                             type='button'
                                             className='h-25 m-1'
                                             onClick={ !activate ? getLinkActivate : copyToClipboard }

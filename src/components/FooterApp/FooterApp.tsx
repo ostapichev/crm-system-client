@@ -6,7 +6,7 @@ import { Container, Navbar } from 'react-bootstrap';
 import { useAppSelector } from '../../hooks';
 import { IPagination } from '../../interfaces';
 import { PaginationApp } from '../PaginationApp/PaginationApp';
-import { IFuncNumber, IFuncValueString } from '../../types';
+import { IFuncValueString } from '../../types';
 
 interface IProps {
     pageName: string;
@@ -14,10 +14,9 @@ interface IProps {
 
 const FooterApp: FC<IProps> = ({ pageName }) => {
     const [, setQuery] = useSearchParams();
-    const { pageOrders, ordersLimit, totalOrdersPages, totalOrders } = useAppSelector(state => state.orderReducer);
-    const { pageUsers, totalUsersPages, usersLimit, totalUsers } = useAppSelector(state => state.adminPanelReducer);
+    const { pageOrders, ordersLimit, totalOrdersPages } = useAppSelector(state => state.orderReducer);
+    const { pageUsers, totalUsersPages, usersLimit } = useAppSelector(state => state.adminPanelReducer);
     const totalPages = pageName === 'orders' ? totalOrdersPages : totalUsersPages;
-    const totalItems = pageName === 'orders' ? totalOrders : totalUsers;
     const page = pageName === 'orders' ? pageOrders : pageUsers;
     const limit = pageName === 'orders' ? ordersLimit : usersLimit;
     const pageChanger: IFuncValueString = useCallback((value: string): void => {
@@ -44,19 +43,16 @@ const FooterApp: FC<IProps> = ({ pageName }) => {
             return query;
         });
     }, [setQuery, totalPages]);
-    const getPage: IFuncNumber = (): number => {
-        return Math.ceil(totalItems / limit);
-    };
     const dataPagination: IPagination = {
         totalPages,
-        page: page >= totalPages ? getPage() : page,
+        page,
         siblings: 2,
         limit,
         pageChanger,
     };
 
     return (
-        <Navbar className='bg-dark-subtle z-1' fixed='bottom' sticky='bottom'>
+        <Navbar className='bg-dark-subtle mt-auto z-1' fixed='bottom'>
             <Container>
                 {
                     totalPages > 1 && <PaginationApp dataPagination={ dataPagination } />

@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useDebounce } from 'use-debounce';
 
-import { Button, Card } from 'react-bootstrap';
+import { Button, Card, Container } from 'react-bootstrap';
 
 import { FeedbackActivation } from '../FeedbackActivation/FeedbackActivation';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -36,13 +36,13 @@ const Users: FC = () => {
     }, [dispatch, debouncedParamsString, userTrigger]);
     
     return (
-        <div>
+        <Container className='pb-5 mb-5' fluid>
             <Card
                 bg='Light'
                 text='dark'
                 className='ms-5 me-5 w-full'
             >
-                <Card.Header className='d-flex flex-wrap justify-content-between'>
+                <Card.Header className='d-flex flex-row justify-content-between'>
                     <div className='display-6'>Users</div>
                     <SearchUser />
                     <Button
@@ -64,7 +64,7 @@ const Users: FC = () => {
             </Card>
             <UserForm openForm={ openForm } setOpenForm={ setOpenForm }/>
             <FeedbackActivation />
-        </div>
+        </Container>
     );
 };
 

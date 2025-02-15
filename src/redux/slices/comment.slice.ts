@@ -65,6 +65,7 @@ const slice = createSlice({
             state.errorsComment = null;
         })
         .addMatcher(isRejectedWithValue(), (state, action) => {
+            state.loading = false;
             state.errorsComment = action.payload;
         })
 });

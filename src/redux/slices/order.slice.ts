@@ -19,7 +19,6 @@ interface IState {
     orderTrigger: boolean;
     loading: boolean;
     checkbox: boolean;
-    paramsOrders: IParams;
     errorsOrder: IErrorResponse;
 }
 
@@ -36,7 +35,6 @@ const initialState: IState = {
     orderTrigger: false,
     loading: false,
     checkbox: true,
-    paramsOrders: null,
     errorsOrder: null,
 };
 
@@ -84,7 +82,7 @@ const getExelFile = createAsyncThunk<void, { params: IParams }>(
         const fileName: string = dayjs().format('YYYY-MM-DD').toString();
         try {
             const response: AxiosResponse = await orderService.createExelFile(params);
-            const blob = new Blob([response.data],{type: fileType});
+            const blob = new Blob([response.data], { type: fileType });
             return FileSaver.saveAs(blob,`${fileName}.xlsx`);
         } catch (e) {
             const err = e as AxiosError;
@@ -131,8 +129,10 @@ const slice = createSlice({
             state.sorting_by = null;
             state.sorted = true;
             state.checkbox = true;
-            state.paramsOrders = null;
             state.errorsOrder = null;
+            if (localStorage.getItem('checkbox')) {
+                localStorage.removeItem('checkbox');
+            }
         },
         setCloseOrderForm: state => {
             state.showOrderForm = false;

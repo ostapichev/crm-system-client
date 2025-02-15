@@ -91,7 +91,7 @@ const slice = createSlice({
         .addMatcher(isFulfilled(login, me), (state, action) => {
             state.me = action.payload;
             state.errorAuth = null;
-            state.loading = true;
+            state.loading = false;
         })
         .addMatcher(isPending(), state => {
             state.loading = true;

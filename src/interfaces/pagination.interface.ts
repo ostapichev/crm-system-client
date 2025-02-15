@@ -1,4 +1,4 @@
-import { IFuncValueString } from "../types";
+import { IFuncValueString } from '../types';
 
 export interface IPagination {
     page: number;

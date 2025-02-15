@@ -2,7 +2,7 @@ import { FC, ReactElement, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useDebounce } from 'use-debounce';
 
-import { Table } from 'react-bootstrap';
+import { Container, Table } from 'react-bootstrap';
 
 import { xsValues } from '../../constants';
 import { IOrder, IParams } from '../../interfaces';
@@ -68,7 +68,7 @@ const Orders: FC = () => {
             dispatch(commentActions.setResetError());
         }
     };
-    const places: ReactElement[] = Array.from({ length: ordersLimit }, (_: ReactElement, index) => (
+    const places: ReactElement[] = Array.from({ length: ordersLimit }, (_: ReactElement, index: number) => (
         <OrderPlaceholder key={ index } xss={ xsValues } />
     ));
     useEffect(() => {
@@ -89,7 +89,7 @@ const Orders: FC = () => {
     }, [dispatch, debouncedParamsString, orderTrigger, commentTrigger]);
 
     return (
-        <div style={{ 'height': '90%' }}>
+        <Container className='p-0 pb-5 mb-5' fluid>
             <Table className='text-center' size='sm' borderless striped hover>
                 <thead>
                 <tr>
@@ -126,7 +126,11 @@ const Orders: FC = () => {
                 }
                 </tbody>
             </Table>
-        </div>
+            {
+                !loading && !orders.length &&
+                <h1 className='display-2 text-center'>No&nbsp;results</h1>
+            }
+        </Container>
     );
 };
 

@@ -25,7 +25,7 @@ const OrderDetails: FC<IProps> = ({ order, isOpen }) => {
     const { me } = useAppSelector(state => state.authReducer);
     const { pageComments, errorsComment } = useAppSelector(state => state.commentReducer);
     const lastComments: IComment[] = comments.slice(0, 3);
-    const setUpdate: IFuncVoid = () => {
+    const setUpdate: IFuncVoid = (): void => {
         dispatch(orderActions.setOrderUpdate(order));
     };
     const handleCloseComments: IFuncVoid = (): void => setShowComments(false);

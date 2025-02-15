@@ -4,7 +4,7 @@ import {FilterBlock, FooterApp, OrderForm, Orders} from '../../components';
 
 const OrdersPage: FC = () => {
     return (
-        <div>
+        <div className='flex-fill bg-light-subtle'>
             <FilterBlock />
             <Orders />
             <OrderForm />

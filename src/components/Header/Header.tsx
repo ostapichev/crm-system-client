@@ -27,8 +27,19 @@ const Header: FC = () => {
         if (requestStatus === 'fulfilled') navigate('/login');
         dispatch(authActions.resetLoading());
         dispatch(orderActions.setDefault());
-        localStorage.removeItem('checkbox');
     }, [dispatch, navigate]);
+    const resetParamsOrders: IFuncVoid = (): void => {
+        dispatch(orderActions.setDefault());
+        localStorage.removeItem('checkbox');
+    };
+    useEffect(() => {
+        if (!me && authService.getAccessToken()) {
+            dispatch(authActions.me());
+        }
+    }, [dispatch, me]);
+    useEffect(() => {
+        dispatch(groupActions.getAll());
+    }, [dispatch, groupTrigger]);
     useEffect(() => {
         let timeoutId: NodeJS.Timeout = null;
         const handleMove: IFuncVoid = () => {
@@ -46,14 +57,6 @@ const Header: FC = () => {
             clearTimeout(timeoutId);
         };
     }, [logout, navigate]);
-    useEffect(() => {
-        dispatch(groupActions.getAll());
-    }, [dispatch, groupTrigger]);
-    useEffect(() => {
-        if (!me && authService.getAccessToken()) {
-            dispatch(authActions.me());
-        }
-    }, [dispatch, me]);
 
     return (
         <Navbar className='bg-info-subtle' fixed='top' sticky='top'>
@@ -100,8 +103,9 @@ const Header: FC = () => {
                                                 <Button
                                                     variant='light'
                                                     className='m-2'
-                                                    onMouseEnter={ () => setHoverHome(true) }
-                                                    onMouseLeave={ () => setHoverHome(false) }
+                                                    onClick={ resetParamsOrders }
+                                                    onMouseEnter={ (): void => setHoverHome(true) }
+                                                    onMouseLeave={ (): void => setHoverHome(false) }
                                                 >
 
                                                     {

@@ -1,12 +1,12 @@
 import { FC, useState } from 'react';
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import { Col, Container, Form, OverlayTrigger, Row, Stack, Tooltip } from 'react-bootstrap';
 
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { IParams } from "../../interfaces";
-import { orderActions } from "../../redux";
-import { IFuncVoid } from "../../types";
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { IParams } from '../../interfaces';
+import { orderActions } from '../../redux';
+import { IFuncVoid } from '../../types';
 
 const ButtonBlock: FC = () => {
     const dispatch = useAppDispatch();
@@ -31,13 +31,12 @@ const ButtonBlock: FC = () => {
     };
     const reset: IFuncVoid = (): void => {
         dispatch(orderActions.setDefault());
-        localStorage.removeItem('checkbox');
         navigate('/orders');
     };
     const create: IFuncVoid = (): void => {
         dispatch(orderActions.setCreateOrder());
     };
-    const getFile: IFuncVoid = async () => {
+    const getFile: IFuncVoid = async (): Promise<void> => {
         const params: IParams = {
             limit: totalOrders,
             sorting_by: query.get('order_by'),
@@ -59,7 +58,7 @@ const ButtonBlock: FC = () => {
     }
 
     return (
-        <Stack className='d-flex justify-content-center align-items-center'>
+        <Stack className='d-flex flex-column justify-content-center align-items-center'>
             <Form.Group
                 className='m-2'
                 style={{ fontSize: '1.2rem' }}
@@ -73,7 +72,7 @@ const ButtonBlock: FC = () => {
                 />
             </Form.Group>
             <Container fluid>
-                <Row className='d-flex justify-content-md-center'>
+                <Row className='d-flex flex-row justify-content-md-center'>
                     <Col
                         md='auto'
                         onMouseEnter={ (): void => setHoverReload(true) }

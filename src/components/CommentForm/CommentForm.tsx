@@ -21,7 +21,7 @@ const CommentForm: FC<IProps> = ({ order_id, isOwner }) => {
         mode: 'all',
         resolver: joiResolver(commentValidator),
     });
-    const save: SubmitHandler<IComment> = async (comment) => {
+    const save: SubmitHandler<IComment> = async (comment: IComment): Promise<void> => {
         await dispatch(commentActions.create({ order_id, comment }));
         reset();
     };

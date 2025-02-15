@@ -34,22 +34,22 @@ const Profile: FC<IProps> = ({ me }) => {
                 </Card.Header>
                 <ListGroup variant='flush'>
                     <ListGroup.Item
-                        className='d-flex justify-content-between align-items-start'
+                        className='d-flex flex-row justify-content-between align-items-start'
                     >surname&#58;
                         <strong>{ surname }</strong>
                     </ListGroup.Item>
                     <ListGroup.Item
-                        className='d-flex justify-content-between align-items-start'
+                        className='d-flex flex-row justify-content-between align-items-start'
                     >name&#58;
                         <strong>{ name }</strong>
                     </ListGroup.Item>
                     <ListGroup.Item
-                        className='d-flex justify-content-between align-items-start'
+                        className='d-flex flex-row justify-content-between align-items-start'
                     >email&#58;
                         <strong>{ email }</strong>
                     </ListGroup.Item>
                     <ListGroup.Item
-                        className='d-flex justify-content-between align-items-start'
+                        className='d-flex flex-row justify-content-between align-items-start'
                     >created&nbsp;at&#58;
                         <strong>{ <DateFormat originalDate={ created_at } /> }</strong>
                     </ListGroup.Item>
@@ -57,7 +57,7 @@ const Profile: FC<IProps> = ({ me }) => {
                 <ListGroup>
                     <Card.Header className='fw-bold fs-5'>Orders&#58;</Card.Header>
                     <ListGroup.Item
-                        className='d-flex justify-content-between align-items-start'
+                        className='d-flex flex-row justify-content-between align-items-start'
                     >
                         <div className='ms-2 me-auto'>
                             <div className='fw-bold'>total&nbsp;orders&#58;</div>
@@ -67,7 +67,7 @@ const Profile: FC<IProps> = ({ me }) => {
                         </Badge>
                     </ListGroup.Item>
                     <ListGroup.Item
-                        className='d-flex justify-content-between align-items-start'
+                        className='d-flex flex-row justify-content-between align-items-start'
                     >
                         <div className='ms-2 me-auto'>
                             <div className='fw-bold'>{ StatusEnum.IN_WORK }&#58;</div>
@@ -77,7 +77,7 @@ const Profile: FC<IProps> = ({ me }) => {
                         </Badge>
                     </ListGroup.Item>
                     <ListGroup.Item
-                        className='d-flex justify-content-between align-items-start'
+                        className='d-flex flex-row justify-content-between align-items-start'
                     >
                         <div className='ms-2 me-auto'>
                             <div className='fw-bold'>{ StatusEnum.AGREE }&#58;</div>
@@ -87,7 +87,7 @@ const Profile: FC<IProps> = ({ me }) => {
                         </Badge>
                     </ListGroup.Item>
                     <ListGroup.Item
-                        className='d-flex justify-content-between align-items-start'
+                        className='d-flex flex-row justify-content-between align-items-start'
                     >
                         <div className='ms-2 me-auto'>
                             <div className='fw-bold'>{ StatusEnum.DISAGREE }&#58;</div>
@@ -97,10 +97,10 @@ const Profile: FC<IProps> = ({ me }) => {
                         </Badge>
                     </ListGroup.Item>
                     <ListGroup.Item
-                        className='d-flex justify-content-between align-items-start'
+                        className='d-flex flex-row justify-content-between align-items-start'
                     >
                         <div className='ms-2 me-auto'>
-                            <div className="fw-bold">{ StatusEnum.DUBBING }&#58;</div>
+                            <div className='fw-bold'>{ StatusEnum.DUBBING }&#58;</div>
                         </div>
                         <Badge bg='primary' pill>
                             { dubbing }

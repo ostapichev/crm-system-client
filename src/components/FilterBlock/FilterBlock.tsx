@@ -58,7 +58,7 @@ const FilterBlock: FC = () => {
     };
 
     return (
-        <div className='d-flex justify-content-between bg-success-subtle'>
+        <div className='d-flex flex-row justify-content-between bg-success-subtle'>
             <Stack style={{ width: '90%' }}>
                 <Row lg={6}>
                     <Col className='pe-2'>
@@ -84,7 +84,7 @@ const FilterBlock: FC = () => {
                                 aria-label='Floating label select example'
                                 onChange={ selectCourseFormat }
                             >
-                                <option value=''>All formats</option>
+                                <option value=''>All&nbsp;formats</option>
                                 <option value={ CourseFormatEnum.ONLINE }>{ CourseFormatEnum.ONLINE }</option>
                                 <option value={ CourseFormatEnum.STATIC }>{ CourseFormatEnum.STATIC }</option>
                             </Form.Select>
@@ -113,7 +113,7 @@ const FilterBlock: FC = () => {
                                 aria-label='Floating label select example'
                                 onChange={ selectCourseType }
                             >
-                                <option value=''>All types</option>
+                                <option value=''>All&nbsp;types</option>
                                 <option value={ CourseTypeEnum.PRO }>{ CourseTypeEnum.PRO }</option>
                                 <option value={ CourseTypeEnum.VIP }>{ CourseTypeEnum.VIP }</option>
                                 <option value={ CourseTypeEnum.MINIMAL }>{ CourseTypeEnum.MINIMAL }</option>
@@ -145,7 +145,7 @@ const FilterBlock: FC = () => {
                                 aria-label='Floating label select example'
                                 onChange={ selectStatus }
                             >
-                                <option value=''>All statuses</option>
+                                <option value=''>All&nbsp;statuses</option>
                                 <option value={ StatusEnum.NEW }>{ StatusEnum.NEW }</option>
                                 <option value={ StatusEnum.IN_WORK }>{ StatusEnum.IN_WORK }</option>
                                 <option value={ StatusEnum.AGREE }>{ StatusEnum.AGREE }</option>
@@ -177,7 +177,7 @@ const FilterBlock: FC = () => {
                                 aria-label='Floating label select example'
                                 onChange={ selectGroup }
                             >
-                                <option value=''>All groups</option>
+                                <option value=''>All&nbsp;groups</option>
                                 {
                                     groups.map(group =>
                                         <Group
@@ -225,7 +225,7 @@ const FilterBlock: FC = () => {
                                 aria-label='Floating label select example'
                                 onChange={ selectCourse }
                             >
-                                <option value=''>All courses</option>
+                                <option value=''>All&nbsp;courses</option>
                                 <option value={ CourseEnum.JCX }>{ CourseEnum.JCX }</option>
                                 <option value={ CourseEnum.FE } >{ CourseEnum.FE }</option>
                                 <option value={ CourseEnum.PCX }>{ CourseEnum.PCX }</option>
