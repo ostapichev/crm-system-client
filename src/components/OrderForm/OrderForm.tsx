@@ -20,8 +20,20 @@ import css from './OrderForm.module.css';
 const OrderForm: FC = () => {
     const dispatch = useAppDispatch();
     const { groups, vision } = useAppSelector(state => state.groupReducer);
-    const { orderUpdate, showOrderForm, errorsOrder } = useAppSelector(state => state.orderReducer);
-    const { reset, handleSubmit, register, setValue, getValues, setFocus, formState: { errors, isValid } } = useForm<IOrder>({
+    const {
+        orderUpdate,
+        showOrderForm,
+        errorsOrder,
+    } = useAppSelector(state => state.orderReducer);
+    const {
+        reset,
+        handleSubmit,
+        register,
+        setValue,
+        getValues,
+        setFocus,
+        formState: { errors, isValid },
+    } = useForm<IOrder>({
         mode: 'all',
         resolver: joiResolver(orderValidator),
     });
@@ -66,7 +78,7 @@ const OrderForm: FC = () => {
         } else {
             setValue('status', StatusEnum.NEW);
         }
-        setFocus('group_id');
+        setFocus('name');
         setFocus('surname');
         setFocus('phone');
         setFocus('age');
@@ -77,7 +89,8 @@ const OrderForm: FC = () => {
         setFocus('course');
         setFocus('course_format');
         setFocus('course_type');
-        setFocus('name');
+        setFocus('group_id');
+
     }, [orderUpdate, setValue, setFocus]);
 
     return (
@@ -128,7 +141,10 @@ const OrderForm: FC = () => {
                                     >
                                         Add&nbsp;group
                                     </button>
-                                    { errors.group_id && <FormControlFeedbackError error={ errors.group_id.message } /> }
+                                    {
+                                        errors.group_id &&
+                                        <FormControlFeedbackError error={ errors.group_id.message } />
+                                    }
                                 </FloatingLabel>
                             </Col>
                             <Col xs={12} md={6}>
@@ -209,7 +225,10 @@ const OrderForm: FC = () => {
                                         isInvalid={ !!errors.alreadyPaid }
                                         { ...register('alreadyPaid') }
                                     />
-                                    { errors.alreadyPaid && <FormControlFeedbackError error={ errors.alreadyPaid.message } /> }
+                                    {
+                                        errors.alreadyPaid &&
+                                        <FormControlFeedbackError error={ errors.alreadyPaid.message } />
+                                    }
                                 </FloatingLabel>
                             </Col>
                         </Row>
@@ -283,7 +302,10 @@ const OrderForm: FC = () => {
                                         <option>{ CourseFormatEnum.ONLINE }</option>
                                         <option>{ CourseFormatEnum.STATIC }</option>
                                     </Form.Select>
-                                    { errors.course_format && <FormControlFeedbackError error={ errors.course_format.message } /> }
+                                    {
+                                        errors.course_format &&
+                                        <FormControlFeedbackError error={ errors.course_format.message } />
+                                    }
                                 </FloatingLabel>
                             </Col>
                         </Row>
@@ -311,6 +333,7 @@ const OrderForm: FC = () => {
                                 >
                                     <Form.Select
                                         aria-label='Floating label select example'
+                                        isInvalid={ !!errors.course_type }
                                         { ...register('course_type') }
                                     >
                                         <option>Choose&nbsp;course&nbsp;type</option>
@@ -319,6 +342,10 @@ const OrderForm: FC = () => {
                                         <option>{ CourseTypeEnum.PRO }</option>
                                         <option>{ CourseTypeEnum.VIP }</option>
                                         <option>{ CourseTypeEnum.INCUBATOR }</option>
+                                        {
+                                            errors.course_type &&
+                                            <FormControlFeedbackError error={ errors.course_type.message } />
+                                        }
                                     </Form.Select>
                                 </FloatingLabel>
                             </Col>

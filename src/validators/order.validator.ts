@@ -66,21 +66,29 @@ const orderValidator = Joi.object({
             'number.integer': 'Already paid must be an integer',
         }),
     course: Joi.string()
+        .empty('')
+        .optional()
         .valid(CourseEnum.JSCX, CourseEnum.PCX, CourseEnum.FS, CourseEnum.JCX, CourseEnum.FE, CourseEnum.QACX)
         .messages({
             'any.only': 'Invalid course selection',
         }),
     course_format: Joi.string()
+        .empty('')
+        .optional()
         .valid(CourseFormatEnum.STATIC, CourseFormatEnum.ONLINE)
         .messages({
             'any.only': 'Invalid course format selection',
         }),
     course_type: Joi.string()
+        .empty('')
+        .optional()
         .valid(CourseTypeEnum.MINIMAL, CourseTypeEnum.PREMIUM, CourseTypeEnum.PRO, CourseTypeEnum.VIP, CourseTypeEnum.INCUBATOR)
         .messages({
             'any.only': 'Invalid course type selection',
         }),
     status: Joi.string()
+        .empty('')
+        .optional()
         .valid(StatusEnum.NEW, StatusEnum.IN_WORK, StatusEnum.AGREE, StatusEnum.DISAGREE, StatusEnum.DUBBING)
         .messages({
             'any.only': 'Invalid status selection',
