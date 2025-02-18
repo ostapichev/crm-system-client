@@ -6,6 +6,7 @@ import { Col, Container, Form, OverlayTrigger, Row, Stack, Tooltip } from 'react
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { IParams } from '../../interfaces';
 import { orderActions } from '../../redux';
+import { orderService } from '../../services';
 import { IFuncVoid } from '../../types';
 
 const ButtonBlock: FC = () => {
@@ -17,18 +18,19 @@ const ButtonBlock: FC = () => {
     const [hoverReload, setHoverReload] = useState<boolean>(false);
     const [hoverCreateOrder, setHoverCreateOrder] = useState<boolean>(false);
     const [hoverCreateExel, setHoverCreateExel] = useState<boolean>(false);
-    const handler: IFuncVoid = () => {
+    const myHandler: IFuncVoid = (): void => {
         dispatch(orderActions.setCheckBox());
         query.set('page', '1');
         if (checkbox) {
             query.set('manager', me.id.toString());
-            localStorage.setItem('checkbox', 'checked');
+            orderService.setCheckBoxLocalData();
         } else {
             query.delete('manager');
-            localStorage.removeItem('checkbox');
+            orderService.removeCheckBoxLocalData();
         }
         setQuery(query);
     };
+    const myCheck: boolean = orderService.getCheckBoxLocalData();
     const reset: IFuncVoid = (): void => {
         dispatch(orderActions.setDefault());
         navigate('/orders');
@@ -67,8 +69,8 @@ const ButtonBlock: FC = () => {
                 <Form.Check 
                     type='checkbox' 
                     label='My orders' 
-                    onChange={ handler } 
-                    checked={ !!localStorage.getItem('checkbox') } 
+                    onChange={ myHandler }
+                    checked={ !!myCheck }
                 />
             </Form.Group>
             <Container fluid>

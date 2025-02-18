@@ -130,9 +130,7 @@ const slice = createSlice({
             state.sorted = true;
             state.checkbox = true;
             state.errorsOrder = null;
-            if (localStorage.getItem('checkbox')) {
-                localStorage.removeItem('checkbox');
-            }
+            orderService.removeCheckBoxLocalData();
         },
         setCloseOrderForm: state => {
             state.showOrderForm = false;

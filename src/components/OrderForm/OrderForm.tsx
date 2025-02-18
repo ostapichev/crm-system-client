@@ -59,7 +59,6 @@ const OrderForm: FC = () => {
     const handleCloseForm: IFuncVoid = (): void => {
         dispatch(orderActions.setCloseOrderForm());
         dispatch(groupActions.setVision(false));
-        reset();
     };
     useEffect(() => {
         if (orderUpdate) {
@@ -90,7 +89,6 @@ const OrderForm: FC = () => {
         setFocus('course_format');
         setFocus('course_type');
         setFocus('group_id');
-
     }, [orderUpdate, setValue, setFocus]);
 
     return (
@@ -342,11 +340,11 @@ const OrderForm: FC = () => {
                                         <option>{ CourseTypeEnum.PRO }</option>
                                         <option>{ CourseTypeEnum.VIP }</option>
                                         <option>{ CourseTypeEnum.INCUBATOR }</option>
-                                        {
-                                            errors.course_type &&
-                                            <FormControlFeedbackError error={ errors.course_type.message } />
-                                        }
                                     </Form.Select>
+                                    {
+                                        errors.course_type &&
+                                        <FormControlFeedbackError error={ errors.course_type.message } />
+                                    }
                                 </FloatingLabel>
                             </Col>
                         </Row>

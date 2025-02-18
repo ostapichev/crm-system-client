@@ -84,7 +84,6 @@ const Orders: FC = () => {
     }, [dispatch, query, sorted]);
     useEffect(() => {
         const params: IParams = JSON.parse(debouncedParamsString);
-        dispatch(orderActions.setOrdersDefault());
         dispatch(orderActions.getAll({ params }));
     }, [dispatch, debouncedParamsString, orderTrigger, commentTrigger]);
 
@@ -112,7 +111,7 @@ const Orders: FC = () => {
                 </thead>
                 <tbody>
                 {
-                    loading && !orders.length
+                    loading
                         ?
                         places.map((place: ReactElement) => place)
                         :

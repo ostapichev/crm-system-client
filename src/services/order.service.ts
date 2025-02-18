@@ -23,6 +23,18 @@ class OrderService {
         const config: AxiosRequestConfig = { responseType: 'blob', params };
         return axiosService.get(urls.ordersAPI.downloadExel, config);
     };
+
+    public setCheckBoxLocalData(): void {
+        localStorage.setItem('checkbox', 'checked');
+    };
+
+    public getCheckBoxLocalData(): boolean {
+        return !!localStorage.getItem('checkbox');
+    };
+
+    public removeCheckBoxLocalData(): void {
+        localStorage.removeItem('checkbox');
+    };
 }
 
 export const orderService = new OrderService();
