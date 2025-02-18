@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { joiResolver } from '@hookform/resolvers/joi';
@@ -7,7 +7,7 @@ import { Alert, Button, FloatingLabel, Form, Image, Modal }  from 'react-bootstr
 
 import { FormControlFeedbackError } from '../FormControlFeedbackError/FormControlFeedbackError';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { IAuth } from '../../interfaces';
+import { IAuth, IErrorMessage } from '../../interfaces';
 import { authActions } from '../../redux';
 import { passwordValidator } from '../../validators/password.validator';
 
@@ -16,7 +16,8 @@ import { okten_school_image } from '../../assets';
 const RegisterForm: FC = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const { loading, errorConfirmPassword, errorAuth } = useAppSelector(state => state.authReducer);
+    const [errorMessage, setErrorMessage] = useState<IErrorMessage>(null);
+    const { loading, errorAuth } = useAppSelector(state => state.authReducer);
     const { activateToken } = useParams<{ activateToken: string }>();
     const { handleSubmit, register, getValues, reset, formState: { errors } } = useForm<IAuth>({
         mode: 'all',
@@ -25,7 +26,7 @@ const RegisterForm: FC = () => {
     const recoveryActivateRequestUser: SubmitHandler<IAuth> = async (): Promise<void> => {
         const { password, confirmPassword } = getValues();
         if (password !== confirmPassword) {
-            dispatch(authActions.setConfirmPassword('Password mismatch!'));
+            setErrorMessage({ message: 'Password mismatch!' });
             return;
         }
         const formData = new FormData();
@@ -34,6 +35,7 @@ const RegisterForm: FC = () => {
             { formData, activateToken }
         ));
         if (requestStatus === 'fulfilled') {
+            setErrorMessage(null);
             navigate('/login');
         }
         reset();
@@ -75,8 +77,8 @@ const RegisterForm: FC = () => {
                         <Alert className='p-2' variant='danger'>{ errorAuth?.messages }</Alert>
                     }
                     {
-                        errorConfirmPassword &&
-                        <Alert className='p-2' variant='danger'>{ errorConfirmPassword }</Alert>
+                        errorMessage &&
+                        <Alert className='p-2' variant='danger'>{ errorMessage?.message }</Alert>
                     }
                     <Button
                         variant='primary'

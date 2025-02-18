@@ -4,8 +4,8 @@ import { RequiredAuthAdmin, RequiredAuthHome, RequiredAuthLogin } from './hoc';
 import { MainLayout } from './layouts';
 import { AdminPage, LoginPage, NotFoundPage, OrdersPage, RegisterPage } from './pages';
 
-import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const router = createBrowserRouter([
     {

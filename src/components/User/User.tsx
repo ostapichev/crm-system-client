@@ -17,7 +17,8 @@ const User: FC<IProps> = ({ user }) => {
     const [activate, setActivate] = useState<boolean>(false);
     const [buttonText, setButtonText] = useState<string>(null);
     const { activateUser, loading } = useAppSelector(state => state.adminPanelReducer);
-    const userStats = useAppSelector(state => state.adminPanelReducer.userStatistic[user.id]) || {};
+    const userStats = useAppSelector(state =>
+        state.adminPanelReducer.userStatistic[user.id]) || {};
     const { id, name, surname, email, is_active, last_login } = user;
     const { orders, in_work, agree, disagree, dubbing } = userStats;
     const ban: MouseEventHandler<HTMLButtonElement> = async (): Promise<void> => {
@@ -163,7 +164,7 @@ const User: FC<IProps> = ({ user }) => {
                                 <Button
                                     type='button'
                                     className='h-25 m-1'
-                                    variant={ is_active ? 'outline-danger' : 'outline-warning' }
+                                    variant={ is_active ? 'outline-danger' : 'outline-primary' }
                                     onClick={(event) => is_active === true ? ban(event) : unban(event)}
                                 >
                                     { is_active ? 'ban' : 'unban' }
@@ -172,7 +173,7 @@ const User: FC<IProps> = ({ user }) => {
                                     is_active
                                         ?
                                         <Button
-                                            variant='outline-primary'
+                                            variant='outline-warning'
                                             type='button'
                                             className='h-25 m-1'
                                             onClick={ !activate ? getLinkActivate : copyToClipboard }

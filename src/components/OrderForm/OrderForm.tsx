@@ -1,15 +1,18 @@
 import { FC, useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { joiResolver } from '@hookform/resolvers/joi';
 
 import { Alert, Button, Col, Container, FloatingLabel, Form, Image, Modal, Row } from 'react-bootstrap';
 
 import { CourseEnum, CourseFormatEnum, CourseTypeEnum, StatusEnum } from '../../enums';
+import { FormControlFeedbackError } from '../FormControlFeedbackError/FormControlFeedbackError';
 import { Group } from '../Group/Group';
 import { GroupForm } from '../GroupForm/GroupForm';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { IOrder } from '../../interfaces';
 import { groupActions, orderActions } from '../../redux';
 import { IFuncVoid, IFuncOrderOrder } from '../../types';
+import { orderValidator } from '../../validators';
 
 import { okten_school_image } from '../../assets';
 import css from './OrderForm.module.css';
@@ -18,7 +21,10 @@ const OrderForm: FC = () => {
     const dispatch = useAppDispatch();
     const { groups, vision } = useAppSelector(state => state.groupReducer);
     const { orderUpdate, showOrderForm, errorsOrder } = useAppSelector(state => state.orderReducer);
-    const { reset, handleSubmit, register, setValue, getValues } = useForm<IOrder>();
+    const { reset, handleSubmit, register, setValue, getValues, setFocus, formState: { errors, isValid } } = useForm<IOrder>({
+        mode: 'all',
+        resolver: joiResolver(orderValidator),
+    });
     const getFilterUpdateFields: IFuncOrderOrder = (order: IOrder): IOrder => {
         return Object.fromEntries(
             Object.entries(order).filter(([_, value]) => value !== null && value !== '' && value !== 0)
@@ -60,7 +66,19 @@ const OrderForm: FC = () => {
         } else {
             setValue('status', StatusEnum.NEW);
         }
-    }, [orderUpdate, setValue]);
+        setFocus('group_id');
+        setFocus('surname');
+        setFocus('phone');
+        setFocus('age');
+        setFocus('status');
+        setFocus('sum');
+        setFocus('alreadyPaid');
+        setFocus('alreadyPaid');
+        setFocus('course');
+        setFocus('course_format');
+        setFocus('course_type');
+        setFocus('name');
+    }, [orderUpdate, setValue, setFocus]);
 
     return (
         <Modal
@@ -91,8 +109,10 @@ const OrderForm: FC = () => {
                                 >
                                     <Form.Select
                                         aria-label='Floating label select example'
+                                        isInvalid={ !!errors.group_id }
                                         { ...register('group_id') }
                                     >
+                                        <option>Choose&nbsp;group</option>
                                         {
                                             groups.map(group =>
                                                 <Group
@@ -106,8 +126,9 @@ const OrderForm: FC = () => {
                                         className={ css.Button_group }
                                         onClick={ addGroup }
                                     >
-                                        Add&#160;group
+                                        Add&nbsp;group
                                     </button>
+                                    { errors.group_id && <FormControlFeedbackError error={ errors.group_id.message } /> }
                                 </FloatingLabel>
                             </Col>
                             <Col xs={12} md={6}>
@@ -139,8 +160,10 @@ const OrderForm: FC = () => {
                                     <Form.Control
                                         type='text'
                                         placeholder='name'
+                                        isInvalid={ !!errors.name }
                                         { ...register('name') }
                                     />
+                                    { errors.name && <FormControlFeedbackError error={ errors.name.message } /> }
                                 </FloatingLabel>
                             </Col>
                             <Col xs={12} md={6}>
@@ -151,8 +174,10 @@ const OrderForm: FC = () => {
                                     <Form.Control
                                         type='text'
                                         placeholder='sum'
+                                        isInvalid={ !!errors.sum }
                                         { ...register('sum') }
                                     />
+                                    { errors.sum && <FormControlFeedbackError error={ errors.sum.message } /> }
                                 </FloatingLabel>
                             </Col>
                         </Row>
@@ -167,8 +192,10 @@ const OrderForm: FC = () => {
                                     <Form.Control
                                         type='text'
                                         placeholder='surname'
+                                        isInvalid={ !!errors.surname }
                                         { ...register('surname') }
                                     />
+                                    { errors.surname && <FormControlFeedbackError error={ errors.surname.message } /> }
                                 </FloatingLabel>
                             </Col>
                             <Col xs={12} md={6}>
@@ -179,8 +206,10 @@ const OrderForm: FC = () => {
                                     <Form.Control
                                         type='text'
                                         placeholder='alreadyPaid'
+                                        isInvalid={ !!errors.alreadyPaid }
                                         { ...register('alreadyPaid') }
                                     />
+                                    { errors.alreadyPaid && <FormControlFeedbackError error={ errors.alreadyPaid.message } /> }
                                 </FloatingLabel>
                             </Col>
                         </Row>
@@ -195,8 +224,10 @@ const OrderForm: FC = () => {
                                     <Form.Control
                                         type='email'
                                         placeholder='email'
+                                        isInvalid={ !!errors.email }
                                         { ...register('email') }
                                     />
+                                    { errors.email && <FormControlFeedbackError error={ errors.email.message } /> }
                                 </FloatingLabel>
                             </Col>
                             <Col xs={12} md={6}>
@@ -206,8 +237,10 @@ const OrderForm: FC = () => {
                                 >
                                     <Form.Select
                                         aria-label='Floating label select example'
+                                        isInvalid={ !!errors.course }
                                         { ...register('course') }
                                     >
+                                        <option>Choose&nbsp;course</option>
                                         <option>{ CourseEnum.FE }</option>
                                         <option>{ CourseEnum.FS }</option>
                                         <option>{ CourseEnum.JCX }</option>
@@ -215,6 +248,7 @@ const OrderForm: FC = () => {
                                         <option>{ CourseEnum.PCX }</option>
                                         <option>{ CourseEnum.JSCX }</option>
                                     </Form.Select>
+                                    { errors.course && <FormControlFeedbackError error={ errors.course.message } /> }
                                 </FloatingLabel>
                             </Col>
                         </Row>
@@ -229,8 +263,10 @@ const OrderForm: FC = () => {
                                     <Form.Control
                                         type='text'
                                         placeholder='phone'
+                                        isInvalid={ !!errors.phone }
                                         { ...register('phone') }
                                     />
+                                    { errors.phone && <FormControlFeedbackError error={ errors.phone.message } /> }
                                 </FloatingLabel>
                             </Col>
                             <Col xs={12} md={6}>
@@ -240,11 +276,14 @@ const OrderForm: FC = () => {
                                 >
                                     <Form.Select
                                         aria-label='Floating label select example'
+                                        isInvalid={ !!errors.course_format }
                                         { ...register('course_format') }
                                     >
+                                        <option>Choose&nbsp;course&nbsp;format</option>
                                         <option>{ CourseFormatEnum.ONLINE }</option>
                                         <option>{ CourseFormatEnum.STATIC }</option>
                                     </Form.Select>
+                                    { errors.course_format && <FormControlFeedbackError error={ errors.course_format.message } /> }
                                 </FloatingLabel>
                             </Col>
                         </Row>
@@ -259,8 +298,10 @@ const OrderForm: FC = () => {
                                     <Form.Control
                                         type='number'
                                         placeholder='age'
+                                        isInvalid={ !!errors.age }
                                         { ...register('age') }
                                     />
+                                    { errors.age && <FormControlFeedbackError error={ errors.age.message } /> }
                                 </FloatingLabel>
                             </Col>
                             <Col xs={12} md={6}>
@@ -272,6 +313,7 @@ const OrderForm: FC = () => {
                                         aria-label='Floating label select example'
                                         { ...register('course_type') }
                                     >
+                                        <option>Choose&nbsp;course&nbsp;type</option>
                                         <option>{ CourseTypeEnum.MINIMAL }</option>
                                         <option>{ CourseTypeEnum.PREMIUM }</option>
                                         <option>{ CourseTypeEnum.PRO }</option>
@@ -298,6 +340,7 @@ const OrderForm: FC = () => {
                     <Button
                         type='submit'
                         variant='primary'
+                        disabled={ !isValid }
                     >
                         { !!orderUpdate ? 'Save changes' : 'Create order' }
                     </Button>

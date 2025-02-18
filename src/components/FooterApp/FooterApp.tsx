@@ -1,10 +1,10 @@
-import { FC, useCallback } from 'react';
+import { FC, useCallback, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import { Container, Navbar } from 'react-bootstrap';
+import { Alert, Container, Navbar } from 'react-bootstrap';
 
 import { useAppSelector } from '../../hooks';
-import { IPagination } from '../../interfaces';
+import { IErrorMessage, IPagination, IPaginationData } from '../../interfaces';
 import { PaginationApp } from '../PaginationApp/PaginationApp';
 import { IFuncValueString } from '../../types';
 
@@ -13,12 +13,29 @@ interface IProps {
 }
 
 const FooterApp: FC<IProps> = ({ pageName }) => {
+    const [ errorMessage, setErrorMessage] = useState<IErrorMessage>(null);
     const [, setQuery] = useSearchParams();
     const { pageOrders, ordersLimit, totalOrdersPages } = useAppSelector(state => state.orderReducer);
     const { pageUsers, totalUsersPages, usersLimit } = useAppSelector(state => state.adminPanelReducer);
-    const totalPages = pageName === 'orders' ? totalOrdersPages : totalUsersPages;
-    const page = pageName === 'orders' ? pageOrders : pageUsers;
-    const limit = pageName === 'orders' ? ordersLimit : usersLimit;
+    const getDataPaginate: () => IPaginationData = (): IPaginationData => {
+        let data: IPaginationData = {};
+        switch (pageName) {
+            case ('orders'):
+                data.page = pageOrders;
+                data.totalPages = totalOrdersPages;
+                data.limit = ordersLimit;
+                break;
+            case ('admin'):
+                data.page = pageUsers;
+                data.totalPages = totalUsersPages;
+                data.limit = usersLimit;
+                break;
+            default:
+                setErrorMessage({ message: 'Unknown page!' });
+            }
+            return data;
+    };
+    const { page, totalPages, limit } = getDataPaginate();
     const pageChanger: IFuncValueString = useCallback((value: string): void => {
         setQuery(prev => {
             const newPage: number = value === '&raquo;' || value === ' ...'
@@ -55,7 +72,11 @@ const FooterApp: FC<IProps> = ({ pageName }) => {
         <Navbar className='bg-dark-subtle mt-auto z-1' fixed='bottom'>
             <Container>
                 {
-                    totalPages > 1 && <PaginationApp dataPagination={ dataPagination } />
+                    totalPages > 1 && !errorMessage && <PaginationApp dataPagination={ dataPagination } />
+                }
+                {
+                    errorMessage &&
+                    <Alert variant='danger'>{ errorMessage.message }</Alert>
                 }
             </Container>
         </Navbar>

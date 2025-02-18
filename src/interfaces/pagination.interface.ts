@@ -1,9 +1,12 @@
 import { IFuncValueString } from '../types';
 
-export interface IPagination {
-    page: number;
-    totalPages: number;
+export interface IPaginationData {
+    page?: number;
+    totalPages?: number;
     limit?: number;
+}
+
+export interface IPagination  extends IPaginationData {
     siblings?: number;
     isOpenComments?: boolean;
     pageChanger: IFuncValueString;

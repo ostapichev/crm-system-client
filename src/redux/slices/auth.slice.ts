@@ -8,7 +8,6 @@ interface IState {
     me: IUser;
     loading: boolean;
     authTrigger: boolean;
-    errorConfirmPassword: string;
     errorAuth: IErrorResponse;
 }
 
@@ -16,7 +15,6 @@ const initialState: IState = {
     me: null,
     loading: false,
     authTrigger: true,
-    errorConfirmPassword: null,
     errorAuth: null,
 };
 
@@ -68,9 +66,6 @@ const slice = createSlice({
     name: 'authSlice',
     initialState,
     reducers: {
-        setConfirmPassword: (state, action) => {
-            state.errorConfirmPassword = action.payload;
-        },
         resetLoading: (state) => {
             state.loading = false;
         },
@@ -79,9 +74,6 @@ const slice = createSlice({
         .addCase(me.rejected, state => {
             state.loading = false;
             state.errorAuth = null;
-        })
-        .addCase(activateRequestUser.fulfilled, state => {
-            state.errorConfirmPassword = null;
         })
         .addCase(logout.fulfilled, state => {
             state.loading = false;
