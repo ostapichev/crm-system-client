@@ -12,9 +12,9 @@ import { IFuncVoid } from '../../types';
 const ButtonBlock: FC = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const [query, setQuery] = useSearchParams();
     const { me } = useAppSelector(state => state.authReducer);
     const { checkbox, totalOrders } = useAppSelector(state => state.orderReducer);
+    const [query, setQuery] = useSearchParams();
     const [hoverReload, setHoverReload] = useState<boolean>(false);
     const [hoverCreateOrder, setHoverCreateOrder] = useState<boolean>(false);
     const [hoverCreateExel, setHoverCreateExel] = useState<boolean>(false);
