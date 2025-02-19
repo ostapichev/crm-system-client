@@ -1,3 +1,3 @@
 export interface IFeedback {
-    message: string;
+    message?: string;
 }

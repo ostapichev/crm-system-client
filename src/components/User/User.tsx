@@ -105,7 +105,7 @@ const User: FC<IProps> = ({ user }) => {
                             </Fragment>
                         </Card.Header>
                         <Card.Body className='d-flex'>
-                            <Row style={{ width: '40%'}} className='m-0'>
+                            <Row style={{ width: '40%' }} className='m-0'>
                                 <Card.Text className='mb-1'>name&#58;&nbsp;<strong>{ name }</strong></Card.Text>
                                 <Card.Text className='mb-1'>surname&#58;&nbsp;<strong>{ surname }</strong></Card.Text>
                                 <Card.Text className='mb-1'>email&#58;&nbsp;<strong>{ email }</strong></Card.Text>
@@ -113,7 +113,7 @@ const User: FC<IProps> = ({ user }) => {
                                     <strong>{ is_active.toString() }</strong>
                                 </Card.Text>
                                 <Card.Text className='mb-1'>last&nbsp;login&#58;&nbsp;
-                                    <strong>{ last_login ? <DateFormat originalDate={ last_login } /> : 'no data' }</strong>
+                                    <strong>{ <DateFormat originalDate={ last_login } /> }</strong>
                                 </Card.Text>
                             </Row>
                             <Row className='w-25 d-flex flex-column justify-content-start'>

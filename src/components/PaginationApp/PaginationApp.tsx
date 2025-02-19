@@ -5,7 +5,7 @@ import { Container, Pagination } from 'react-bootstrap';
 import { useAppSelector } from '../../hooks';
 import { IPagination } from '../../interfaces';
 import { IFuncBoolean, IPaginateButtons } from '../../types';
-import { returnPaginationRange } from '../../utils';
+import { paginationRangeUtil } from '../../utils';
 
 interface IProps {
     dataPagination: IPagination;
@@ -20,7 +20,7 @@ const PaginationApp: FC<IProps> = ({ dataPagination }) => {
     const disabledButtonNext: IFuncBoolean = (): boolean => {
         return page === totalPages;
     };
-    let buttons: IPaginateButtons = returnPaginationRange(dataPagination);
+    let buttons: IPaginateButtons = paginationRangeUtil(dataPagination);
 
     return (
         <Container className='d-flex justify-content-center align-items-center mt-4 w-auto'>

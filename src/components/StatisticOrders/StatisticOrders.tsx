@@ -98,7 +98,9 @@ const StatisticOrders: FC = () => {
                                         <Placeholder xs={6} />
                                     </Placeholder>
                                     :
-                                    <Card.Title className='text-center fs-4 fw-bold m-0'>{ StatusEnum.AGREE }</Card.Title>
+                                    <Card.Title className='text-center fs-4 fw-bold m-0'>
+                                        { StatusEnum.AGREE }
+                                    </Card.Title>
                             }
                         </Card.Header>
                         <Card.Body className='text-center p-0'>
@@ -162,7 +164,9 @@ const StatisticOrders: FC = () => {
                                         <Placeholder xs={6} />
                                     </Placeholder>
                                     :
-                                    <Card.Title className='text-center fs-4 fw-bold m-0'>{ StatusEnum.IN_WORK }</Card.Title>
+                                    <Card.Title className='text-center fs-4 fw-bold m-0'>
+                                        { StatusEnum.IN_WORK }
+                                    </Card.Title>
                             }
                         </Card.Header>
                         <Card.Body className='text-center p-0'>
@@ -194,7 +198,9 @@ const StatisticOrders: FC = () => {
                                         <Placeholder xs={6} />
                                     </Placeholder>
                                     :
-                                    <Card.Title className='text-center fs-4 fw-bold m-0'>{ StatusEnum.DUBBING }</Card.Title>
+                                    <Card.Title className='text-center fs-4 fw-bold m-0'>
+                                        { StatusEnum.DUBBING }
+                                    </Card.Title>
                             }
                         </Card.Header>
                         <Card.Body className='text-center p-0'>
@@ -226,7 +232,9 @@ const StatisticOrders: FC = () => {
                                         <Placeholder xs={6} />
                                     </Placeholder>
                                     :
-                                    <Card.Title className='text-center fs-4 fw-bold m-0'>{ StatusEnum.DISAGREE }</Card.Title>
+                                    <Card.Title className='text-center fs-4 fw-bold m-0'>
+                                        { StatusEnum.DISAGREE }
+                                    </Card.Title>
                             }
                         </Card.Header>
                         <Card.Body className='text-center p-0'>
@@ -258,7 +266,9 @@ const StatisticOrders: FC = () => {
                                         <Placeholder xs={6} />
                                     </Placeholder>
                                     :
-                                    <Card.Title className='text-center fs-4 fw-bold m-0'>{ StatusEnum.NULL }</Card.Title>
+                                    <Card.Title className='text-center fs-4 fw-bold m-0'>
+                                        { StatusEnum.NULL }
+                                    </Card.Title>
                             }
                         </Card.Header>
                         <Card.Body className='text-center p-0'>

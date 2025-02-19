@@ -4,7 +4,7 @@ import { Alert, Button, Image, Modal } from 'react-bootstrap';
 
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { adminPanelActions } from '../../redux';
-import { IFuncVoid } from "../../types";
+import { IFuncVoid } from '../../types';
 
 import { okten_school_image } from '../../assets';
 

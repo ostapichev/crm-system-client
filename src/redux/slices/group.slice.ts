@@ -17,7 +17,7 @@ const initialState: IState = {
     groupTrigger: false,
     groupCreate: null,
     vision: false,
-    errorGroup: null
+    errorGroup: null,
 };
 
 const getAll = createAsyncThunk<IGroup[], void>(

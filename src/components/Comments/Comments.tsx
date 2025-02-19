@@ -83,7 +83,7 @@ const Comments: FC<IProps> = ({ order, showComments, handleCloseComments }) => {
             >
                 {
                     comments.length > commentsLimit &&
-                        <PaginationApp dataPagination={ dataPagination } />
+                    <PaginationApp dataPagination={ dataPagination } />
                 }
                 <Button variant='secondary' onClick={ handleCloseComments }>
                     Close

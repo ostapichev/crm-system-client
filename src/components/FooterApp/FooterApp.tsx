@@ -4,7 +4,7 @@ import { useSearchParams } from 'react-router-dom';
 import { Alert, Container, Navbar } from 'react-bootstrap';
 
 import { useAppSelector } from '../../hooks';
-import { IErrorMessage, IPagination, IPaginationData } from '../../interfaces';
+import { IFeedback, IPagination, IPaginationData } from '../../interfaces';
 import { PaginationApp } from '../PaginationApp/PaginationApp';
 import { IFuncValueString } from '../../types';
 
@@ -13,7 +13,7 @@ interface IProps {
 }
 
 const FooterApp: FC<IProps> = ({ pageName }) => {
-    const [ errorMessage, setErrorMessage] = useState<IErrorMessage>(null);
+    const [ errorMessage, setErrorMessage] = useState<IFeedback>(null);
     const [, setQuery] = useSearchParams();
     const { pageOrders, ordersLimit, totalOrdersPages } = useAppSelector(state => state.orderReducer);
     const { pageUsers, totalUsersPages, usersLimit } = useAppSelector(state => state.adminPanelReducer);

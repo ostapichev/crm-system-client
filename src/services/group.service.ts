@@ -1,7 +1,7 @@
-import { axiosService } from "./axios.service";
-import { urls } from "../constants";
-import { IGroup } from "../interfaces";
-import { IRes } from "../types";
+import { axiosService } from './axios.service';
+import { urls } from '../constants';
+import { IGroup } from '../interfaces';
+import { IRes } from '../types';
 
 class GroupService {
     public getAll(): IRes<IGroup[]> {

@@ -116,14 +116,14 @@ const OrderForm: FC = () => {
                                 <FloatingLabel
                                     className={ vision ? 'd-none' : 'd-flex flex-column' }
                                     controlId='floatingSelectGrid'
-                                    label='Choice a group'
+                                    label='Select a group'
                                 >
                                     <Form.Select
                                         aria-label='Floating label select example'
                                         isInvalid={ !!errors.group_id }
                                         { ...register('group_id') }
                                     >
-                                        <option>Choose&nbsp;group</option>
+                                        <option>To&nbsp;choose&nbsp;a&nbsp;group</option>
                                         {
                                             groups.map(group =>
                                                 <Group
@@ -148,7 +148,7 @@ const OrderForm: FC = () => {
                             <Col xs={12} md={6}>
                                 <FloatingLabel
                                     controlId='floatingSelectGrid'
-                                    label='Choice a status'
+                                    label='Select a status'
                                 >
                                     <Form.Select
                                         aria-label='Floating label select example'
@@ -215,7 +215,7 @@ const OrderForm: FC = () => {
                             <Col xs={12} md={6}>
                                 <FloatingLabel
                                     controlId='floatingInputGrid'
-                                    label='AlreadyPaid'
+                                    label='Already paid'
                                 >
                                     <Form.Control
                                         type='text'
@@ -257,7 +257,7 @@ const OrderForm: FC = () => {
                                         isInvalid={ !!errors.course }
                                         { ...register('course') }
                                     >
-                                        <option>Choose&nbsp;course</option>
+                                        <option>To&nbsp;choose&nbsp;a&nbsp;course</option>
                                         <option>{ CourseEnum.FE }</option>
                                         <option>{ CourseEnum.FS }</option>
                                         <option>{ CourseEnum.JCX }</option>
@@ -296,7 +296,7 @@ const OrderForm: FC = () => {
                                         isInvalid={ !!errors.course_format }
                                         { ...register('course_format') }
                                     >
-                                        <option>Choose&nbsp;course&nbsp;format</option>
+                                        <option>To&nbsp;choose&nbsp;a&nbsp;format&nbsp;of&nbsp;course</option>
                                         <option>{ CourseFormatEnum.ONLINE }</option>
                                         <option>{ CourseFormatEnum.STATIC }</option>
                                     </Form.Select>
@@ -334,7 +334,7 @@ const OrderForm: FC = () => {
                                         isInvalid={ !!errors.course_type }
                                         { ...register('course_type') }
                                     >
-                                        <option>Choose&nbsp;course&nbsp;type</option>
+                                        <option>To&nbsp;choose&nbsp;a&nbsp;type&nbsp;of&nbsp;course&nbsp;</option>
                                         <option>{ CourseTypeEnum.MINIMAL }</option>
                                         <option>{ CourseTypeEnum.PREMIUM }</option>
                                         <option>{ CourseTypeEnum.PRO }</option>

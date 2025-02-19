@@ -28,12 +28,12 @@ class OrderService {
         localStorage.setItem('checkbox', 'checked');
     };
 
-    public getCheckBoxLocalData(): boolean {
-        return !!localStorage.getItem('checkbox');
-    };
-
     public removeCheckBoxLocalData(): void {
         localStorage.removeItem('checkbox');
+    };
+
+    public getCheckBoxLocalData(): boolean {
+        return !!localStorage.getItem('checkbox');
     };
 }
 

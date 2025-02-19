@@ -6,9 +6,9 @@ import { Button, Container, DropdownButton, Image, Navbar, Stack } from 'react-b
 import { oktenURL } from '../../constants';
 import { UserRoleEnum } from '../../enums';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { Profile } from "../Profile/Profile";
-import { authActions, groupActions, orderActions } from '../../redux';
-import { authService } from '../../services';
+import { Profile } from '../Profile/Profile';
+import { adminPanelActions, authActions, groupActions, orderActions } from '../../redux';
+import { authService, orderService } from '../../services';
 import { IFuncVoid } from '../../types';
 
 import { okten_logo } from '../../assets';
@@ -22,15 +22,17 @@ const Header: FC = () => {
     const [hoverHome, setHoverHome] = useState<boolean>(false);
     const { me } = useAppSelector(state => state.authReducer);
     const { groupTrigger } = useAppSelector(state => state.groupReducer);
-    const logout: IFuncVoid = useCallback( async () => {
+    const logout: IFuncVoid = useCallback( async (): Promise<void> => {
         const { meta: { requestStatus } } = await dispatch(authActions.logout());
         if (requestStatus === 'fulfilled') navigate('/login');
-        dispatch(authActions.resetLoading());
+        dispatch(adminPanelActions.setDefault());
         dispatch(orderActions.setDefault());
+        dispatch(orderActions.setOrdersDefault());
+        dispatch(authActions.resetLoading());
     }, [dispatch, navigate]);
     const resetParamsOrders: IFuncVoid = (): void => {
         dispatch(orderActions.setDefault());
-        localStorage.removeItem('checkbox');
+        orderService.removeCheckBoxLocalData();
     };
     useEffect(() => {
         if (!me && authService.getAccessToken()) {

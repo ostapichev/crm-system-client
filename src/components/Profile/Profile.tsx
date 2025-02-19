@@ -4,7 +4,7 @@ import { Badge, Card, Dropdown, Image, ListGroup } from 'react-bootstrap';
 
 import { DateFormat } from '../DateFormat/DateFormat';
 import { StatusEnum } from '../../enums';
-import { useAppDispatch, useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { IUser } from '../../interfaces';
 import { adminPanelActions } from '../../redux';
 

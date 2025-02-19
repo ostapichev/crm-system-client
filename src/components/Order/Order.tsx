@@ -4,8 +4,8 @@ import { DateFormat } from '../DateFormat/DateFormat';
 import { IGroup, IOrder } from '../../interfaces';
 import { useAppSelector } from '../../hooks';
 import { OrderDetails } from '../OrderDetails/OrderDetails';
-import { IFuncValueNumberString, IFuncVoid } from "../../types";
-import { dataInsert } from '../../utils';
+import { IFuncValueNumberString, IFuncVoid } from '../../types';
+import { dataInsertUtil } from '../../utils';
 
 interface IProps {
     order: IOrder;
@@ -34,28 +34,28 @@ const Order: FC<IProps> = ({ order, onClick, isOpen }) => {
     } = order;
     const getNameGroup: IFuncValueNumberString = (group_id: number | null): string => {
         const group: IGroup = groups.find(group => group.id === group_id);
-        if (group) return dataInsert(group.name);
+        if (group) return dataInsertUtil(group.name);
         return 'no group';
     };
 
     return (
         <Fragment>
             <tr onClick={ () => onClick() }>
-                <td>{ dataInsert( typeof id === 'string' ? id : id.toString()) }</td>
-                <td>{ dataInsert(name) }</td>
-                <td>{ dataInsert(surname) }</td>
-                <td>{ dataInsert(email) }</td>
-                <td>{ dataInsert(phone) }</td>
-                <td>{ dataInsert(age?.toString()) }</td>
-                <td>{ dataInsert(course?.toString()) }</td>
-                <td>{ dataInsert(course_format?.toString()) }</td>
-                <td>{ dataInsert(course_type?.toString()) }</td>
-                <td>{ dataInsert(status?.toString()) }</td>
-                <td>{ dataInsert(sum?.toString()) }</td>
-                <td>{ dataInsert(alreadyPaid?.toString()) }</td>
+                <td>{ dataInsertUtil( id.toString()) }</td>
+                <td>{ dataInsertUtil(name) }</td>
+                <td>{ dataInsertUtil(surname) }</td>
+                <td>{ dataInsertUtil(email) }</td>
+                <td>{ dataInsertUtil(phone) }</td>
+                <td>{ dataInsertUtil(age?.toString()) }</td>
+                <td>{ dataInsertUtil(course?.toString()) }</td>
+                <td>{ dataInsertUtil(course_format?.toString()) }</td>
+                <td>{ dataInsertUtil(course_type?.toString()) }</td>
+                <td>{ dataInsertUtil(status?.toString()) }</td>
+                <td>{ dataInsertUtil(sum?.toString()) }</td>
+                <td>{ dataInsertUtil(alreadyPaid?.toString()) }</td>
                 <td>{ <DateFormat originalDate={ created_at } /> }</td>
                 <td>{ getNameGroup(group_id) }</td>
-                <td>{ dataInsert(manager?.surname) }</td>
+                <td>{ dataInsertUtil(manager?.surname) }</td>
             </tr>
             <OrderDetails order={ order } isOpen={ isOpen } />
         </Fragment>

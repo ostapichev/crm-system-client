@@ -3,7 +3,7 @@ import _ from 'lodash';
 import { IPagination } from '../interfaces';
 import { IPaginateButtons } from '../types';
 
-const returnPaginationRange = (dataPagination: IPagination): IPaginateButtons => {
+const paginationRangeUtil = (dataPagination: IPagination): IPaginateButtons => {
     const { page, totalPages, siblings } = dataPagination;
     let totalPageNoInArray = 7 + siblings;
     if (totalPageNoInArray >= totalPages) {
@@ -28,5 +28,5 @@ const returnPaginationRange = (dataPagination: IPagination): IPaginateButtons =>
 };
 
 export {
-    returnPaginationRange
+    paginationRangeUtil
 };

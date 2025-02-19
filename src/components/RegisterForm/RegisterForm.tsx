@@ -7,7 +7,7 @@ import { Alert, Button, FloatingLabel, Form, Image, Modal }  from 'react-bootstr
 
 import { FormControlFeedbackError } from '../FormControlFeedbackError/FormControlFeedbackError';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { IAuth, IErrorMessage } from '../../interfaces';
+import { IAuth, IFeedback } from '../../interfaces';
 import { authActions } from '../../redux';
 import { passwordValidator } from '../../validators/password.validator';
 
@@ -16,12 +16,12 @@ import { okten_school_image } from '../../assets';
 const RegisterForm: FC = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const [errorMessage, setErrorMessage] = useState<IErrorMessage>(null);
+    const [errorMessage, setErrorMessage] = useState<IFeedback>(null);
     const { loading, errorAuth } = useAppSelector(state => state.authReducer);
     const { activateToken } = useParams<{ activateToken: string }>();
     const { handleSubmit, register, getValues, reset, formState: { errors } } = useForm<IAuth>({
         mode: 'all',
-        resolver: joiResolver(passwordValidator)
+        resolver: joiResolver(passwordValidator),
     });
     const recoveryActivateRequestUser: SubmitHandler<IAuth> = async (): Promise<void> => {
         const { password, confirmPassword } = getValues();

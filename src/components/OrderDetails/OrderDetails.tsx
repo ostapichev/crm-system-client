@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { IComment, IOrder } from '../../interfaces';
 import { IFuncVoid } from '../../types';
 import { commentActions, orderActions } from '../../redux';
-import { dataInsert } from '../../utils';
+import { dataInsertUtil } from '../../utils';
 
 import css from './OrderDetails.module.css';
 
@@ -45,11 +45,11 @@ const OrderDetails: FC<IProps> = ({ order, isOpen }) => {
                             <div className='d-flex flex-column justify-content-start w-25'>
                                 <div className='text-start'>
                                     <Badge pill bg='success' className='m-1'>msg</Badge>
-                                    <strong>{ dataInsert(msg?.toString()) }</strong>
+                                    <strong>{ dataInsertUtil(msg?.toString()) }</strong>
                                 </div>
                                 <div className='text-start'>
                                     <Badge pill bg='success' className='m-1'>utm</Badge>
-                                    <strong>{ dataInsert(utm?.toString()) }</strong>
+                                    <strong>{ dataInsertUtil(utm?.toString()) }</strong>
                                 </div>
                                 <Button
                                     onClick={ setUpdate }
@@ -63,7 +63,7 @@ const OrderDetails: FC<IProps> = ({ order, isOpen }) => {
                                     isOwner &&
                                     <Alert key='warning' variant='warning'>
                                         You&#160;can't&#160;write&#160;a&#160;comment&#160;and&#160;
-                                        edit&#160;this&#160;order&#46;&#160;It&#160;
+                                        edit&#160;this&#160;order&#46;&#160;It's&#160;
                                         belongs&#160;to&#160;another&#160;manager&#46;
                                     </Alert>
                                 }

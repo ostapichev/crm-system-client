@@ -37,7 +37,7 @@ const initialState: IState = {
     orderStatistic: {},
     userStatistic: {},
     activateUser: {},
-    errorUser: null
+    errorUser: null,
 };
 
 const getAll = createAsyncThunk<IQueryUsers<IUser[]>, { params: IParams }>(
@@ -137,6 +137,7 @@ const slice = createSlice({
         },
         setDefault: state => {
             state.errorUser = null;
+            state.users = [];
         },
         setErrorActivation: (state, action) => {
             state.activateUser.message = action.payload;

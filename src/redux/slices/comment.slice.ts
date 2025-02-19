@@ -23,7 +23,7 @@ const initialState: IState = {
     pageComments: 1,
     totalPageComments: 0,
     loading: false,
-    errorsComment: null
+    errorsComment: null,
 };
 
 const create = createAsyncThunk<void, { order_id: number, comment: IComment }>(

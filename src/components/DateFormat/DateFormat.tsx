@@ -1,14 +1,12 @@
 import { FC, Fragment } from 'react';
 import dayjs from 'dayjs';
 
-import { dataInsert } from '../../utils';
-
 interface IProps {
-    originalDate: string;
+    originalDate?: string;
 }
 
 const DateFormat: FC<IProps> = ({ originalDate }) => {
-    const formatedData = dayjs(dataInsert(originalDate)).format('MMMM DD, YYYY').toString();
+    const formatedData = originalDate ? dayjs(originalDate).format('MMMM DD, YYYY').toString() : 'no data';
 
     return (
         <Fragment>{ formatedData }</Fragment>

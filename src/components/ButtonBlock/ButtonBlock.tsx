@@ -18,6 +18,7 @@ const ButtonBlock: FC = () => {
     const [hoverReload, setHoverReload] = useState<boolean>(false);
     const [hoverCreateOrder, setHoverCreateOrder] = useState<boolean>(false);
     const [hoverCreateExel, setHoverCreateExel] = useState<boolean>(false);
+    const isChecked = orderService.getCheckBoxLocalData();
     const myHandler: IFuncVoid = (): void => {
         dispatch(orderActions.setCheckBox());
         query.set('page', '1');
@@ -30,7 +31,6 @@ const ButtonBlock: FC = () => {
         }
         setQuery(query);
     };
-    const myCheck: boolean = orderService.getCheckBoxLocalData();
     const reset: IFuncVoid = (): void => {
         dispatch(orderActions.setDefault());
         navigate('/orders');
@@ -57,7 +57,7 @@ const ButtonBlock: FC = () => {
             manager: query.get('manager'),
         };
         await dispatch(orderActions.getExelFile({ params }));
-    }
+    };
 
     return (
         <Stack className='d-flex flex-column justify-content-center align-items-center'>
@@ -70,7 +70,7 @@ const ButtonBlock: FC = () => {
                     type='checkbox' 
                     label='My orders' 
                     onChange={ myHandler }
-                    checked={ !!myCheck }
+                    checked={ isChecked }
                 />
             </Form.Group>
             <Container fluid>
