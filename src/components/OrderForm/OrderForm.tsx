@@ -177,7 +177,10 @@ const OrderForm: FC = () => {
                                         isInvalid={ !!errors.name }
                                         { ...register('name') }
                                     />
-                                    { errors.name && <FormControlFeedbackError error={ errors.name.message } /> }
+                                    {
+                                        errors.name &&
+                                        <FormControlFeedbackError error={ errors.name.message } />
+                                    }
                                 </FloatingLabel>
                             </Col>
                             <Col xs={12} md={6}>
@@ -191,7 +194,10 @@ const OrderForm: FC = () => {
                                         isInvalid={ !!errors.sum }
                                         { ...register('sum') }
                                     />
-                                    { errors.sum && <FormControlFeedbackError error={ errors.sum.message } /> }
+                                    {
+                                        errors.sum &&
+                                        <FormControlFeedbackError error={ errors.sum.message } />
+                                    }
                                 </FloatingLabel>
                             </Col>
                         </Row>
@@ -209,7 +215,10 @@ const OrderForm: FC = () => {
                                         isInvalid={ !!errors.surname }
                                         { ...register('surname') }
                                     />
-                                    { errors.surname && <FormControlFeedbackError error={ errors.surname.message } /> }
+                                    {
+                                        errors.surname &&
+                                        <FormControlFeedbackError error={ errors.surname.message } />
+                                    }
                                 </FloatingLabel>
                             </Col>
                             <Col xs={12} md={6}>
@@ -244,7 +253,10 @@ const OrderForm: FC = () => {
                                         isInvalid={ !!errors.email }
                                         { ...register('email') }
                                     />
-                                    { errors.email && <FormControlFeedbackError error={ errors.email.message } /> }
+                                    {
+                                        errors.email &&
+                                        <FormControlFeedbackError error={ errors.email.message } />
+                                    }
                                 </FloatingLabel>
                             </Col>
                             <Col xs={12} md={6}>
@@ -265,7 +277,10 @@ const OrderForm: FC = () => {
                                         <option>{ CourseEnum.PCX }</option>
                                         <option>{ CourseEnum.JSCX }</option>
                                     </Form.Select>
-                                    { errors.course && <FormControlFeedbackError error={ errors.course.message } /> }
+                                    {
+                                        errors.course &&
+                                        <FormControlFeedbackError error={ errors.course.message } />
+                                    }
                                 </FloatingLabel>
                             </Col>
                         </Row>
@@ -283,7 +298,10 @@ const OrderForm: FC = () => {
                                         isInvalid={ !!errors.phone }
                                         { ...register('phone') }
                                     />
-                                    { errors.phone && <FormControlFeedbackError error={ errors.phone.message } /> }
+                                    {
+                                        errors.phone &&
+                                        <FormControlFeedbackError error={ errors.phone.message } />
+                                    }
                                 </FloatingLabel>
                             </Col>
                             <Col xs={12} md={6}>
@@ -321,7 +339,10 @@ const OrderForm: FC = () => {
                                         isInvalid={ !!errors.age }
                                         { ...register('age') }
                                     />
-                                    { errors.age && <FormControlFeedbackError error={ errors.age.message } /> }
+                                    {
+                                        errors.age &&
+                                        <FormControlFeedbackError error={ errors.age.message } />
+                                    }
                                 </FloatingLabel>
                             </Col>
                             <Col xs={12} md={6}>

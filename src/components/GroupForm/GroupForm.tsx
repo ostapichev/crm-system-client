@@ -42,8 +42,14 @@ const GroupForm: FC = () => {
                     isInvalid={ !!errors.name || !!errorGroup?.messages }
                     { ...register('name') }
                 />
-                { !errors.name && <FormControlFeedbackGood /> }
-                { errors.name && <FormControlFeedbackError error={ errors.name.message } /> }
+                {
+                    !errors.name &&
+                    <FormControlFeedbackGood />
+                }
+                {
+                    errors.name &&
+                    <FormControlFeedbackError error={ errors.name.message } />
+                }
                 <div className='d-flex'>
                     <button
                         type='submit'

@@ -72,7 +72,8 @@ const FooterApp: FC<IProps> = ({ pageName }) => {
         <Navbar className='bg-dark-subtle mt-auto z-1' fixed='bottom'>
             <Container>
                 {
-                    totalPages > 1 && !errorMessage && <PaginationApp dataPagination={ dataPagination } />
+                    totalPages > 1 && !errorMessage &&
+                    <PaginationApp dataPagination={ dataPagination } />
                 }
                 {
                     errorMessage &&

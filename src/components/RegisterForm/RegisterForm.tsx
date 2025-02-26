@@ -58,7 +58,10 @@ const RegisterForm: FC = () => {
                             isInvalid={ !!errors.password }
                             { ...register('password', { required: true }) }
                         />
-                        { errors.password && <FormControlFeedbackError error={ errors.password.message } /> }
+                        {
+                            errors.password &&
+                            <FormControlFeedbackError error={ errors.password.message } />
+                        }
                     </FloatingLabel>
                     <FloatingLabel controlId='floatingPassword' label='Confirm password'>
                         <Form.Control
@@ -68,7 +71,10 @@ const RegisterForm: FC = () => {
                             isInvalid={ !!errors.confirmPassword }
                             { ...register('confirmPassword', { required: true }) }
                         />
-                        { errors.confirmPassword && <FormControlFeedbackError error={ errors.confirmPassword.message } /> }
+                        {
+                            errors.confirmPassword &&
+                            <FormControlFeedbackError error={ errors.confirmPassword.message } />
+                        }
                     </FloatingLabel>
                 </Modal.Body>
                 <Modal.Footer style={{ backgroundColor: 'aliceblue' }}>

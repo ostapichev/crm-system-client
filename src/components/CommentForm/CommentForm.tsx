@@ -36,7 +36,10 @@ const CommentForm: FC<IProps> = ({ order_id, isOwner }) => {
                     isInvalid={ !!errors.text }
                     { ...register('text') }
                 />
-                { errors.text && <FormControlFeedbackError error={ errors.text.message } /> }
+                {
+                    errors.text &&
+                    <FormControlFeedbackError error={ errors.text.message } />
+                }
                 <Button type='submit' disabled={ !isValid || isOwner } variant='primary'>add</Button>
             </Form>
         </Stack>

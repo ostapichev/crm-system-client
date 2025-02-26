@@ -64,8 +64,14 @@ const UserForm: FC<IProps> = ({ openForm, setOpenForm }) => {
                                 isValid={ touchedFields.name && !errors.name }
                                 { ...register('name') }
                             />
-                            { errors.name && <FormControlFeedbackError error={ errors.name.message } /> }
-                            { !errors.name && <FormControlFeedbackGood /> }
+                            {
+                                errors.name &&
+                                <FormControlFeedbackError error={ errors.name.message } />
+                            }
+                            {
+                                !errors.name &&
+                                <FormControlFeedbackGood />
+                            }
                         </FloatingLabel>
                     </Container>
                     <Container className='mt-4'>
@@ -80,8 +86,14 @@ const UserForm: FC<IProps> = ({ openForm, setOpenForm }) => {
                                 isValid={ touchedFields.surname && !errors.surname }
                                 { ...register('surname') }
                             />
-                            { errors.surname && <FormControlFeedbackError error={ errors.surname.message } /> }
-                            { !errors.surname && <FormControlFeedbackGood /> }
+                            {
+                                errors.surname &&
+                                <FormControlFeedbackError error={ errors.surname.message } />
+                            }
+                            {
+                                !errors.surname &&
+                                <FormControlFeedbackGood />
+                            }
                         </FloatingLabel>
                     </Container>
                     <Container className='mt-4'>
@@ -96,8 +108,14 @@ const UserForm: FC<IProps> = ({ openForm, setOpenForm }) => {
                                 isValid={ touchedFields.email && !errors.email }
                                 { ...register('email') }
                             />
-                            { errors.email && <FormControlFeedbackError error={ errors.email.message } /> }
-                            { !errors.email && <FormControlFeedbackGood /> }
+                            {
+                                errors.email &&
+                                <FormControlFeedbackError error={ errors.email.message } />
+                            }
+                            {
+                                !errors.email &&
+                                <FormControlFeedbackGood />
+                            }
                         </FloatingLabel>
                     </Container>
                 </Modal.Body>

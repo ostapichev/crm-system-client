@@ -55,7 +55,10 @@ const LoginForm: FC = () => {
                             isInvalid={ !!errors.email }
                             { ...register('email') }
                         />
-                        { errors.email && <FormControlFeedbackError error={ errors.email.message } /> }
+                        {
+                            errors.email &&
+                            <FormControlFeedbackError error={ errors.email.message } />
+                        }
                     </FloatingLabel>
                     <FloatingLabel controlId='floatingPassword' label='Password'>
                         <Form.Control
@@ -65,7 +68,10 @@ const LoginForm: FC = () => {
                             isInvalid={ !!errors.password }
                             { ...register('password') }
                         />
-                        { errors.password && <FormControlFeedbackError error={ errors.password.message } />}
+                        {
+                            errors.password &&
+                            <FormControlFeedbackError error={ errors.password.message } />
+                        }
                     </FloatingLabel>
                 </Modal.Body>
                 <Modal.Footer style={{ backgroundColor: 'aliceblue' }}>
