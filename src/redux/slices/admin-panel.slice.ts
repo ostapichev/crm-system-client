@@ -139,6 +139,9 @@ const slice = createSlice({
             state.errorUser = null;
             state.users = [];
         },
+        resetError: state => {
+            state.errorUser = null;
+        },
         setErrorActivation: (state, action) => {
             state.activateUser.message = action.payload;
         },

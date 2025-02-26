@@ -27,7 +27,7 @@ const UserForm: FC<IProps> = ({ openForm, setOpenForm }) => {
         resolver: joiResolver(userValidator),
     });
     const closeForm: IFuncVoid = (): void => {
-        dispatch(adminPanelActions.setDefault());
+        dispatch(adminPanelActions.resetError());
         setOpenForm(false);
         reset();
     };
