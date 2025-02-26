@@ -14,23 +14,23 @@ The frontend is built using React JS with TypeScript, redux-tool-kit and bootstr
    Intellij IDEA ultimate edition.
 2. Clone the repository crm system server to your local machine:
 ```bash 
-  git clone https://github.com/ostapichev/crm-system-client
+git clone https://github.com/ostapichev/crm-system-client
 ```
 3. Install the project dependencies:
 ```bash
-  npm install
+npm install
 ```
 
 ## Running the app
 
 1. Start the project:
 ```bash
-  npm start
+npm start
 ```
 
 2. Open your web browser and access URL page:
 ```bash
-  http://localhost:3000/login
+http://localhost:3000/login
 ```
 
 3. Enter on the field login and password.
