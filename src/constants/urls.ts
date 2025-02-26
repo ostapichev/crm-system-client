@@ -1,5 +1,5 @@
 const oktenURL = 'https://owu.com.ua';
-const baseURL = 'http://localhost:3500';
+const baseURL = 'http://localhost:3500/api';
 const clientURL = 'http://localhost:3000';
 const auth = '/auth';
 const orders = '/orders';

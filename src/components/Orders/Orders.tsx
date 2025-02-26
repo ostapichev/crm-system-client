@@ -16,7 +16,7 @@ import css from './Orders.module.css';
 
 const Orders: FC = () => {
     const dispatch = useAppDispatch();
-    const { orders, sorted, loading, ordersLimit, orderTrigger, totalOrders } = useAppSelector(state => state.orderReducer);
+    const { orders, sorted, loading, ordersLimit, orderTrigger } = useAppSelector(state => state.orderReducer);
     const { commentTrigger } = useAppSelector(state => state.commentReducer);
     const [orderId, setOrderId] = useState<number>(null);
     const [query, setQuery] = useSearchParams();
@@ -125,10 +125,6 @@ const Orders: FC = () => {
                 }
                 </tbody>
             </Table>
-            {
-                !totalOrders &&
-                <div className='display-2 text-center'>No&nbsp;results</div>
-            }
         </Container>
     );
 };
