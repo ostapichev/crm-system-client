@@ -55,12 +55,12 @@ const Profile: FC<IProps> = ({ me }) => {
                     </ListGroup.Item>
                 </ListGroup>
                 <ListGroup>
-                    <Card.Header className='fw-bold fs-5'>Orders&#58;</Card.Header>
+                    <Card.Header className='fw-bold fs-5'>My&nbsp;orders</Card.Header>
                     <ListGroup.Item
                         className='d-flex flex-row justify-content-between align-items-start'
                     >
                         <div className='ms-2 me-auto'>
-                            <div className='fw-bold'>total&nbsp;orders&#58;</div>
+                            <div className='fw-bold'>total&#58;</div>
                         </div>
                         <Badge bg='success' pill>
                             { orders }
