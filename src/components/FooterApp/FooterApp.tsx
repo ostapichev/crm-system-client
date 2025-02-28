@@ -13,7 +13,7 @@ interface IProps {
 }
 
 const FooterApp: FC<IProps> = ({ pageName }) => {
-    const [ errorMessage, setErrorMessage] = useState<IFeedback>(null);
+    const [errorMessage, setErrorMessage] = useState<IFeedback>(null);
     const [, setQuery] = useSearchParams();
     const { pageOrders, ordersLimit, totalOrdersPages } = useAppSelector(state => state.orderReducer);
     const { pageUsers, totalUsersPages, usersLimit } = useAppSelector(state => state.adminPanelReducer);
