@@ -1,6 +1,6 @@
-const oktenURL = 'https://owu.com.ua';
-const baseURL = 'http://localhost:3500/api';
-const clientURL = 'http://localhost:3000';
+const schoolURL = process.env.REACT_APP_SCHOOL_URL;
+const baseURL = process.env.REACT_APP_BASE_URL;
+const clientURL = process.env.REACT_APP_CLIENT_URL;
 const auth = '/auth';
 const orders = '/orders';
 const groups = '/groups';
@@ -44,7 +44,7 @@ const urls = {
 };
 
 export {
-    oktenURL,
+    schoolURL,
     baseURL,
     urls,
 };

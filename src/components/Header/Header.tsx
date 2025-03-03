@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 
 import { Button, Container, DropdownButton, Image, Navbar, Stack } from 'react-bootstrap';
 
-import { oktenURL } from '../../constants';
+import { schoolURL } from '../../constants';
 import { UserRoleEnum } from '../../enums';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Profile } from '../Profile/Profile';
@@ -63,7 +63,7 @@ const Header: FC = () => {
     return (
         <Navbar className='bg-info-subtle' fixed='top' sticky='top'>
             <Container fluid>
-                <Navbar.Brand href={ oktenURL } target='_blank'>
+                <Navbar.Brand href={ schoolURL } target='_blank'>
                     <Image src={ okten_logo } className={ css.Logo } alt='okten-school' />
                 </Navbar.Brand>
                 <Navbar.Toggle />
