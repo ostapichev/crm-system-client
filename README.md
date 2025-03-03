@@ -20,7 +20,7 @@ git clone https://github.com/ostapichev/crm-system-client
 ```bash
 npm install
 ```
-4. Rename file <code>.env_example</code> to <code>.env</code> and insert your data in it.
+4. Rename the file <code>.env_example</code> to <code>.env</code> and insert your data in it.
 
 ## Running the app
 
