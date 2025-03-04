@@ -34,7 +34,7 @@ const OrderForm: FC = () => {
         setFocus,
         formState: { errors, isValid },
     } = useForm<IOrder>({
-        mode: 'all',
+        mode: 'onChange',
         resolver: joiResolver(orderValidator),
     });
     const getFilterUpdateFields: IFuncOrderOrder = (order: IOrder): IOrder => {

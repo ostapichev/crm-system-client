@@ -13,7 +13,7 @@ const RequiredAuthAdmin: FC<IProps> = ({ children }) => {
     if (me?.role === UserRoleEnum.ADMIN || !loading) {
         return children;
     }
-    if (!loading) return <Navigate to='/orders' />
+    return <Navigate to='/orders' />
 };
 
 export {
